@@ -31,10 +31,9 @@ const reasons = [
 ];
 
 const globalStats = [
-  { icon: Users, value: "500+", label: "Clients Worldwide" },
-  { icon: Globe, value: "32", label: "Countries Served" },
-  { icon: DollarSign, value: "$12M+", label: "Revenue Generated" },
-  { icon: TrendingUp, value: "340%", label: "Avg. ROI Increase" }
+  { icon: Users, value: "19", label: "Clients" },
+  { icon: Globe, value: "5", label: "Countries Served" },
+  { icon: DollarSign, value: "$1M+", label: "Revenue Generated" }
 ];
 
 const beforeAfterData = [
@@ -127,10 +126,10 @@ const WhyScaleX = () => {
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">Why ScaleX</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Trusted by <span className="text-primary">500+ businesses</span> worldwide
+            Trusted by <span className="text-primary">growing businesses</span> worldwide
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            We're not just another agency. We're growth partners who have generated over $12M in additional revenue for our clients.
+            We're not just another agency. We're growth partners who have generated over $1M in additional revenue for our clients.
           </p>
         </div>
 
