@@ -33,7 +33,8 @@ const reasons = [
 const globalStats = [
   { icon: Users, value: "19", label: "Clients" },
   { icon: Globe, value: "5", label: "Countries Served" },
-  { icon: DollarSign, value: "$1M+", label: "Revenue Generated" }
+  { icon: DollarSign, value: "$1M+", label: "Revenue Generated" },
+  { icon: TrendingUp, value: "340%", label: "Avg. ROI Increase" }
 ];
 
 const beforeAfterData = [
