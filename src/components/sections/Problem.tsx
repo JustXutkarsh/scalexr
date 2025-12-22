@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, MouseEvent } from 'react';
 
 const assumptions = [
   "We answer most customer calls.",
@@ -16,7 +16,10 @@ const realities = [
 
 const Problem = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const leftColumnRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,6 +39,15 @@ const Problem = () => {
     return () => observer.disconnect();
   }, []);
 
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!leftColumnRef.current) return;
+    const rect = leftColumnRef.current.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
   return (
     <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background */}
@@ -47,14 +59,27 @@ const Problem = () => {
           
           {/* Left column - Assumptions */}
           <div 
-            className={`transition-all duration-700 ${
+            ref={leftColumnRef}
+            className={`relative transition-all duration-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
           >
-            <h3 className="text-lg font-medium text-muted-foreground/60 mb-8 uppercase tracking-wider">
+            {/* Cursor spotlight effect */}
+            <div 
+              className="pointer-events-none absolute -inset-4 transition-opacity duration-300"
+              style={{
+                opacity: isHovering ? 1 : 0,
+                background: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.15), transparent 60%)`
+              }}
+            />
+            
+            <h3 className="text-lg font-medium text-muted-foreground/60 mb-8 uppercase tracking-wider relative z-10">
               What most businesses assume
             </h3>
-            <ul className="space-y-6">
+            <ul className="space-y-6 relative z-10">
               {assumptions.map((item, index) => (
                 <li
                   key={index}
