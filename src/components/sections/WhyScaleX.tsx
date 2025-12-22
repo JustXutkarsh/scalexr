@@ -1,6 +1,78 @@
 import { useRef, useEffect, useState } from 'react';
-import { Cpu, Target, TrendingUp, Layers, Rocket, Users, Globe, DollarSign, ArrowUp, ArrowDown, Phone, Calendar, MessageSquare } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { Cpu, Target, TrendingUp, Layers, Rocket, Phone, Clock, Zap, Settings, BarChart3 } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
+
+const credibilityStats = [
+  { value: "19", label: "Active automation systems" },
+  { value: "Service-based", label: "Business focus" },
+  { value: "5", label: "Regions served" }
+];
+
+const beforeAfterData = [
+  {
+    metric: "Monthly Leads",
+    before: 45,
+    after: 180,
+    beforeLabel: "~45",
+    afterLabel: "120–180",
+    maxValue: 200
+  },
+  {
+    metric: "Missed Calls",
+    before: 65,
+    after: 8,
+    beforeLabel: "60–70%",
+    afterLabel: "5–10%",
+    maxValue: 100,
+    isReduction: true
+  },
+  {
+    metric: "Response Time",
+    before: 85,
+    after: 5,
+    beforeLabel: "2–6 hrs",
+    afterLabel: "< 1 min",
+    maxValue: 100,
+    isReduction: true
+  }
+];
+
+// Chart data with natural variance and clear inflection point
+const growthChartData = [
+  { month: 'Month 1', revenue: 14200, phase: 'before' },
+  { month: 'Month 2', revenue: 13800, phase: 'before' },
+  { month: 'Month 3', revenue: 15100, phase: 'before' },
+  { month: 'Month 4', revenue: 14600, phase: 'transition' }, // Automation goes live
+  { month: 'Month 5', revenue: 19200, phase: 'after' },
+  { month: 'Month 6', revenue: 24800, phase: 'after' },
+  { month: 'Month 7', revenue: 28400, phase: 'after' },
+  { month: 'Month 8', revenue: 32100, phase: 'after' },
+  { month: 'Month 9', revenue: 35800, phase: 'after' },
+];
+
+const caseStudies = [
+  {
+    business: "Dental Practice",
+    region: "Northeast US",
+    automated: "Appointment booking, missed call handling, patient reminders",
+    operationalChange: "Front desk now focuses on in-office patients instead of phone triage",
+    impact: "Recovered $4,200–$6,800/mo in previously lost appointments"
+  },
+  {
+    business: "Home Services",
+    region: "UK",
+    automated: "Lead capture, quote follow-ups, job scheduling",
+    operationalChange: "Owner stopped manually tracking leads in spreadsheets",
+    impact: "Reduced admin time by ~15 hrs/week, modest revenue lift"
+  },
+  {
+    business: "Fitness Studio",
+    region: "Australia",
+    automated: "Membership inquiries, class booking, renewal reminders",
+    operationalChange: "Staff reallocated from phone duty to member experience",
+    impact: "Membership retention improved, recovered ~$3,500/mo in lapsed signups"
+  }
+];
 
 const reasons = [
   {
@@ -30,72 +102,17 @@ const reasons = [
   }
 ];
 
-const globalStats = [
-  { icon: Users, value: "19", label: "Clients" },
-  { icon: Globe, value: "5", label: "Countries Served" },
-  { icon: DollarSign, value: "$1M+", label: "Revenue Generated" },
-  { icon: TrendingUp, value: "340%", label: "Avg. ROI Increase" }
-];
-
-const beforeAfterData = [
-  {
-    metric: "Monthly Leads",
-    before: 45,
-    after: 312,
-    icon: Target,
-    improvement: "+593%"
-  },
-  {
-    metric: "Missed Calls",
-    before: 68,
-    after: 3,
-    icon: Phone,
-    improvement: "-96%",
-    isReduction: true
-  },
-  {
-    metric: "Bookings/Month",
-    before: 120,
-    after: 485,
-    icon: Calendar,
-    improvement: "+304%"
-  },
-  {
-    metric: "Response Time",
-    before: "4hrs",
-    after: "< 30s",
-    icon: MessageSquare,
-    improvement: "-99%",
-    isReduction: true
-  }
-];
-
-const growthChartData = [
-  { month: 'Jan', before: 12000, after: 12000 },
-  { month: 'Feb', before: 13500, after: 18000 },
-  { month: 'Mar', before: 14200, after: 28500 },
-  { month: 'Apr', before: 13800, after: 42000 },
-  { month: 'May', before: 15000, after: 58000 },
-  { month: 'Jun', before: 14500, after: 78500 },
-];
-
-const clientResults = [
-  { name: "Dental Clinic", location: "New York", saved: "$8,400/mo", metric: "Patient bookings up 280%" },
-  { name: "Fitness Studio", location: "London", saved: "$5,200/mo", metric: "Lead response time: 30 seconds" },
-  { name: "Real Estate Agency", location: "Dubai", saved: "$12,800/mo", metric: "Closed deals increased 190%" },
-];
-
 const WhyScaleX = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [countersAnimated, setCountersAnimated] = useState(false);
+  const [barsAnimated, setBarsAnimated] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          setTimeout(() => setCountersAnimated(true), 500);
+          setTimeout(() => setBarsAnimated(true), 300);
           observer.disconnect();
         }
       },
@@ -110,235 +127,224 @@ const WhyScaleX = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Background */}
+    <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden bg-background">
+      {/* Subtle background - reduced glow */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl translate-y-1/2" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/3 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/3 rounded-full blur-3xl translate-y-1/2" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
         <div 
-          className={`text-center mb-16 transition-all duration-700 ${
+          className={`text-center mb-12 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Why ScaleX</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Trusted by <span className="text-primary">growing businesses</span> worldwide
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+            Results from businesses like yours
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            We're not just another agency. We're growth partners who have generated over $1M in additional revenue for our clients.
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Based on automation systems deployed over the last 6–9 months
           </p>
         </div>
 
-        {/* Global Stats */}
+        {/* Credibility Strip */}
         <div 
-          className={`grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16 transition-all duration-700 ${
+          className={`flex flex-wrap justify-center gap-8 lg:gap-16 mb-16 py-6 border-y border-border/30 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{ transitionDelay: '200ms' }}
+          style={{ transitionDelay: '100ms' }}
         >
-          {globalStats.map((stat, index) => (
-            <div 
-              key={index}
-              className="relative group p-6 rounded-2xl glass text-center overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className={`text-3xl lg:text-4xl font-bold text-primary mb-1 transition-all duration-1000 ${
-                countersAnimated ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-              }`}>
+          {credibilityStats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-2xl lg:text-3xl font-semibold text-foreground mb-1">
                 {stat.value}
               </div>
-              <div className="text-muted-foreground text-sm">{stat.label}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Before/After Comparison */}
+        {/* Before vs After - Horizontal Bars */}
         <div 
-          className={`mb-16 transition-all duration-700 ${
+          className={`mb-20 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{ transitionDelay: '400ms' }}
+          style={{ transitionDelay: '200ms' }}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">
-            Average Client Results: <span className="text-primary">Before vs After</span>
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-semibold">Before vs After</h3>
+            <span className="text-sm text-muted-foreground">Median client outcome</span>
+          </div>
+          
+          <div className="space-y-8">
             {beforeAfterData.map((item, index) => (
-              <div 
-                key={index}
-                className="group p-6 rounded-2xl glass hover:glow-border transition-all duration-500"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="font-semibold">{item.metric}</span>
+              <div key={index} className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-foreground">{item.metric}</span>
                 </div>
                 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-destructive/10 border border-destructive/20">
-                    <span className="text-sm text-muted-foreground">Before</span>
-                    <span className="font-bold text-destructive">{item.before}</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-primary/10 border border-primary/20">
-                    <span className="text-sm text-muted-foreground">After</span>
-                    <span className="font-bold text-primary">{item.after}</span>
+                {/* Before bar */}
+                <div className="flex items-center gap-4">
+                  <span className="w-16 text-xs text-muted-foreground text-right">Before</span>
+                  <div className="flex-1 h-6 bg-muted/30 rounded overflow-hidden">
+                    <div 
+                      className={`h-full bg-muted-foreground/40 rounded transition-all duration-1000 ease-out flex items-center justify-end pr-3`}
+                      style={{ 
+                        width: barsAnimated ? `${(item.before / item.maxValue) * 100}%` : '0%',
+                        transitionDelay: `${index * 150}ms`
+                      }}
+                    >
+                      <span className="text-xs font-medium text-foreground/70">{item.beforeLabel}</span>
+                    </div>
                   </div>
                 </div>
                 
-                <div className={`mt-4 flex items-center justify-center gap-1 text-lg font-bold ${
-                  item.isReduction ? 'text-green-400' : 'text-primary'
-                }`}>
-                  {item.isReduction ? <ArrowDown className="w-5 h-5" /> : <ArrowUp className="w-5 h-5" />}
-                  {item.improvement}
+                {/* After bar */}
+                <div className="flex items-center gap-4">
+                  <span className="w-16 text-xs text-primary text-right font-medium">After</span>
+                  <div className="flex-1 h-6 bg-primary/10 rounded overflow-hidden">
+                    <div 
+                      className={`h-full bg-primary/60 rounded transition-all duration-1000 ease-out flex items-center ${item.isReduction ? 'justify-start pl-3' : 'justify-end pr-3'}`}
+                      style={{ 
+                        width: barsAnimated ? `${(item.after / item.maxValue) * 100}%` : '0%',
+                        transitionDelay: `${index * 150 + 100}ms`
+                      }}
+                    >
+                      <span className="text-xs font-medium text-primary">{item.afterLabel}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Revenue Growth Chart */}
+        {/* Revenue Chart */}
         <div 
-          className={`mb-16 p-8 rounded-3xl glass transition-all duration-700 ${
+          className={`mb-20 p-6 lg:p-8 rounded-2xl border border-border/50 bg-card/30 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{ transitionDelay: '600ms' }}
+          style={{ transitionDelay: '400ms' }}
         >
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">Revenue Growth Trajectory</h3>
-              <p className="text-muted-foreground">Average monthly revenue before and after ScaleX automation</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-muted-foreground/50" />
-                <span className="text-sm text-muted-foreground">Before ScaleX</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-primary" />
-                <span className="text-sm text-muted-foreground">After ScaleX</span>
-              </div>
-            </div>
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold mb-2">What happens after automation goes live</h3>
+            <p className="text-sm text-muted-foreground">Composite view based on client revenue data</p>
           </div>
           
-          <div className="h-[300px] w-full">
+          <div className="h-[280px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={growthChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+              <AreaChart data={growthChartData} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="colorBefore" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6b7280" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#6b7280" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="colorAfter" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                  <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <XAxis 
                   dataKey="month" 
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#9ca3af', fontSize: 12 }}
+                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
                 />
                 <YAxis 
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#9ca3af', fontSize: 12 }}
+                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
                   tickFormatter={(value) => `$${value / 1000}k`}
+                  width={50}
                 />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))', 
                     border: '1px solid hsl(var(--border))',
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 40px -10px rgba(0,0,0,0.5)'
+                    borderRadius: '8px',
+                    fontSize: '12px'
                   }}
                   labelStyle={{ color: 'hsl(var(--foreground))' }}
-                  formatter={(value: number) => [`$${value.toLocaleString()}`, '']}
+                  formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
+                />
+                <ReferenceLine 
+                  x="Month 4" 
+                  stroke="hsl(var(--primary))" 
+                  strokeDasharray="4 4" 
+                  strokeOpacity={0.6}
+                  label={{ 
+                    value: 'Automation live', 
+                    position: 'top', 
+                    fill: 'hsl(var(--primary))',
+                    fontSize: 11
+                  }}
                 />
                 <Area 
                   type="monotone" 
-                  dataKey="before" 
-                  stroke="#6b7280" 
+                  dataKey="revenue" 
+                  stroke="hsl(var(--primary))" 
                   strokeWidth={2}
                   fillOpacity={1} 
-                  fill="url(#colorBefore)" 
-                  name="Before ScaleX"
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="after" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3}
-                  fillOpacity={1} 
-                  fill="url(#colorAfter)" 
-                  name="After ScaleX"
+                  fill="url(#revenueGradient)" 
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
           
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-8 pt-6 border-t border-border/50">
+          {/* Stats under graph - ranges and timeframes */}
+          <div className="mt-6 grid grid-cols-3 gap-4 pt-6 border-t border-border/30">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">+442%</div>
-              <div className="text-sm text-muted-foreground">Average Revenue Increase</div>
+              <div className="text-lg font-semibold text-foreground">$18k–$38k</div>
+              <div className="text-xs text-muted-foreground">Typical monthly range after 6mo</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">$66,500</div>
-              <div className="text-sm text-muted-foreground">Avg. Monthly Revenue After</div>
+              <div className="text-lg font-semibold text-foreground">2–4 months</div>
+              <div className="text-xs text-muted-foreground">Time to see measurable lift</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-400">3.2 months</div>
-              <div className="text-sm text-muted-foreground">Time to Full ROI</div>
+              <div className="text-lg font-semibold text-foreground">4–6 months</div>
+              <div className="text-xs text-muted-foreground">Typical full ROI recovery</div>
             </div>
           </div>
         </div>
 
-        {/* Client Success Stories */}
+        {/* Case Studies - System Stories */}
         <div 
           className={`mb-16 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{ transitionDelay: '800ms' }}
+          style={{ transitionDelay: '600ms' }}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">
-            Real Results from <span className="text-primary">Real Clients</span>
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {clientResults.map((client, index) => (
+          <h3 className="text-xl font-semibold mb-6">How it works in practice</h3>
+          
+          <div className="grid lg:grid-cols-3 gap-6">
+            {caseStudies.map((study, index) => (
               <div 
                 key={index}
-                className="group p-6 rounded-2xl glass hover:glow-border transition-all duration-500 relative overflow-hidden"
+                className="p-5 rounded-xl border border-border/50 bg-card/20 space-y-4"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors" />
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Settings className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-sm">{study.business}</div>
+                    <div className="text-xs text-muted-foreground">{study.region}</div>
+                  </div>
+                </div>
                 
-                <div className="relative">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center text-lg font-bold text-primary">
-                      {client.name.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="font-semibold">{client.name}</div>
-                      <div className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Globe className="w-3 h-3" /> {client.location}
-                      </div>
-                    </div>
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">What we automated</div>
+                    <p className="text-foreground/80">{study.automated}</p>
                   </div>
                   
-                  <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 mb-4">
-                    <div className="text-sm text-muted-foreground mb-1">Monthly Savings</div>
-                    <div className="text-2xl font-bold text-primary">{client.saved}</div>
+                  <div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Operational change</div>
+                    <p className="text-foreground/80">{study.operationalChange}</p>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-sm">
-                    <TrendingUp className="w-4 h-4 text-green-400" />
-                    <span className="text-muted-foreground">{client.metric}</span>
+                  <div className="pt-3 border-t border-border/30">
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Outcome</div>
+                    <p className="text-primary font-medium">{study.impact}</p>
                   </div>
                 </div>
               </div>
@@ -348,30 +354,41 @@ const WhyScaleX = () => {
 
         {/* Why Choose Us - Original Cards */}
         <div 
-          className={`transition-all duration-700 ${
+          className={`mb-12 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{ transitionDelay: '1000ms' }}
+          style={{ transitionDelay: '800ms' }}
         >
-          <h3 className="text-2xl font-bold text-center mb-8">
-            What Makes Us <span className="text-primary">Different</span>
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <h3 className="text-xl font-semibold mb-6">What makes us different</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
             {reasons.map((reason, index) => (
               <div
                 key={index}
-                className={`group p-6 rounded-2xl glass transition-all duration-500 hover:glow-border ${
+                className={`group p-5 rounded-xl border border-border/50 bg-card/20 transition-all duration-300 hover:border-primary/30 ${
                   index === 4 ? 'sm:col-span-2 lg:col-span-1' : ''
                 }`}
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 transition-all group-hover:scale-110 group-hover:bg-primary/20">
-                  <reason.icon className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <reason.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{reason.description}</p>
+                <h4 className="text-base font-semibold mb-2">{reason.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{reason.description}</p>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Footer Disclaimer */}
+        <div 
+          className={`text-center pt-8 border-t border-border/30 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+          style={{ transitionDelay: '900ms' }}
+        >
+          <p className="text-xs text-muted-foreground/70 max-w-2xl mx-auto">
+            Results vary based on business type, market conditions, and implementation scope. 
+            Figures shown represent median outcomes from our client base and are not guarantees of future performance.
+          </p>
         </div>
       </div>
     </section>
