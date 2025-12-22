@@ -5,7 +5,7 @@ import Problem from '@/components/sections/Problem';
 import Solution from '@/components/sections/Solution';
 import Services from '@/components/sections/Services';
 import WhyScaleX from '@/components/sections/WhyScaleX';
-import Authority from '@/components/sections/Authority';
+import OperatingPrinciples from '@/components/sections/OperatingPrinciples';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
 import IntroSequence from '@/components/IntroSequence';
@@ -48,7 +48,7 @@ const Index = () => {
         <Solution />
         <Services />
         <WhyScaleX />
-        <Authority />
+        <OperatingPrinciples />
         <CTA />
         <Footer />
       </div>
