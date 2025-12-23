@@ -125,23 +125,23 @@ const Hero = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
               
               {/* Placeholder content */}
-              <div className="relative z-10 h-48 flex flex-col items-center justify-center">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-primary" />
+              <div className="relative z-10 h-auto min-h-[140px] sm:h-48 flex flex-col items-center justify-center py-4 sm:py-0">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4 text-center sm:text-left">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <div className="text-left">
-                    <div className="text-lg font-semibold text-foreground">Automation Workflow Preview</div>
-                    <div className="text-sm text-muted-foreground">Visual workflow builder coming soon</div>
+                  <div>
+                    <div className="text-base sm:text-lg font-semibold text-foreground">Automation Workflow Preview</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Visual workflow builder coming soon</div>
                   </div>
                 </div>
                 
                 {/* Placeholder grid */}
-                <div className="grid grid-cols-4 gap-3 w-full max-w-md mt-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full max-w-md mt-4">
                   {[...Array(4)].map((_, i) => (
                     <div 
                       key={i} 
-                      className={`h-16 rounded-lg bg-muted/30 border border-border/30 transition-all duration-500 ${
+                      className={`h-12 sm:h-16 rounded-lg bg-muted/30 border border-border/30 transition-all duration-500 ${
                         mounted ? 'opacity-100' : 'opacity-0'
                       }`}
                       style={{ transitionDelay: `${600 + i * 100}ms` }}
@@ -161,11 +161,11 @@ const Hero = () => {
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <div className="relative flex items-start justify-between px-4 sm:px-8">
-              {/* Connecting Line */}
-              <div className="absolute top-8 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
+            <div className="relative flex items-start justify-between px-2 sm:px-8">
+              {/* Connecting Line - hidden on mobile */}
+              <div className="absolute top-6 sm:top-8 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent hidden sm:block" />
               <div 
-                className={`absolute top-8 left-[10%] h-[2px] bg-gradient-to-r from-primary via-primary to-primary transition-all duration-1000 ease-out ${
+                className={`absolute top-6 sm:top-8 left-[10%] h-[2px] bg-gradient-to-r from-primary via-primary to-primary transition-all duration-1000 ease-out hidden sm:block ${
                   mounted ? 'right-[10%]' : 'right-[90%]'
                 }`}
                 style={{ transitionDelay: '700ms' }}
@@ -175,26 +175,26 @@ const Hero = () => {
               {flowSteps.map((step, index) => (
                 <div 
                   key={step.label}
-                  className={`relative flex flex-col items-center transition-all duration-500 ${
+                  className={`relative flex flex-col items-center transition-all duration-500 flex-1 ${
                     mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
                   style={{ transitionDelay: `${700 + step.delay}ms` }}
                 >
                   {/* Glowing Icon Node */}
-                  <div className={`relative w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center mb-4 transition-all duration-300 ${
+                  <div className={`relative w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center mb-2 sm:mb-4 transition-all duration-300 ${
                     index === flowSteps.length - 1 ? 'bg-primary/20' : ''
                   }`}>
                     {/* Glow effect */}
-                    <div className={`absolute inset-0 rounded-2xl bg-primary/20 blur-xl transition-opacity duration-500 ${
+                    <div className={`absolute inset-0 rounded-xl sm:rounded-2xl bg-primary/20 blur-xl transition-opacity duration-500 ${
                       mounted ? 'opacity-100' : 'opacity-0'
                     }`} style={{ transitionDelay: `${800 + step.delay}ms` }} />
-                    <step.icon className={`w-7 h-7 text-primary relative z-10 ${
+                    <step.icon className={`w-5 h-5 sm:w-7 sm:h-7 text-primary relative z-10 ${
                       index === flowSteps.length - 1 ? 'text-primary' : ''
                     }`} />
                   </div>
                   
                   {/* Label */}
-                  <span className="text-xs sm:text-sm text-muted-foreground text-center max-w-[90px] sm:max-w-none leading-tight font-medium">
+                  <span className="text-[10px] sm:text-sm text-muted-foreground text-center max-w-[70px] sm:max-w-none leading-tight font-medium">
                     {step.label}
                   </span>
                 </div>

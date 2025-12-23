@@ -142,28 +142,28 @@ const Solution = () => {
             >
               <div className="relative">
                 {/* Phone frame */}
-                <div className="relative w-[280px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
                   {/* Phone notch */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-zinc-900 rounded-b-2xl z-10" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
                   
                   {/* Screen */}
-                  <div className="relative bg-[#0b141a] rounded-[32px] overflow-hidden">
+                  <div className="relative bg-[#0b141a] rounded-[24px] sm:rounded-[32px] overflow-hidden">
                     {/* WhatsApp header */}
-                    <div className="bg-[#1f2c34] px-4 py-3 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                        <Bot className="w-5 h-5 text-primary-foreground" />
+                    <div className="bg-[#1f2c34] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
+                        <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
                       </div>
-                      <div className="flex-1">
-                        <p className="text-white text-sm font-medium">Kanyadhan Jewellers</p>
-                        <p className="text-[10px] text-green-400 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-xs sm:text-sm font-medium truncate">Kanyadhan Jewellers</p>
+                        <p className="text-[9px] sm:text-[10px] text-green-400 flex items-center gap-1">
+                          <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
                           Online • 24/7 Sales Assistant
                         </p>
                       </div>
                     </div>
                     
                     {/* Chat messages */}
-                    <div className="p-3 space-y-2 h-[380px] sm:h-[420px] overflow-y-auto">
+                    <div className="p-2 sm:p-3 space-y-2 h-[320px] sm:h-[420px] overflow-y-auto">
                       {whatsappMessages.map((msg, index) => (
                         <div
                           key={index}
@@ -233,12 +233,12 @@ const Solution = () => {
                     </div>
                     
                     {/* Input bar */}
-                    <div className="bg-[#1f2c34] px-3 py-2 flex items-center gap-2">
-                      <div className="flex-1 bg-[#2a3942] rounded-full px-4 py-2 text-xs text-white/50">
+                    <div className="bg-[#1f2c34] px-2 sm:px-3 py-2 flex items-center gap-2">
+                      <div className="flex-1 bg-[#2a3942] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
                         Type a message...
                       </div>
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                        <MessageCircle className="w-4 h-4 text-primary-foreground" />
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
+                        <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground" />
                       </div>
                     </div>
                   </div>
@@ -261,18 +261,18 @@ const Solution = () => {
               <div className="absolute -inset-2 bg-primary/10 rounded-2xl blur-xl" />
               
               {/* Glassmorphism container */}
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
+              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
                 {/* Technology badges */}
-                <div className="absolute -top-3 right-4 flex gap-2 z-20">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
-                    <Brain className="w-3 h-3 text-emerald-400" />
-                    <span className="text-[10px] font-medium text-emerald-300">OpenAI Integrated</span>
+                <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
+                  <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
+                    <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
+                    <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">OpenAI</span>
                   </div>
                 </div>
-                <div className="absolute -bottom-3 left-4 flex gap-2 z-20">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
-                    <Search className="w-3 h-3 text-blue-400" />
-                    <span className="text-[10px] font-medium text-blue-300">Real-time Vector Search</span>
+                <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
+                  <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
+                    <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
+                    <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">Vector Search</span>
                   </div>
                 </div>
 
@@ -310,25 +310,25 @@ const Solution = () => {
               </div>
 
               {/* Workflow Description Note */}
-              <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary" />
+              <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-2">How This Automation Works</h4>
-                    <ul className="text-xs text-muted-foreground space-y-1.5">
-                      <li className="flex items-start gap-2">
-                        <Mic className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
-                        <span>Understands text, voice notes & images from WhatsApp</span>
+                    <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">How This Automation Works</h4>
+                    <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
+                      <li className="flex items-start gap-1.5 sm:gap-2">
+                        <Mic className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary mt-0.5 flex-shrink-0" />
+                        <span>Understands text, voice & images</span>
                       </li>
-                      <li className="flex items-start gap-2">
-                        <Brain className="w-3 h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
-                        <span>AI analyzes intent & searches your product catalog semantically</span>
+                      <li className="flex items-start gap-1.5 sm:gap-2">
+                        <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
+                        <span>AI analyzes intent & searches catalog</span>
                       </li>
-                      <li className="flex items-start gap-2">
-                        <ShoppingCart className="w-3 h-3 text-blue-400 mt-0.5 flex-shrink-0" />
-                        <span>Recommends products & replies in text or voice — 24/7</span>
+                      <li className="flex items-start gap-1.5 sm:gap-2">
+                        <ShoppingCart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                        <span>Recommends products 24/7</span>
                       </li>
                     </ul>
                   </div>

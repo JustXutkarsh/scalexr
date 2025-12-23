@@ -168,7 +168,7 @@ const CTA = () => {
 
             {/* Headline */}
             <h2 
-              className={`text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 transition-all duration-700 ${
+              className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: '100ms' }}
@@ -179,7 +179,7 @@ const CTA = () => {
 
             {/* Subtext */}
             <p 
-              className={`text-lg text-muted-foreground mb-10 max-w-xl mx-auto transition-all duration-700 ${
+              className={`text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 max-w-xl mx-auto px-2 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: '200ms' }}
@@ -196,12 +196,12 @@ const CTA = () => {
             >
               <Button 
                 size="lg" 
-                className="group relative overflow-hidden glow px-10 py-7 text-lg font-semibold"
+                className="group relative overflow-hidden glow px-6 sm:px-10 py-5 sm:py-7 text-base sm:text-lg font-semibold w-full sm:w-auto"
                 onClick={() => setShowForm(true)}
               >
-                <span className="relative z-10 flex items-center gap-3">
-                  Book a Free Audit for Your Business
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                  Book a Free Audit
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
@@ -209,10 +209,10 @@ const CTA = () => {
               <Button 
                 size="lg" 
                 variant="outline"
-                className="px-8 py-7 text-lg font-semibold border-primary/30 hover:bg-primary/10"
+                className="px-6 sm:px-8 py-5 sm:py-7 text-base sm:text-lg font-semibold border-primary/30 hover:bg-primary/10 w-full sm:w-auto"
                 onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Book a Call
               </Button>
             </div>
@@ -244,7 +244,7 @@ const CTA = () => {
             </div>
 
             {/* Audit Form */}
-            <form onSubmit={handleSubmit} className="glass p-8 rounded-3xl space-y-6">
+            <form onSubmit={handleSubmit} className="glass p-4 sm:p-8 rounded-2xl sm:rounded-3xl space-y-4 sm:space-y-6">
               {/* Personal Details */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
