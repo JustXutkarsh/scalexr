@@ -4,7 +4,7 @@ const integrations = [
   { name: 'Slack', logo: '💬' },
   { name: 'WhatsApp', logo: '📱' },
   { name: 'Zapier', logo: '⚡' },
-  { name: 'Google Calendar', logo: '📅' },
+  { name: 'n8n', logo: '🔗' },
   { name: 'HubSpot', logo: '🔶' },
   { name: 'Calendly', logo: '📆' },
 ];
