@@ -53,7 +53,7 @@ const Navbar = () => {
             <Button 
               size="sm" 
               className="gradient-cta animate-pulse-cta"
-              onClick={() => window.open('https://calendly.com', '_blank')}
+onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
             >
               Book a Call
             </Button>
@@ -90,7 +90,7 @@ const Navbar = () => {
               </button>
               <Button 
                 className="w-full glow-sm"
-                onClick={() => window.open('https://calendly.com', '_blank')}
+                onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
               >
                 Book a Call
               </Button>

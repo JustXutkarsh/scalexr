@@ -91,7 +91,7 @@ const CTA = () => {
             <Button 
               size="lg" 
               className="group relative overflow-hidden glow px-10 py-7 text-lg font-semibold"
-              onClick={() => window.open('https://calendly.com', '_blank')}
+              onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
             >
               <span className="relative z-10 flex items-center gap-3">
                 Book Free Automation Audit

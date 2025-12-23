@@ -79,7 +79,7 @@ const Hero = () => {
               <Button 
                 size="lg" 
                 className="group px-8 py-6 text-lg font-semibold gradient-cta hover:opacity-90 text-primary-foreground rounded-full animate-pulse-cta"
-                onClick={() => window.open('https://calendly.com', '_blank')}
+                onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
               >
                 <span className="flex items-center gap-2">
                   Book a Free Automation Audit
