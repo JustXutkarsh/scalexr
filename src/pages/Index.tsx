@@ -4,7 +4,6 @@ import Hero from '@/components/sections/Hero';
 import IntegrationBar from '@/components/sections/IntegrationBar';
 import Problem from '@/components/sections/Problem';
 import Solution from '@/components/sections/Solution';
-import Services from '@/components/sections/Services';
 import WhyScaleX from '@/components/sections/WhyScaleX';
 import OperatingPrinciples from '@/components/sections/OperatingPrinciples';
 import CTA from '@/components/sections/CTA';
@@ -48,7 +47,6 @@ const Index = () => {
         <IntegrationBar />
         <Problem />
         <Solution />
-        <Services />
         <WhyScaleX />
         <OperatingPrinciples />
         <CTA />
