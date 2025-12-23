@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Cpu, Target, TrendingUp, Layers, Rocket, Phone, Clock, Zap, Settings, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Settings, CheckCircle } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
 
 const credibilityStats = [
@@ -15,7 +15,9 @@ const beforeAfterData = [
     after: 180,
     beforeLabel: "~45",
     afterLabel: "120–180",
-    maxValue: 200
+    maxValue: 200,
+    isReduction: false,
+    trendUp: true
   },
   {
     metric: "Missed Calls",
@@ -24,7 +26,8 @@ const beforeAfterData = [
     beforeLabel: "60–70%",
     afterLabel: "5–10%",
     maxValue: 100,
-    isReduction: true
+    isReduction: true,
+    trendUp: false
   },
   {
     metric: "Response Time",
@@ -33,7 +36,8 @@ const beforeAfterData = [
     beforeLabel: "2–6 hrs",
     afterLabel: "< 1 min",
     maxValue: 100,
-    isReduction: true
+    isReduction: true,
+    trendUp: false
   }
 ];
 
@@ -42,7 +46,7 @@ const growthChartData = [
   { month: 'Month 1', revenue: 14200, phase: 'before' },
   { month: 'Month 2', revenue: 13800, phase: 'before' },
   { month: 'Month 3', revenue: 15100, phase: 'before' },
-  { month: 'Month 4', revenue: 14600, phase: 'transition' }, // Automation goes live
+  { month: 'Month 4', revenue: 14600, phase: 'transition' },
   { month: 'Month 5', revenue: 19200, phase: 'after' },
   { month: 'Month 6', revenue: 24800, phase: 'after' },
   { month: 'Month 7', revenue: 28400, phase: 'after' },
@@ -54,6 +58,8 @@ const caseStudies = [
   {
     business: "Dental Practice",
     region: "Northeast US",
+    avatar: "🦷",
+    roi: "+$4,200/mo",
     automated: "Appointment booking, missed call handling, patient reminders",
     operationalChange: "Front desk now focuses on in-office patients instead of phone triage",
     impact: "Recovered $4,200–$6,800/mo in previously lost appointments"
@@ -61,6 +67,8 @@ const caseStudies = [
   {
     business: "Home Services",
     region: "UK",
+    avatar: "🏠",
+    roi: "+15 hrs/wk",
     automated: "Lead capture, quote follow-ups, job scheduling",
     operationalChange: "Owner stopped manually tracking leads in spreadsheets",
     impact: "Reduced admin time by ~15 hrs/week, modest revenue lift"
@@ -68,37 +76,11 @@ const caseStudies = [
   {
     business: "Fitness Studio",
     region: "Australia",
+    avatar: "💪",
+    roi: "+$3,500/mo",
     automated: "Membership inquiries, class booking, renewal reminders",
     operationalChange: "Staff reallocated from phone duty to member experience",
     impact: "Membership retention improved, recovered ~$3,500/mo in lapsed signups"
-  }
-];
-
-const reasons = [
-  {
-    icon: Cpu,
-    title: "AI-First Approach",
-    description: "We don't just add AI—we build around it. Every system is designed with intelligent automation at its core."
-  },
-  {
-    icon: Target,
-    title: "Built for Local Business",
-    description: "No generic solutions. Every workflow is tailored to the unique needs of service-based local businesses."
-  },
-  {
-    icon: TrendingUp,
-    title: "Revenue-Focused",
-    description: "Our only metric is your growth. We build systems that directly impact your bottom line."
-  },
-  {
-    icon: Layers,
-    title: "Scalable Systems",
-    description: "Not one-time setups. We create infrastructure that grows with your business."
-  },
-  {
-    icon: Rocket,
-    title: "Future-Ready Tech",
-    description: "Stay ahead with cutting-edge AI and automation that evolves as technology advances."
   }
 ];
 
@@ -128,7 +110,7 @@ const WhyScaleX = () => {
 
   return (
     <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden bg-background">
-      {/* Subtle background - reduced glow */}
+      {/* Subtle background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/3 rounded-full blur-3xl translate-y-1/2" />
@@ -166,53 +148,75 @@ const WhyScaleX = () => {
           ))}
         </div>
 
-        {/* Before vs After - Horizontal Bars */}
+        {/* Success Scorecard */}
         <div 
           className={`mb-20 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
           style={{ transitionDelay: '200ms' }}
         >
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold">Before vs After</h3>
-            <span className="text-sm text-muted-foreground">Median client outcome</span>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h3 className="text-xl font-semibold flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-primary" />
+                Success Scorecard
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Before vs After automation</p>
+            </div>
+            <span className="text-xs text-muted-foreground bg-muted/50 px-3 py-1 rounded-full">Median client outcome</span>
           </div>
           
-          <div className="space-y-8">
+          <div className="grid gap-6">
             {beforeAfterData.map((item, index) => (
-              <div key={index} className="space-y-3">
+              <div 
+                key={index} 
+                className="p-5 rounded-xl border border-border/50 bg-card/20 space-y-4"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-foreground">{item.metric}</span>
+                  <span className="font-medium text-foreground flex items-center gap-2">
+                    {item.metric}
+                    {item.trendUp ? (
+                      <TrendingUp className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <TrendingDown className="w-4 h-4 text-red-500" />
+                    )}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {item.isReduction ? 'Lower is better' : 'Higher is better'}
+                  </span>
                 </div>
                 
                 {/* Before bar */}
                 <div className="flex items-center gap-4">
                   <span className="w-16 text-xs text-muted-foreground text-right">Before</span>
-                  <div className="flex-1 h-6 bg-muted/30 rounded overflow-hidden">
+                  <div className="flex-1 h-8 bg-muted/30 rounded-lg overflow-hidden relative">
                     <div 
-                      className={`h-full bg-muted-foreground/40 rounded transition-all duration-1000 ease-out flex items-center justify-end pr-3`}
+                      className="h-full bg-muted-foreground/30 rounded-lg transition-all duration-1000 ease-out flex items-center justify-end pr-3"
                       style={{ 
                         width: barsAnimated ? `${(item.before / item.maxValue) * 100}%` : '0%',
                         transitionDelay: `${index * 150}ms`
                       }}
                     >
-                      <span className="text-xs font-medium text-foreground/70">{item.beforeLabel}</span>
+                      <span className="text-xs font-medium text-foreground/60">{item.beforeLabel}</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* After bar */}
                 <div className="flex items-center gap-4">
-                  <span className="w-16 text-xs text-primary text-right font-medium">After</span>
-                  <div className="flex-1 h-6 bg-primary/10 rounded overflow-hidden">
+                  <span className="w-16 text-xs text-primary text-right font-semibold">After</span>
+                  <div className="flex-1 h-8 bg-primary/10 rounded-lg overflow-hidden relative">
                     <div 
-                      className={`h-full bg-primary/60 rounded transition-all duration-1000 ease-out flex items-center ${item.isReduction ? 'justify-start pl-3' : 'justify-end pr-3'}`}
+                      className="h-full bg-gradient-to-r from-primary/60 to-primary/80 rounded-lg transition-all duration-1000 ease-out flex items-center"
                       style={{ 
                         width: barsAnimated ? `${(item.after / item.maxValue) * 100}%` : '0%',
-                        transitionDelay: `${index * 150 + 100}ms`
+                        transitionDelay: `${index * 150 + 100}ms`,
+                        justifyContent: item.isReduction ? 'flex-start' : 'flex-end',
+                        paddingLeft: item.isReduction ? '12px' : '0',
+                        paddingRight: item.isReduction ? '0' : '12px'
                       }}
                     >
-                      <span className="text-xs font-medium text-primary">{item.afterLabel}</span>
+                      <span className="text-xs font-semibold text-primary-foreground">{item.afterLabel}</span>
                     </div>
                   </div>
                 </div>
@@ -221,7 +225,7 @@ const WhyScaleX = () => {
           </div>
         </div>
 
-        {/* Revenue Chart */}
+        {/* Revenue Chart with Electric Glow */}
         <div 
           className={`mb-20 p-6 lg:p-8 rounded-2xl border border-border/50 bg-card/30 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
@@ -233,14 +237,22 @@ const WhyScaleX = () => {
             <p className="text-sm text-muted-foreground">Composite view based on client revenue data</p>
           </div>
           
-          <div className="h-[280px] w-full">
+          <div className="h-[280px] w-full electric-glow">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={growthChartData} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                  <linearGradient id="revenueGradientElectric" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5}/>
+                    <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity={0.2}/>
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                   </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
                 <XAxis 
                   dataKey="month" 
@@ -281,15 +293,16 @@ const WhyScaleX = () => {
                   type="monotone" 
                   dataKey="revenue" 
                   stroke="hsl(var(--primary))" 
-                  strokeWidth={2}
+                  strokeWidth={3}
                   fillOpacity={1} 
-                  fill="url(#revenueGradient)" 
+                  fill="url(#revenueGradientElectric)"
+                  filter="url(#glow)"
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
           
-          {/* Stats under graph - ranges and timeframes */}
+          {/* Stats under graph */}
           <div className="mt-6 grid grid-cols-3 gap-4 pt-6 border-t border-border/30">
             <div className="text-center">
               <div className="text-lg font-semibold text-foreground">$18k–$38k</div>
@@ -306,24 +319,30 @@ const WhyScaleX = () => {
           </div>
         </div>
 
-        {/* Case Studies - System Stories */}
+        {/* Client Results Grid with ROI Badges */}
         <div 
           className={`mb-16 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
           style={{ transitionDelay: '600ms' }}
         >
-          <h3 className="text-xl font-semibold mb-6">How it works in practice</h3>
+          <h3 className="text-xl font-semibold mb-6">Client Results</h3>
           
           <div className="grid lg:grid-cols-3 gap-6">
             {caseStudies.map((study, index) => (
               <div 
                 key={index}
-                className="p-5 rounded-xl border border-border/50 bg-card/20 space-y-4"
+                className="relative p-5 rounded-xl border border-border/50 bg-card/20 space-y-4 hover:border-primary/30 transition-colors"
               >
+                {/* ROI Badge */}
+                <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold glow-sm">
+                  {study.roi}
+                </div>
+                
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Settings className="w-4 h-4 text-primary" />
+                  {/* Avatar */}
+                  <div className="w-12 h-12 rounded-full bg-muted/50 border border-border/50 flex items-center justify-center text-xl">
+                    {study.avatar}
                   </div>
                   <div>
                     <div className="font-medium text-sm">{study.business}</div>
@@ -347,32 +366,6 @@ const WhyScaleX = () => {
                     <p className="text-primary font-medium">{study.impact}</p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Why Choose Us - Original Cards */}
-        <div 
-          className={`mb-12 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-          style={{ transitionDelay: '800ms' }}
-        >
-          <h3 className="text-xl font-semibold mb-6">What makes us different</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
-            {reasons.map((reason, index) => (
-              <div
-                key={index}
-                className={`group p-5 rounded-xl border border-border/50 bg-card/20 transition-all duration-300 hover:border-primary/30 ${
-                  index === 4 ? 'sm:col-span-2 lg:col-span-1' : ''
-                }`}
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                  <reason.icon className="w-5 h-5 text-primary" />
-                </div>
-                <h4 className="text-base font-semibold mb-2">{reason.title}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{reason.description}</p>
               </div>
             ))}
           </div>

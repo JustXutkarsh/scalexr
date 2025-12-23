@@ -1,47 +1,120 @@
 import { Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = {
+    company: [
+      { label: 'About', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Blog', href: '#' },
+    ],
+    services: [
+      { label: 'AI Automation', href: '#services' },
+      { label: 'Website Design', href: '#services' },
+      { label: 'Integrations', href: '#' },
+    ],
+    legal: [
+      { label: 'Privacy Policy', href: '#' },
+      { label: 'Terms of Service', href: '#' },
+      { label: 'Cookie Policy', href: '#' },
+    ],
+    contact: [
+      { label: 'Book a Call', href: 'https://calendly.com', external: true },
+      { label: 'hello@scalex.ai', href: 'mailto:hello@scalex.ai' },
+    ],
+  };
+
   return (
     <footer className="py-16 border-t border-border/50 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Brand */}
-            <div className="text-center md:text-left">
-              <div className="flex items-center gap-2 justify-center md:justify-start mb-3">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-xl font-bold">ScaleX</span>
-              </div>
-              <p className="text-muted-foreground text-sm max-w-xs">
-                AI-powered automation for local businesses. 
-                More leads, more bookings, more revenue.
-              </p>
+        <div className="max-w-6xl mx-auto">
+          {/* Main footer grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12">
+            {/* Company */}
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-4">Company</h4>
+              <ul className="space-y-3">
+                {footerLinks.company.map((link) => (
+                  <li key={link.label}>
+                    <a 
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* CTA */}
-            <div className="text-center md:text-right">
-              <p className="text-sm text-muted-foreground mb-3">Ready to scale?</p>
-              <Button 
-                variant="outline" 
-                className="border-primary/30 hover:border-primary hover:bg-primary/5"
-                onClick={() => window.open('https://calendly.com', '_blank')}
-              >
-                Book a Call
-              </Button>
+            {/* Services */}
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-4">Services</h4>
+              <ul className="space-y-3">
+                {footerLinks.services.map((link) => (
+                  <li key={link.label}>
+                    <a 
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-4">Legal</h4>
+              <ul className="space-y-3">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.label}>
+                    <a 
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-4">Contact</h4>
+              <ul className="space-y-3">
+                {footerLinks.contact.map((link) => (
+                  <li key={link.label}>
+                    <a 
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
           {/* Bottom bar */}
-          <div className="mt-12 pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} ScaleX. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms</a>
-              <a href="#" className="hover:text-primary transition-colors">Contact</a>
+          <div className="pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Brand */}
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-primary" />
+              </div>
+              <span className="text-lg font-bold">ScaleX</span>
             </div>
+
+            <p className="text-sm text-muted-foreground">
+              © {currentYear} ScaleX. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
