@@ -75,13 +75,13 @@ const Services = () => {
         </div>
 
         {/* Service cards */}
-        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
           {services.map((service, index) => (
             <div
               key={index}
               className={`relative group transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-              }`}
+              } ${service.highlight ? 'scale-[1.02] lg:scale-105' : ''}`}
               style={{ transitionDelay: `${index * 150 + 200}ms` }}
             >
               {/* Highlight badge */}
@@ -95,7 +95,11 @@ const Services = () => {
               )}
 
               {/* Card */}
-              <div className="h-full p-8 rounded-2xl glass glow-border hover:glow transition-all duration-300">
+              <div className={`h-full p-8 rounded-2xl transition-all duration-300 ${
+                service.highlight 
+                  ? 'glass glow-border-popular hover:glow' 
+                  : 'glass glow-border hover:glow'
+              }`}>
                 {/* Header */}
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center transition-transform group-hover:scale-110">
@@ -127,7 +131,7 @@ const Services = () => {
 
                 {/* CTA */}
                 <Button 
-                  className="w-full group/btn"
+                  className={`w-full group/btn ${service.highlight ? 'gradient-cta animate-pulse-cta' : ''}`}
                   variant={service.highlight ? "default" : "outline"}
                   onClick={() => window.open('https://calendly.com', '_blank')}
                 >

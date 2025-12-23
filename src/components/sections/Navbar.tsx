@@ -52,7 +52,7 @@ const Navbar = () => {
             </button>
             <Button 
               size="sm" 
-              className="glow-sm"
+              className="gradient-cta animate-pulse-cta"
               onClick={() => window.open('https://calendly.com', '_blank')}
             >
               Book a Call
