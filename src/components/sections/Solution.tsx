@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { Bot, Calendar, MessageSquare, Database, ArrowRight, Zap, Brain, Search, MessageCircle, Check, Clock } from 'lucide-react';
+import n8nWorkflow from '@/assets/n8n-workflow.png';
 
 const modules = [
   {
@@ -217,37 +218,13 @@ const Solution = () => {
                   </div>
                 </div>
 
-                {/* Workflow Image Placeholder - Replace with actual workflow image */}
-                <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-zinc-900 to-zinc-800 aspect-[16/10] flex items-center justify-center">
-                  {/* Placeholder visualization */}
-                  <div className="absolute inset-0 opacity-30">
-                    <div className="absolute top-4 left-4 w-16 h-8 bg-orange-500/40 rounded-lg" />
-                    <div className="absolute top-4 left-24 w-16 h-8 bg-purple-500/40 rounded-lg" />
-                    <div className="absolute top-4 right-4 w-16 h-8 bg-blue-500/40 rounded-lg" />
-                    <div className="absolute top-16 left-8 w-20 h-8 bg-green-500/40 rounded-lg" />
-                    <div className="absolute top-16 right-8 w-20 h-8 bg-pink-500/40 rounded-lg" />
-                    <div className="absolute bottom-16 left-1/4 w-24 h-8 bg-yellow-500/40 rounded-lg" />
-                    <div className="absolute bottom-16 right-1/4 w-24 h-8 bg-cyan-500/40 rounded-lg" />
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-primary/40 rounded-lg" />
-                    {/* Connection lines */}
-                    <svg className="absolute inset-0 w-full h-full">
-                      <line x1="20%" y1="20%" x2="35%" y2="35%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="40%" y1="20%" x2="50%" y2="35%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="80%" y1="20%" x2="65%" y2="35%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="35%" y1="45%" x2="40%" y2="60%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="65%" y1="45%" x2="60%" y2="60%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="40%" y1="70%" x2="48%" y2="85%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="60%" y1="70%" x2="52%" y2="85%" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    </svg>
-                  </div>
-                  
-                  <div className="relative z-10 text-center p-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center">
-                      <Zap className="w-8 h-8 text-primary" />
-                    </div>
-                    <p className="text-white/80 text-sm font-medium mb-1">n8n Workflow Engine</p>
-                    <p className="text-white/40 text-xs">Enterprise automation powering your growth</p>
-                  </div>
+                {/* Actual n8n Workflow Image */}
+                <div className="relative rounded-xl overflow-hidden">
+                  <img 
+                    src={n8nWorkflow} 
+                    alt="ScaleX n8n Automation Workflow showing WhatsApp integration, AI Agent, OpenAI, and Supabase Vector Store" 
+                    className="w-full h-auto rounded-xl"
+                  />
                 </div>
 
                 {/* Processing indicator */}
