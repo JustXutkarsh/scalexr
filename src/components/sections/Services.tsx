@@ -133,7 +133,7 @@ const Services = () => {
                 <Button 
                   className={`w-full group/btn ${service.highlight ? 'gradient-cta animate-pulse-cta' : ''}`}
                   variant={service.highlight ? "default" : "outline"}
-                  onClick={() => window.open('https://calendly.com', '_blank')}
+                  onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
                 >
                   <span>Get Started</span>
                   <Zap className="w-4 h-4 ml-2 transition-transform group-hover/btn:scale-110" />

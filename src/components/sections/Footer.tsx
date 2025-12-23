@@ -20,7 +20,7 @@ const Footer = () => {
       { label: 'Cookie Policy', href: '#' },
     ],
     contact: [
-      { label: 'Book a Call', href: 'https://calendly.com', external: true },
+      { label: 'Book a Call', href: 'https://calendly.com/scalee-x/new-meeting', external: true },
       { label: 'hello@scalex.ai', href: 'mailto:hello@scalex.ai' },
     ],
   };

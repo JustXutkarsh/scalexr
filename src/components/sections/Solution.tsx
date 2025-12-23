@@ -288,7 +288,7 @@ const Solution = () => {
           style={{ transitionDelay: '1000ms' }}
         >
           <a 
-            href="https://calendly.com/belalelshenawy11/30min"
+            href="https://calendly.com/scalee-x/new-meeting"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
