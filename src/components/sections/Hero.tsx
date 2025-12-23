@@ -82,7 +82,7 @@ const Hero = () => {
                 onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
               >
                 <span className="flex items-center gap-2">
-                  Book a Free Automation Audit
+                  Book a Free Audit for Your Business
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </span>
               </Button>

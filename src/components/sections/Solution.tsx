@@ -422,7 +422,7 @@ const Solution = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
           >
-            <span>Want to see this running for your business? Book a free automation audit</span>
+            <span>Want to see this running for your business? Book a free audit for your business</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
