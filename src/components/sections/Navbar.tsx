@@ -44,12 +44,6 @@ const Navbar = () => {
             >
               How It Works
             </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Services
-            </button>
             <Button 
               size="sm" 
               className="gradient-cta animate-pulse-cta"
@@ -81,12 +75,6 @@ onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank'
                 className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
               >
                 How It Works
-              </button>
-              <button 
-                onClick={() => scrollToSection('services')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                Services
               </button>
               <Button 
                 className="w-full glow-sm"
