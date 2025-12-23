@@ -416,15 +416,16 @@ const Solution = () => {
           }`}
           style={{ transitionDelay: '1100ms' }}
         >
-          <a 
-            href="https://calendly.com/scalee-x/new-meeting"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => window.dispatchEvent(new CustomEvent('openAuditForm')), 500);
+            }}
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
           >
             <span>Want to see this running for your business? Book a free audit for your business</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

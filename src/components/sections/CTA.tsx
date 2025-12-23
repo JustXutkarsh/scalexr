@@ -41,6 +41,16 @@ const CTA = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Listen for custom event to open the form
+  useEffect(() => {
+    const handleOpenForm = () => {
+      setShowForm(true);
+    };
+
+    window.addEventListener('openAuditForm', handleOpenForm);
+    return () => window.removeEventListener('openAuditForm', handleOpenForm);
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -120,7 +130,7 @@ const CTA = () => {
   }
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="cta" ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
       {/* Dramatic background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
