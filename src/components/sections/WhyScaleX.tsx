@@ -303,18 +303,18 @@ const WhyScaleX = () => {
           </div>
           
           {/* Stats under graph */}
-          <div className="mt-6 grid grid-cols-3 gap-4 pt-6 border-t border-border/30">
-            <div className="text-center">
-              <div className="text-lg font-semibold text-foreground">$18k–$38k</div>
-              <div className="text-xs text-muted-foreground">Typical monthly range after 6mo</div>
+          <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-border/30">
+            <div className="text-center py-2 sm:py-0">
+              <div className="text-base sm:text-lg font-semibold text-foreground">$18k–$38k</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Typical monthly range after 6mo</div>
             </div>
-            <div className="text-center">
-              <div className="text-lg font-semibold text-foreground">2–4 months</div>
-              <div className="text-xs text-muted-foreground">Time to see measurable lift</div>
+            <div className="text-center py-2 sm:py-0 border-t sm:border-t-0 border-border/30">
+              <div className="text-base sm:text-lg font-semibold text-foreground">2–4 months</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Time to see measurable lift</div>
             </div>
-            <div className="text-center">
-              <div className="text-lg font-semibold text-foreground">4–6 months</div>
-              <div className="text-xs text-muted-foreground">Typical full ROI recovery</div>
+            <div className="text-center py-2 sm:py-0 border-t sm:border-t-0 border-border/30">
+              <div className="text-base sm:text-lg font-semibold text-foreground">4–6 months</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Typical full ROI recovery</div>
             </div>
           </div>
         </div>
@@ -328,41 +328,41 @@ const WhyScaleX = () => {
         >
           <h3 className="text-xl font-semibold mb-6">Client Results</h3>
           
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {caseStudies.map((study, index) => (
               <div 
                 key={index}
-                className="relative p-5 rounded-xl border border-border/50 bg-card/20 space-y-4 hover:border-primary/30 transition-colors"
+                className="relative p-4 sm:p-5 rounded-xl border border-border/50 bg-card/20 space-y-3 sm:space-y-4 hover:border-primary/30 transition-colors"
               >
                 {/* ROI Badge */}
-                <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold glow-sm">
+                <div className="absolute -top-2 sm:-top-3 -right-2 sm:-right-3 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-primary text-primary-foreground text-[10px] sm:text-xs font-bold glow-sm">
                   {study.roi}
                 </div>
                 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   {/* Avatar */}
-                  <div className="w-12 h-12 rounded-full bg-muted/50 border border-border/50 flex items-center justify-center text-xl">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-muted/50 border border-border/50 flex items-center justify-center text-lg sm:text-xl">
                     {study.avatar}
                   </div>
                   <div>
-                    <div className="font-medium text-sm">{study.business}</div>
-                    <div className="text-xs text-muted-foreground">{study.region}</div>
+                    <div className="font-medium text-xs sm:text-sm">{study.business}</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">{study.region}</div>
                   </div>
                 </div>
                 
-                <div className="space-y-3 text-sm">
+                <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                   <div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">What we automated</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">What we automated</div>
                     <p className="text-foreground/80">{study.automated}</p>
                   </div>
                   
                   <div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Operational change</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">Operational change</div>
                     <p className="text-foreground/80">{study.operationalChange}</p>
                   </div>
                   
-                  <div className="pt-3 border-t border-border/30">
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Outcome</div>
+                  <div className="pt-2 sm:pt-3 border-t border-border/30">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">Outcome</div>
                     <p className="text-primary font-medium">{study.impact}</p>
                   </div>
                 </div>

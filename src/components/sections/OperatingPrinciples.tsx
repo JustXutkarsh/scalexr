@@ -108,7 +108,7 @@ const OperatingPrinciples = () => {
         </div>
 
         {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* Left column - Navigation (30-35%) */}
           <div 
             className={`lg:w-[32%] transition-all duration-700 ${
@@ -117,12 +117,12 @@ const OperatingPrinciples = () => {
             style={{ transitionDelay: '200ms' }}
           >
             <div className="relative lg:sticky lg:top-32">
-              {/* Vertical line indicator */}
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-border/30 hidden lg:block" />
+              {/* Vertical line indicator - visible on mobile too */}
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-border/30" />
               
               {/* Active indicator */}
               <div 
-                className="absolute left-0 w-px bg-primary transition-all duration-500 ease-out hidden lg:block"
+                className="absolute left-0 w-px bg-primary transition-all duration-500 ease-out"
                 style={{
                   top: `${activePrinciple * 25}%`,
                   height: '25%'
@@ -135,13 +135,13 @@ const OperatingPrinciples = () => {
                   <button
                     key={principle.id}
                     onClick={() => handlePrincipleClick(index)}
-                    className={`w-full text-left py-5 lg:py-6 lg:pl-6 transition-all duration-300 ${
+                    className={`w-full text-left py-3 sm:py-5 lg:py-6 pl-4 lg:pl-6 transition-all duration-300 ${
                       activePrinciple === index 
                         ? 'text-foreground' 
                         : 'text-muted-foreground/50 hover:text-muted-foreground/80'
                     }`}
                   >
-                    <span className={`text-base lg:text-lg font-medium leading-snug transition-all duration-300 ${
+                    <span className={`text-sm sm:text-base lg:text-lg font-medium leading-snug transition-all duration-300 ${
                       activePrinciple === index ? 'translate-x-0' : ''
                     }`}>
                       {principle.title}
@@ -159,7 +159,7 @@ const OperatingPrinciples = () => {
             }`}
             style={{ transitionDelay: '300ms' }}
           >
-            <div className="lg:min-h-[280px]">
+            <div className="min-h-[180px] sm:min-h-[220px] lg:min-h-[280px]">
               {principles.map((principle, index) => (
                 <div
                   key={principle.id}
@@ -171,9 +171,9 @@ const OperatingPrinciples = () => {
                   }`}
                 >
                   {activePrinciple === index && (
-                    <div className="space-y-8">
+                    <div className="space-y-4 sm:space-y-8">
                       {/* Main content paragraph */}
-                      <p className="text-xl lg:text-2xl text-foreground/90 leading-relaxed font-light">
+                      <p className="text-base sm:text-xl lg:text-2xl text-foreground/90 leading-relaxed font-light">
                         {principle.content}
                       </p>
                       
