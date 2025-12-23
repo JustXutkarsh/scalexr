@@ -27,12 +27,16 @@ const modules = [
 ];
 
 const whatsappMessages = [
-  { type: 'received', text: "Hi! I'm looking for a moisturizer for dry skin", time: '10:32 AM' },
-  { type: 'sent', text: "Hey! 👋 Based on your skin type, I'd recommend our Hydra-Glow Serum — it's our bestseller for dry skin. Want me to show you options?", time: '10:32 AM', ai: true },
-  { type: 'received', text: '🎤 Voice note: "Yeah show me, also something for dark spots"', time: '10:33 AM', isVoice: true },
-  { type: 'sent', text: "Got it! For dark spots + hydration, try our Vitamin C Duo Bundle — ₹1,899 (saves ₹400). I can send the link to order directly here!", time: '10:33 AM', ai: true },
-  { type: 'received', text: '📷 [Image of product label]', time: '10:34 AM', isImage: true },
-  { type: 'sent', text: "I see you already have our Niacinamide Toner! Great choice. The Vitamin C serum pairs perfectly with it. Ready to order? 🛒", time: '10:34 AM', ai: true },
+  { type: 'received', text: "Hi, I'm looking for something elegant for a beach wedding gift." },
+  { type: 'sent', text: "Sure 😊 I'd love to help.\nCould you please share:\n• Your budget range\n• Is it for the bride or a guest\n• Any color preference?" },
+  { type: 'received', text: "Budget around ₹3,000. It's for the bride. Light colors." },
+  { type: 'sent', text: "Perfect choice for a beach wedding ✨\nHere are the top 3 recommendations:\n\n1. Floral Pearl Hair Accessory – ₹2,800\n2. Shell & Pearl Earrings – ₹2,500\n3. Ivory Floral Anklet Set – ₹2,900\n\nWould you like to see photos or product links?" },
+  { type: 'received', text: "Can you show photos of option 1 and 2?" },
+  { type: 'sent', text: "Of course 😊\nHere are the photos of the Floral Pearl Hair Accessory and Shell & Pearl Earrings.\nBoth are in stock and ready to ship.\n\nWould you like help placing the order?" },
+  { type: 'received', text: "Yes, I want the Shell & Pearl Earrings." },
+  { type: 'sent', text: "Great choice 🌸\nPlease share your full shipping address including city, state, and PIN code." },
+  { type: 'received', text: "Address sent." },
+  { type: 'sent', text: "Thank you! Your order details are confirmed.\nI'm sharing the checkout link now. 🚚\nLet me know if you need anything else." },
 ];
 
 const Solution = () => {
@@ -134,10 +138,10 @@ const Solution = () => {
                         <Bot className="w-5 h-5 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-white text-sm font-medium">ScaleX Sales AI</p>
+                        <p className="text-white text-sm font-medium">Kanyadhan Jewellers</p>
                         <p className="text-[10px] text-green-400 flex items-center gap-1">
                           <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                          Online • 24/7 Sales Rep
+                          Online • 24/7 Sales Assistant
                         </p>
                       </div>
                     </div>
@@ -151,7 +155,7 @@ const Solution = () => {
                           style={{
                             opacity: isVisible ? 1 : 0,
                             transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-                            transition: `all 0.5s ease-out ${600 + index * 200}ms`
+                            transition: `all 0.5s ease-out ${600 + index * 150}ms`
                           }}
                         >
                           <div 
@@ -161,14 +165,10 @@ const Solution = () => {
                                 : 'bg-[#1f2c34] text-white rounded-bl-none'
                             }`}
                           >
-                            <p>{msg.text}</p>
+                            <p className="whitespace-pre-line">{msg.text}</p>
                             <div className="flex items-center justify-end gap-1 mt-1">
-                              <span className="text-[9px] text-white/50">{msg.time}</span>
                               {msg.type === 'sent' && (
                                 <Check className="w-3 h-3 text-blue-400" />
-                              )}
-                              {msg.ai && (
-                                <span className="text-[8px] text-primary/80 ml-1">AI</span>
                               )}
                             </div>
                           </div>
