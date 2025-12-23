@@ -26,12 +26,12 @@ const modules = [
 ];
 
 const whatsappMessages = [
-  { type: 'received', text: 'Hi! I need to book an appointment for next week', time: '10:32 AM' },
-  { type: 'sent', text: "Hello! I'd be happy to help you book an appointment. What day works best for you?", time: '10:32 AM', ai: true },
-  { type: 'received', text: 'Tuesday or Wednesday morning', time: '10:33 AM' },
-  { type: 'sent', text: "I have availability on Tuesday at 9:30 AM or Wednesday at 10:00 AM. Which works better?", time: '10:33 AM', ai: true },
-  { type: 'received', text: 'Tuesday 9:30 works!', time: '10:33 AM' },
-  { type: 'sent', text: "You're all set for Tuesday at 9:30 AM. I've sent a calendar invite to your email. See you then!", time: '10:34 AM', ai: true },
+  { type: 'received', text: "Hi! I'm looking for a moisturizer for dry skin", time: '10:32 AM' },
+  { type: 'sent', text: "Hey! 👋 Based on your skin type, I'd recommend our Hydra-Glow Serum — it's our bestseller for dry skin. Want me to show you options?", time: '10:32 AM', ai: true },
+  { type: 'received', text: '🎤 Voice note: "Yeah show me, also something for dark spots"', time: '10:33 AM', isVoice: true },
+  { type: 'sent', text: "Got it! For dark spots + hydration, try our Vitamin C Duo Bundle — ₹1,899 (saves ₹400). I can send the link to order directly here!", time: '10:33 AM', ai: true },
+  { type: 'received', text: '📷 [Image of product label]', time: '10:34 AM', isImage: true },
+  { type: 'sent', text: "I see you already have our Niacinamide Toner! Great choice. The Vitamin C serum pairs perfectly with it. Ready to order? 🛒", time: '10:34 AM', ai: true },
 ];
 
 const Solution = () => {
@@ -132,10 +132,10 @@ const Solution = () => {
                         <Bot className="w-5 h-5 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-white text-sm font-medium">ScaleX Assistant</p>
+                        <p className="text-white text-sm font-medium">ScaleX Sales AI</p>
                         <p className="text-[10px] text-green-400 flex items-center gap-1">
                           <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                          Online • AI-Powered
+                          Online • 24/7 Sales Rep
                         </p>
                       </div>
                     </div>
