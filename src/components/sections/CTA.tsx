@@ -2,9 +2,9 @@ import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowRight, Sparkles, Send, Phone, Building2, User, Mail, MessageSquare, Clock } from 'lucide-react';
+import { ArrowRight, Sparkles, Send, Phone, Building2, User, MessageSquare, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
+import { supabase } from '@/integrations/supabase/client';
 const CTA = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -50,16 +50,39 @@ const CTA = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    toast({
-      title: "Audit Request Submitted!",
-      description: "We'll analyze your business and get back to you within 24-48 hours.",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('send-audit-notification', {
+        body: formData,
+      });
+
+      if (error) {
+        console.error('Error sending audit request:', error);
+        toast({
+          title: "Something went wrong",
+          description: "Please try again or book a call instead.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      console.log('Audit request sent successfully:', data);
+      setIsSubmitted(true);
+      
+      toast({
+        title: "Audit Request Submitted!",
+        description: "We'll analyze your business and get back to you within 24-48 hours.",
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or book a call instead.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
