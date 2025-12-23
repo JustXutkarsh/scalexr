@@ -2,6 +2,9 @@ import { useRef, useEffect, useState } from 'react';
 import { Bot, Calendar, MessageSquare, Database, ArrowRight, Zap, Brain, Search, MessageCircle, Check, Clock, Maximize2, X, Mic, Image as ImageIcon, ShoppingCart, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import n8nWorkflow from '@/assets/n8n-workflow.png';
+import jewelryHairAccessory from '@/assets/jewelry-hair-accessory.png';
+import jewelryShellEarrings from '@/assets/jewelry-shell-earrings.png';
+import jewelryAnklet from '@/assets/jewelry-anklet.png';
 
 const modules = [
   {
@@ -30,9 +33,22 @@ const whatsappMessages = [
   { type: 'received', text: "Hi, I'm looking for something elegant for a beach wedding gift." },
   { type: 'sent', text: "Sure 😊 I'd love to help.\nCould you please share:\n• Your budget range\n• Is it for the bride or a guest\n• Any color preference?" },
   { type: 'received', text: "Budget around ₹3,000. It's for the bride. Light colors." },
-  { type: 'sent', text: "Perfect choice for a beach wedding ✨\nHere are the top 3 recommendations:\n\n1. Floral Pearl Hair Accessory – ₹2,800\n2. Shell & Pearl Earrings – ₹2,500\n3. Ivory Floral Anklet Set – ₹2,900\n\nWould you like to see photos or product links?" },
+  { 
+    type: 'sent', 
+    text: "Perfect choice for a beach wedding ✨\nHere are the top 3 recommendations:",
+    products: [
+      { name: "Floral Pearl Hair Accessory", price: "₹2,800", image: jewelryHairAccessory },
+      { name: "Shell & Pearl Earrings", price: "₹2,500", image: jewelryShellEarrings },
+      { name: "Ivory Floral Anklet Set", price: "₹2,900", image: jewelryAnklet },
+    ]
+  },
   { type: 'received', text: "Can you show photos of option 1 and 2?" },
-  { type: 'sent', text: "Of course 😊\nHere are the photos of the Floral Pearl Hair Accessory and Shell & Pearl Earrings.\nBoth are in stock and ready to ship.\n\nWould you like help placing the order?" },
+  { 
+    type: 'sent', 
+    text: "Of course 😊 Here are the photos:",
+    images: [jewelryHairAccessory, jewelryShellEarrings],
+    afterText: "Both are in stock and ready to ship.\n\nWould you like help placing the order?"
+  },
   { type: 'received', text: "Yes, I want the Shell & Pearl Earrings." },
   { type: 'sent', text: "Great choice 🌸\nPlease share your full shipping address including city, state, and PIN code." },
   { type: 'received', text: "Address sent." },
@@ -166,6 +182,46 @@ const Solution = () => {
                             }`}
                           >
                             <p className="whitespace-pre-line">{msg.text}</p>
+                            
+                            {/* Product recommendations with thumbnails */}
+                            {msg.products && (
+                              <div className="mt-2 space-y-1.5">
+                                {msg.products.map((product, pIdx) => (
+                                  <div key={pIdx} className="flex items-center gap-2 bg-white/10 rounded-lg p-1.5">
+                                    <img 
+                                      src={product.image} 
+                                      alt={product.name}
+                                      className="w-10 h-10 rounded-md object-cover"
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-[10px] font-medium truncate">{product.name}</p>
+                                      <p className="text-[9px] text-emerald-300">{product.price}</p>
+                                    </div>
+                                  </div>
+                                ))}
+                                <p className="text-[10px] mt-1.5 opacity-80">Would you like to see photos or product links?</p>
+                              </div>
+                            )}
+                            
+                            {/* Image gallery */}
+                            {msg.images && (
+                              <div className="mt-2 flex gap-1.5">
+                                {msg.images.map((img, imgIdx) => (
+                                  <img 
+                                    key={imgIdx}
+                                    src={img} 
+                                    alt={`Product ${imgIdx + 1}`}
+                                    className="w-16 h-16 rounded-lg object-cover border border-white/20"
+                                  />
+                                ))}
+                              </div>
+                            )}
+                            
+                            {/* After text (for messages with images) */}
+                            {msg.afterText && (
+                              <p className="whitespace-pre-line mt-2">{msg.afterText}</p>
+                            )}
+                            
                             <div className="flex items-center justify-end gap-1 mt-1">
                               {msg.type === 'sent' && (
                                 <Check className="w-3 h-3 text-blue-400" />
