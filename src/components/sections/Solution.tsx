@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
-import { Bot, Calendar, MessageSquare, Database, ArrowRight, Zap, Brain, Search, MessageCircle, Check, Clock } from 'lucide-react';
+import { Bot, Calendar, MessageSquare, Database, ArrowRight, Zap, Brain, Search, MessageCircle, Check, Clock, Maximize2, X, Mic, Image as ImageIcon, ShoppingCart, Sparkles } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import n8nWorkflow from '@/assets/n8n-workflow.png';
 
 const modules = [
@@ -37,6 +38,7 @@ const whatsappMessages = [
 const Solution = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -218,13 +220,23 @@ const Solution = () => {
                   </div>
                 </div>
 
-                {/* Actual n8n Workflow Image */}
-                <div className="relative rounded-xl overflow-hidden">
+                {/* Actual n8n Workflow Image - Clickable */}
+                <div 
+                  className="relative rounded-xl overflow-hidden cursor-pointer group"
+                  onClick={() => setIsWorkflowOpen(true)}
+                >
                   <img 
                     src={n8nWorkflow} 
                     alt="ScaleX n8n Automation Workflow showing WhatsApp integration, AI Agent, OpenAI, and Supabase Vector Store" 
-                    className="w-full h-auto rounded-xl"
+                    className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
                   />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                      <Maximize2 className="w-4 h-4 text-white" />
+                      <span className="text-white text-sm font-medium">View Full Workflow</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Processing indicator */}
@@ -240,9 +252,60 @@ const Solution = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Workflow Description Note */}
+              <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground mb-2">How This Automation Works</h4>
+                    <ul className="text-xs text-muted-foreground space-y-1.5">
+                      <li className="flex items-start gap-2">
+                        <Mic className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                        <span>Understands text, voice notes & images from WhatsApp</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Brain className="w-3 h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
+                        <span>AI analyzes intent & searches your product catalog semantically</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ShoppingCart className="w-3 h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                        <span>Recommends products & replies in text or voice — 24/7</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Fullscreen Workflow Dialog */}
+        <Dialog open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
+          <DialogContent className="max-w-[95vw] w-full max-h-[95vh] p-0 bg-zinc-900/95 backdrop-blur-xl border-white/10">
+            <div className="relative w-full h-full">
+              <button 
+                onClick={() => setIsWorkflowOpen(false)}
+                className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+              <div className="p-4 overflow-auto max-h-[90vh]">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-white">ScaleX Intelligent Architecture</h3>
+                  <p className="text-sm text-white/60">Proprietary node-based logic driving 24/7 customer conversion</p>
+                </div>
+                <img 
+                  src={n8nWorkflow} 
+                  alt="ScaleX n8n Automation Workflow - Full View" 
+                  className="w-full h-auto rounded-xl"
+                />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Module cards */}
         <div 
