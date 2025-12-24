@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
+import slackLogo from '@/assets/logos/slack.svg';
+import whatsappLogo from '@/assets/logos/whatsapp.svg';
+import zapierLogo from '@/assets/logos/zapier.svg';
+import n8nLogo from '@/assets/logos/n8n.svg';
+import hubspotLogo from '@/assets/logos/hubspot.svg';
+import calendlyLogo from '@/assets/logos/calendly.svg';
 
 const integrations = [
-  { name: 'Slack', logo: '💬' },
-  { name: 'WhatsApp', logo: '📱' },
-  { name: 'Zapier', logo: '⚡' },
-  { name: 'n8n', logo: '🔗' },
-  { name: 'HubSpot', logo: '🔶' },
-  { name: 'Calendly', logo: '📆' },
+  { name: 'Slack', logo: slackLogo },
+  { name: 'WhatsApp', logo: whatsappLogo },
+  { name: 'Zapier', logo: zapierLogo },
+  { name: 'n8n', logo: n8nLogo },
+  { name: 'HubSpot', logo: hubspotLogo },
+  { name: 'Calendly', logo: calendlyLogo },
 ];
 
 const IntegrationBar = () => {
@@ -39,7 +45,11 @@ const IntegrationBar = () => {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <span className="text-xl">{integration.logo}</span>
+                <img 
+                  src={integration.logo} 
+                  alt={`${integration.name} logo`}
+                  className="w-5 h-5"
+                />
                 <span className="text-sm font-medium text-foreground/80">{integration.name}</span>
               </div>
             ))}
