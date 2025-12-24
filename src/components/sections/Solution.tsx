@@ -103,10 +103,40 @@ const linkedinMessages = [
 
 const Solution = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const workflowContainerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
   const [isLinkedinWorkflowOpen, setIsLinkedinWorkflowOpen] = useState(false);
   const [activeWorkflow, setActiveWorkflow] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance to trigger workflow change
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe && activeWorkflow < 1) {
+      setActiveWorkflow(1);
+    }
+    if (isRightSwipe && activeWorkflow > 0) {
+      setActiveWorkflow(0);
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -205,8 +235,12 @@ const Solution = () => {
           {/* Horizontal Scroll Container for Workflows */}
           <ScrollArea className="w-full">
             <div 
-              className="flex gap-8 transition-transform duration-500 ease-out pb-4"
+              ref={workflowContainerRef}
+              className="flex gap-8 transition-transform duration-500 ease-out pb-4 touch-pan-y"
               style={{ transform: `translateX(-${activeWorkflow * 100}%)` }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
             >
               {/* Workflow 1: WhatsApp Sales */}
               <div className="min-w-full">
