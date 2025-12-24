@@ -25,6 +25,7 @@ import {
   Globe,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import n8nWorkflow from "@/assets/n8n-workflow.png";
 import linkedinWorkflow from "@/assets/linkedin-workflow.png";
 import jewelryHairAccessory from "@/assets/jewelry-hair-accessory.png";
@@ -102,11 +103,10 @@ const linkedinMessages = [
 
 const Solution = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const workflowContainerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
   const [isLinkedinWorkflowOpen, setIsLinkedinWorkflowOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeWorkflow, setActiveWorkflow] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -124,30 +124,6 @@ const Solution = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
-
-  // Scroll-driven horizontal animation (robust across page length)
-  useEffect(() => {
-    const handleScroll = () => {
-      const container = workflowContainerRef.current;
-      if (!container) return;
-
-      const rect = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || 1;
-
-      // Transition completes after ~1 viewport of scrolling while the section is pinned.
-      const progress = Math.max(0, Math.min(1, (-rect.top) / viewportHeight));
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
   }, []);
 
   return (
@@ -185,54 +161,55 @@ const Solution = () => {
           </p>
         </div>
 
-        {/* ScaleX Intelligent Architecture Section - Scroll-driven horizontal */}
+        {/* ScaleX Intelligent Architecture Section */}
         <div
-          ref={workflowContainerRef}
-          className="relative"
-          style={{ height: '220vh' }}
+          className={`mb-20 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+          style={{ transitionDelay: "200ms" }}
         >
-          {/* Sticky container that pins content while scrolling */}
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
-            {/* Architecture heading */}
-            <div className="text-center mb-10">
-              <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
-              <p className="text-muted-foreground text-sm sm:text-base">
-                Proprietary node-based logic driving 24/7 customer conversion.
-              </p>
-            </div>
+          {/* Architecture heading */}
+          <div className="text-center mb-10">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Proprietary node-based logic driving 24/7 customer conversion.
+            </p>
+          </div>
 
-            {/* Workflow Progress Indicator */}
-            <div className="flex justify-center gap-3 mb-6">
-              <div
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                  scrollProgress < 0.5
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-white/5 text-muted-foreground border border-white/10"
-                }`}
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Sales</span>
-              </div>
-              <div
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                  scrollProgress >= 0.5
-                    ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                    : "bg-white/5 text-muted-foreground border border-white/10"
-                }`}
-              >
-                <Linkedin className="w-4 h-4" />
-                <span>LinkedIn Leads</span>
-              </div>
-            </div>
+          {/* Workflow Navigation Dots */}
+          <div className="flex justify-center gap-3 mb-6">
+            <button
+              onClick={() => setActiveWorkflow(0)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+                activeWorkflow === 0
+                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                  : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
+              }`}
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>WhatsApp Sales</span>
+            </button>
+            <button
+              onClick={() => setActiveWorkflow(1)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+                activeWorkflow === 1
+                  ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                  : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
+              }`}
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn Leads</span>
+            </button>
+          </div>
 
-            {/* Horizontal sliding container */}
-            <div className="relative overflow-hidden">
-              <div 
-                className="flex transition-transform duration-300 ease-out"
-                style={{ transform: `translateX(-${scrollProgress * 100}%)` }}
-              >
-                {/* Workflow 1: WhatsApp Sales */}
-                <div className="min-w-full flex-shrink-0 px-4">
+          {/* Horizontal Scroll Container for Workflows */}
+          <ScrollArea className="w-full">
+            <div 
+              className="flex gap-8 transition-transform duration-500 ease-out pb-4"
+              style={{ transform: `translateX(-${activeWorkflow * 100}%)` }}
+            >
+              {/* Workflow 1: WhatsApp Sales */}
+              <div className="min-w-full">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
                   {/* Left: WhatsApp Phone Mockup */}
                   <div
@@ -439,8 +416,8 @@ const Solution = () => {
                 </div>
               </div>
 
-                {/* Workflow 2: LinkedIn Lead Scraper */}
-                <div className="min-w-full flex-shrink-0 px-4">
+              {/* Workflow 2: LinkedIn Lead Scraper */}
+              <div className="min-w-full">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
                   {/* Left: LinkedIn Terminal Mockup */}
                   <div
@@ -593,29 +570,24 @@ const Solution = () => {
                   </div>
                 </div>
               </div>
-              </div>
             </div>
+            <ScrollBar orientation="horizontal" className="opacity-0" />
+          </ScrollArea>
 
-            {/* Workflow progress dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              <div
-                className={`w-2 h-2 rounded-full transition-all ${
-                  scrollProgress < 0.5 ? "bg-primary w-6" : "bg-white/20"
-                }`}
-              />
-              <div
-                className={`w-2 h-2 rounded-full transition-all ${
-                  scrollProgress >= 0.5 ? "bg-blue-500 w-6" : "bg-white/20"
-                }`}
-              />
-            </div>
-            
-            {/* Scroll hint */}
-            <div className={`text-center mt-4 transition-opacity duration-300 ${scrollProgress > 0.1 && scrollProgress < 0.9 ? 'opacity-50' : 'opacity-100'}`}>
-              <p className="text-muted-foreground/50 text-xs">
-                {scrollProgress < 0.5 ? "Scroll to see LinkedIn workflow →" : "← Scroll back for WhatsApp workflow"}
-              </p>
-            </div>
+          {/* Workflow indicator dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            <button
+              onClick={() => setActiveWorkflow(0)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                activeWorkflow === 0 ? "bg-primary w-6" : "bg-white/20 hover:bg-white/40"
+              }`}
+            />
+            <button
+              onClick={() => setActiveWorkflow(1)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                activeWorkflow === 1 ? "bg-blue-500 w-6" : "bg-white/20 hover:bg-white/40"
+              }`}
+            />
           </div>
         </div>
 
