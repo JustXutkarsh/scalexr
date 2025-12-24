@@ -411,6 +411,22 @@ const WhyScaleX = () => {
                           tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 8 }}
                           width={25}
                         />
+                        <Tooltip 
+                          contentStyle={{ 
+                            backgroundColor: 'hsl(var(--card))', 
+                            border: '1px solid hsl(var(--border))',
+                            borderRadius: '8px',
+                            fontSize: '11px',
+                            padding: '8px 12px'
+                          }}
+                          labelStyle={{ color: 'hsl(var(--foreground))', fontWeight: 600, marginBottom: '4px' }}
+                          formatter={(value: number, name: string) => {
+                            const label = name === 'appointments' ? 'Appointments' : 
+                                         name === 'leads' ? 'Leads Captured' : 
+                                         name === 'signups' ? 'New Signups' : name;
+                            return [value, label];
+                          }}
+                        />
                         <Area 
                           type="monotone" 
                           dataKey={index === 0 ? "appointments" : index === 1 ? "leads" : "signups"}
