@@ -378,7 +378,11 @@ const WhyScaleX = () => {
                 </div>
 
                 {/* Growth Chart */}
-                <div className="bg-muted/10 rounded-lg p-2 border border-border/30">
+                <div className={`rounded-lg p-2 border border-border/30 ${
+                  index === 0 ? 'bg-emerald-500/5' : 
+                  index === 1 ? 'bg-amber-500/5' : 
+                  'bg-violet-500/5'
+                }`}>
                   <div className="text-[10px] text-muted-foreground mb-2">{study.chartLabel}</div>
                   <div className="h-[100px] sm:h-[120px]">
                     <ResponsiveContainer width="100%" height="100%">
@@ -387,9 +391,20 @@ const WhyScaleX = () => {
                         margin={{ top: 5, right: 5, left: -20, bottom: 0 }}
                       >
                         <defs>
-                          <linearGradient id={`clientGradient-${index}`} x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5}/>
-                            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                          {/* Dental - Emerald gradient */}
+                          <linearGradient id="gradientDental" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#10b981" stopOpacity={0.6}/>
+                            <stop offset="100%" stopColor="#10b981" stopOpacity={0.05}/>
+                          </linearGradient>
+                          {/* Home Services - Amber gradient */}
+                          <linearGradient id="gradientHome" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#f59e0b" stopOpacity={0.6}/>
+                            <stop offset="100%" stopColor="#f59e0b" stopOpacity={0.05}/>
+                          </linearGradient>
+                          {/* Fitness - Violet gradient */}
+                          <linearGradient id="gradientFitness" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.6}/>
+                            <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.05}/>
                           </linearGradient>
                         </defs>
                         <CartesianGrid 
@@ -428,12 +443,13 @@ const WhyScaleX = () => {
                           }}
                         />
                         <Area 
-                          type="monotone" 
+                          type={index === 0 ? "monotone" : index === 1 ? "stepAfter" : "natural"}
                           dataKey={index === 0 ? "appointments" : index === 1 ? "leads" : "signups"}
-                          stroke="hsl(var(--primary))" 
+                          stroke={index === 0 ? "#10b981" : index === 1 ? "#f59e0b" : "#8b5cf6"}
                           strokeWidth={2}
                           fillOpacity={1} 
-                          fill={`url(#clientGradient-${index})`}
+                          fill={index === 0 ? "url(#gradientDental)" : index === 1 ? "url(#gradientHome)" : "url(#gradientFitness)"}
+                          dot={index === 1 ? { fill: '#f59e0b', strokeWidth: 0, r: 3 } : false}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
