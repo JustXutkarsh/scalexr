@@ -71,7 +71,7 @@ const WhyScaleX = () => {
         {/* Section Header */}
         <div className="mb-6">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
-            Operational results from deployed automation systems
+            <span className="bg-white/10 px-2 py-1">Operational results from deployed automation systems</span>
           </h2>
           <p className="text-sm text-muted-foreground">
             Measured across live systems running for 3–9 months. Median outcomes shown.
