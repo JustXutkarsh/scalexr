@@ -54,24 +54,24 @@ const OperatingPrinciples = () => {
 
   const handleScroll = useCallback(() => {
     if (!sectionRef.current) return;
-    
+
     const sectionRect = sectionRef.current.getBoundingClientRect();
-    const sectionTop = sectionRect.top;
     const viewportHeight = window.innerHeight;
-    
-    // Calculate which principle should be active based on scroll position
-    // Slower scroll progression - more scroll distance per principle
-    const scrollProgress = Math.max(0, -sectionTop + viewportHeight * 0.3);
-    const principleHeight = (sectionRect.height * 0.7) / principles.length; // Use 70% of section height
-    const newActive = Math.min(
-      principles.length - 1,
-      Math.max(0, Math.floor(scrollProgress / principleHeight))
+
+    // Only update while section is on screen
+    if (sectionRect.top >= viewportHeight || sectionRect.bottom <= 0) return;
+
+    // Map scroll position to a 0..1 progress across the *scrollable* range of the section
+    const scrollableRange = Math.max(1, sectionRect.height - viewportHeight);
+
+    // Add a small offset so the last principle becomes active a bit BEFORE the section ends
+    const progress = Math.min(
+      1,
+      Math.max(0, (-sectionRect.top + viewportHeight * 0.15) / scrollableRange),
     );
-    
-    // Only update if the section is in view and we haven't scrolled past it
-    if (sectionRect.top < viewportHeight && sectionRect.bottom > 0) {
-      setActivePrinciple(newActive);
-    }
+
+    const newActive = Math.min(principles.length - 1, Math.floor(progress * principles.length));
+    setActivePrinciple(newActive);
   }, []);
 
   useEffect(() => {
