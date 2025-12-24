@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
-import { TrendingUp, TrendingDown, Settings, CheckCircle } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
+import { TrendingUp, TrendingDown, Settings, CheckCircle, ArrowUp, ArrowDown } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine, CartesianGrid } from 'recharts';
 
 const credibilityStats = [
   { value: "19", label: "Active automation systems" },
@@ -56,31 +56,82 @@ const growthChartData = [
 
 const caseStudies = [
   {
-    business: "Dental Practice",
-    region: "Northeast US",
-    avatar: "🦷",
-    roi: "+$4,200/mo",
-    automated: "Appointment booking, missed call handling, patient reminders",
-    operationalChange: "Front desk now focuses on in-office patients instead of phone triage",
-    impact: "Recovered $4,200–$6,800/mo in previously lost appointments"
+    business: "Back From Black",
+    headline: "188 Conversions in",
+    subheadline: "30 Days",
+    description: "Back From Black was investing in paid Ads since 2022 but with us (Jan 2025) they saw a drastic improvement in their ROI(dropped by 51%)and number of leads(increased by 144%).",
+    chartData: [
+      { month: 'Jan', value: 45 },
+      { month: 'Feb', value: 42 },
+      { month: 'Mar', value: 48 },
+      { month: 'Apr', value: 44 },
+      { month: 'May', value: 50 },
+      { month: 'Jun', value: 55 },
+      { month: 'Jul', value: 52 },
+      { month: 'Aug', value: 58 },
+      { month: 'Sep', value: 65 },
+      { month: 'Oct', value: 72 },
+      { month: 'Nov', value: 85 },
+      { month: 'Dec', value: 105 },
+    ],
+    inflectionPoint: 'Sep',
+    stats: {
+      roi: "+260%",
+      cvr: "+143%",
+      cpc: "-51%"
+    }
   },
   {
-    business: "Home Services",
-    region: "UK",
-    avatar: "🏠",
-    roi: "+15 hrs/wk",
-    automated: "Lead capture, quote follow-ups, job scheduling",
-    operationalChange: "Owner stopped manually tracking leads in spreadsheets",
-    impact: "Reduced admin time by ~15 hrs/week, modest revenue lift"
+    business: "Massage Central",
+    headline: "112 Conversions in",
+    subheadline: "22 Days",
+    description: "Relied on Google Ads for leads with $20 CPC but soon after working with us their CPC dropped below $7 with 60% more conversions.",
+    chartData: [
+      { month: 'Jan', value: 30 },
+      { month: 'Feb', value: 28 },
+      { month: 'Mar', value: 32 },
+      { month: 'Apr', value: 35 },
+      { month: 'May', value: 33 },
+      { month: 'Jun', value: 38 },
+      { month: 'Jul', value: 42 },
+      { month: 'Aug', value: 55 },
+      { month: 'Sep', value: 68 },
+      { month: 'Oct', value: 82 },
+      { month: 'Nov', value: 95 },
+      { month: 'Dec', value: 112 },
+    ],
+    inflectionPoint: 'Jul',
+    stats: {
+      roi: "+40%",
+      cvr: "+60%",
+      cpc: ">$7"
+    }
   },
   {
-    business: "Fitness Studio",
-    region: "Australia",
-    avatar: "💪",
-    roi: "+$3,500/mo",
-    automated: "Membership inquiries, class booking, renewal reminders",
-    operationalChange: "Staff reallocated from phone duty to member experience",
-    impact: "Membership retention improved, recovered ~$3,500/mo in lapsed signups"
+    business: "S&P Detailing",
+    headline: "2x Conversions in",
+    subheadline: "30 Days",
+    description: "A drastic increase of 2X leads within 30 days for USA based car detailing business with 180% ROI.",
+    chartData: [
+      { month: 'Jan', value: 20 },
+      { month: 'Feb', value: 22 },
+      { month: 'Mar', value: 18 },
+      { month: 'Apr', value: 25 },
+      { month: 'May', value: 24 },
+      { month: 'Jun', value: 28 },
+      { month: 'Jul', value: 35 },
+      { month: 'Aug', value: 48 },
+      { month: 'Sep', value: 62 },
+      { month: 'Oct', value: 78 },
+      { month: 'Nov', value: 88 },
+      { month: 'Dec', value: 100 },
+    ],
+    inflectionPoint: 'Jul',
+    stats: {
+      roi: "+180%",
+      cvr: "+200%",
+      cpc: ">$9"
+    }
   }
 ];
 
@@ -319,7 +370,7 @@ const WhyScaleX = () => {
           </div>
         </div>
 
-        {/* Client Results Grid with ROI Badges */}
+        {/* Client Results Grid with Real Charts */}
         <div 
           className={`mb-16 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
@@ -332,39 +383,109 @@ const WhyScaleX = () => {
             {caseStudies.map((study, index) => (
               <div 
                 key={index}
-                className="relative p-4 sm:p-5 rounded-xl border border-border/50 bg-card/20 space-y-3 sm:space-y-4 hover:border-primary/30 transition-colors"
+                className="relative p-4 sm:p-5 rounded-xl border border-border/50 bg-card/30 hover:border-primary/30 transition-colors overflow-hidden"
               >
-                {/* ROI Badge */}
-                <div className="absolute -top-2 sm:-top-3 -right-2 sm:-right-3 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-primary text-primary-foreground text-[10px] sm:text-xs font-bold glow-sm">
-                  {study.roi}
+                {/* Headline */}
+                <div className="text-center mb-4">
+                  <h4 className="text-xl sm:text-2xl font-bold text-foreground">{study.headline}</h4>
+                  <h4 className="text-xl sm:text-2xl font-bold text-primary">{study.subheadline}</h4>
                 </div>
-                
-                <div className="flex items-center gap-2 sm:gap-3">
-                  {/* Avatar */}
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-muted/50 border border-border/50 flex items-center justify-center text-lg sm:text-xl">
-                    {study.avatar}
+
+                {/* Chart Container */}
+                <div className="relative bg-muted/20 rounded-lg p-3 mb-4 border border-border/30">
+                  {/* Company Name Badge */}
+                  <div className="absolute top-2 left-2 z-10">
+                    <div className="text-[10px] font-semibold text-foreground/80 uppercase tracking-wider">
+                      {study.business}
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium text-xs sm:text-sm">{study.business}</div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground">{study.region}</div>
+
+                  {/* Description Overlay */}
+                  <div className="absolute top-6 left-2 right-2 z-10">
+                    <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
+                      {study.description.split('but').map((part, i) => 
+                        i === 0 ? <span key={i}>{part}</span> : <span key={i} className="text-primary font-medium">but{part}</span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Chart */}
+                  <div className="h-[140px] sm:h-[160px] mt-14">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={study.chartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.6}/>
+                            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid 
+                          strokeDasharray="3 3" 
+                          stroke="hsl(var(--border))" 
+                          strokeOpacity={0.3}
+                          vertical={true}
+                          horizontal={true}
+                        />
+                        <XAxis 
+                          dataKey="month" 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 8 }}
+                          interval={2}
+                        />
+                        <YAxis 
+                          axisLine={false}
+                          tickLine={false}
+                          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 8 }}
+                          width={25}
+                        />
+                        <ReferenceLine 
+                          x={study.inflectionPoint} 
+                          stroke="hsl(var(--primary))" 
+                          strokeDasharray="4 4" 
+                          strokeOpacity={0.8}
+                        />
+                        <Area 
+                          type="monotone" 
+                          dataKey="value" 
+                          stroke="hsl(var(--foreground))" 
+                          strokeWidth={2}
+                          fillOpacity={1} 
+                          fill={`url(#gradient-${index})`}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
-                
-                <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
-                  <div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">What we automated</div>
-                    <p className="text-foreground/80">{study.automated}</p>
+
+                {/* Stats Footer */}
+                <div className="grid grid-cols-3 gap-2 p-3 rounded-lg bg-[hsl(240,50%,15%)] border border-primary/20">
+                  <div className="text-center">
+                    <div className="text-[10px] text-red-400 font-medium mb-1">ROI</div>
+                    <div className="flex items-center justify-center gap-1">
+                      <ArrowUp className="w-3 h-3 text-green-400" />
+                      <span className="text-sm font-bold text-foreground">{study.stats.roi}</span>
+                    </div>
                   </div>
-                  
-                  <div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">Operational change</div>
-                    <p className="text-foreground/80">{study.operationalChange}</p>
+                  <div className="text-center border-x border-primary/20">
+                    <div className="text-[10px] text-red-400 font-medium mb-1">CVR</div>
+                    <div className="flex items-center justify-center gap-1">
+                      <ArrowUp className="w-3 h-3 text-green-400" />
+                      <span className="text-sm font-bold text-foreground">{study.stats.cvr}</span>
+                    </div>
                   </div>
-                  
-                  <div className="pt-2 sm:pt-3 border-t border-border/30">
-                    <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-1">Outcome</div>
-                    <p className="text-primary font-medium">{study.impact}</p>
+                  <div className="text-center">
+                    <div className="text-[10px] text-red-400 font-medium mb-1">CPC</div>
+                    <div className="flex items-center justify-center gap-1">
+                      <ArrowDown className="w-3 h-3 text-green-400" />
+                      <span className="text-sm font-bold text-foreground">{study.stats.cpc}</span>
+                    </div>
                   </div>
+                </div>
+
+                {/* Business Name */}
+                <div className="mt-4 text-center">
+                  <span className="text-lg font-bold text-foreground">{study.business}</span>
                 </div>
               </div>
             ))}
