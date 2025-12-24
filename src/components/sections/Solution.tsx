@@ -106,6 +106,7 @@ const Solution = () => {
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
   const [isLinkedinWorkflowOpen, setIsLinkedinWorkflowOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showIndicator, setShowIndicator] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -125,7 +126,7 @@ const Solution = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Handle horizontal scroll on vertical scroll
+  // Handle horizontal scroll on vertical scroll - snap to frames
   useEffect(() => {
     const handleScroll = () => {
       if (!horizontalSectionRef.current) return;
@@ -134,16 +135,20 @@ const Solution = () => {
       const windowHeight = window.innerHeight;
       const sectionHeight = horizontalSectionRef.current.offsetHeight;
       
-      // Calculate progress based on section position
-      // Start when section top reaches middle of screen, end when section bottom leaves middle
-      const start = windowHeight * 0.5;
-      const scrollableDistance = sectionHeight - windowHeight * 0.5;
+      // Check if we're in the horizontal scroll zone
+      const isInZone = rect.top <= 0 && rect.bottom >= windowHeight;
+      setShowIndicator(isInZone);
       
-      if (rect.top <= start && rect.bottom >= windowHeight * 0.5) {
-        const scrolled = start - rect.top;
-        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
-        setScrollProgress(progress);
-      } else if (rect.top > start) {
+      // Calculate progress - each frame is 100vh
+      if (isInZone) {
+        const scrolled = -rect.top;
+        const scrollableDistance = sectionHeight - windowHeight;
+        const rawProgress = scrolled / scrollableDistance;
+        
+        // Snap to 0 or 1 based on progress
+        const snappedProgress = rawProgress < 0.5 ? 0 : 1;
+        setScrollProgress(snappedProgress);
+      } else if (rect.top > 0) {
         setScrollProgress(0);
       } else {
         setScrollProgress(1);
@@ -206,23 +211,23 @@ const Solution = () => {
             </p>
           </div>
 
-          {/* Horizontal Scroll Section - Reduced height for faster scroll */}
+          {/* Horizontal Scroll Section - Two full frames */}
           <div 
             ref={horizontalSectionRef}
             className="relative"
-            style={{ height: '120vh' }}
+            style={{ height: '200vh' }}
           >
             {/* Sticky container for horizontal scroll effect */}
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden py-8">
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
               <div 
-                className="flex transition-transform duration-75 ease-out"
+                className="flex transition-transform duration-200 ease-out"
                 style={{ 
                   transform: `translateX(-${scrollProgress * 100}%)`,
                   width: '200%'
                 }}
               >
-                {/* Workflow 1: WhatsApp Sales */}
-                <div className="w-1/2 flex-shrink-0 px-4 lg:px-8">
+                {/* Workflow 1: WhatsApp Sales - Full Frame */}
+                <div className="w-1/2 flex-shrink-0 h-screen flex items-center px-4 lg:px-8">
                   <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
                     {/* Left: WhatsApp Phone Mockup */}
                     <div className="flex justify-center">
@@ -404,8 +409,8 @@ const Solution = () => {
                   </div>
                 </div>
 
-                {/* Workflow 2: LinkedIn Lead Scraper */}
-                <div className="w-1/2 flex-shrink-0 px-4 lg:px-8">
+                {/* Workflow 2: LinkedIn Lead Scraper - Full Frame */}
+                <div className="w-1/2 flex-shrink-0 h-screen flex items-center px-4 lg:px-8">
                   <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
                     {/* Left: LinkedIn Terminal Mockup */}
                     <div className="flex justify-center">
@@ -532,10 +537,10 @@ const Solution = () => {
               </div>
             </div>
 
-            {/* Progress indicator */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2" style={{ opacity: scrollProgress > 0 && scrollProgress < 1 ? 1 : 0, transition: 'opacity 0.3s' }}>
-              <div className={`w-2 h-2 rounded-full transition-all ${scrollProgress < 0.5 ? 'bg-primary w-6' : 'bg-white/30'}`} />
-              <div className={`w-2 h-2 rounded-full transition-all ${scrollProgress >= 0.5 ? 'bg-blue-500 w-6' : 'bg-white/30'}`} />
+            {/* Frame indicator */}
+            <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-3 transition-opacity duration-300 ${showIndicator ? 'opacity-100' : 'opacity-0'}`}>
+              <div className={`w-3 h-3 rounded-full transition-all duration-300 ${scrollProgress === 0 ? 'bg-primary scale-125' : 'bg-white/30'}`} />
+              <div className={`w-3 h-3 rounded-full transition-all duration-300 ${scrollProgress === 1 ? 'bg-blue-500 scale-125' : 'bg-white/30'}`} />
             </div>
           </div>
         </div>
