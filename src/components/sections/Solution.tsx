@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import CircleHighlight from '../CircleHighlight';
 import TextHighlighter from '../TextHighlighter';
 import {
@@ -126,31 +126,28 @@ const Solution = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Scroll-driven horizontal animation
+  // Scroll-driven horizontal animation (robust across page length)
   useEffect(() => {
     const handleScroll = () => {
-      if (!workflowContainerRef.current) return;
-      
       const container = workflowContainerRef.current;
+      if (!container) return;
+
       const rect = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      
-      // Calculate scroll progress within the sticky section
-      // Start when container top hits viewport top, end when container bottom leaves
-      const containerHeight = container.offsetHeight;
-      const scrollStart = -rect.top;
-      const scrollRange = containerHeight - viewportHeight;
-      
-      if (scrollRange > 0) {
-        const progress = Math.max(0, Math.min(1, scrollStart / scrollRange));
-        setScrollProgress(progress);
-      }
+      const viewportHeight = window.innerHeight || 1;
+
+      // Transition completes after ~1 viewport of scrolling while the section is pinned.
+      const progress = Math.max(0, Math.min(1, (-rect.top) / viewportHeight));
+      setScrollProgress(progress);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   return (
@@ -192,7 +189,7 @@ const Solution = () => {
         <div
           ref={workflowContainerRef}
           className="relative"
-          style={{ height: '300vh' }} // Triple height for more scroll space
+          style={{ height: '220vh' }}
         >
           {/* Sticky container that pins content while scrolling */}
           <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
