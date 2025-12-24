@@ -10,22 +10,23 @@ const CircleHighlight: React.FC<CircleHighlightProps> = ({ children, className =
     <span className={`relative inline-block ${className}`}>
       {children}
       <svg
-        className="absolute -inset-x-3 -inset-y-2 w-[calc(100%+24px)] h-[calc(100%+16px)] pointer-events-none"
-        viewBox="0 0 200 70"
+        className="absolute -inset-x-4 -inset-y-3 w-[calc(100%+32px)] h-[calc(100%+24px)] pointer-events-none"
+        viewBox="0 0 220 80"
         preserveAspectRatio="none"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Hand-drawn imperfect ellipse path */}
+        {/* Rough hand-drawn ellipse with trailing stroke */}
         <path
-          d="M 15 38 
-             C 8 28, 12 18, 35 12 
-             C 60 5, 95 3, 140 6 
-             C 175 9, 195 18, 193 32 
-             C 191 48, 170 58, 135 62 
-             C 100 66, 55 65, 30 58 
-             C 12 52, 6 45, 10 38
-             C 12 34, 18 42, 15 38"
+          d="M 180 18 
+             C 200 22, 210 32, 208 42 
+             C 206 55, 185 65, 150 68 
+             C 110 72, 60 70, 30 62 
+             C 10 56, 2 45, 5 35 
+             C 8 24, 25 15, 55 11 
+             C 90 6, 140 6, 175 12
+             C 190 14, 200 18, 210 12
+             C 215 8, 218 3, 220 0"
           stroke="hsl(var(--primary))"
           strokeWidth="2.5"
           strokeLinecap="round"
