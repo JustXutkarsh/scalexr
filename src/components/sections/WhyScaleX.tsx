@@ -85,15 +85,15 @@ const WhyScaleX = () => {
         <div>
           {caseStudies.map((study, index) => (
             <div key={index}>
-              {/* Headline */}
-              <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-1">
-                {study.headline}
-              </h3>
-              
               {/* Subline */}
-              <p className="text-sm text-muted-foreground mb-6">
+              <p className="text-sm font-medium text-muted-foreground mb-1">
                 {study.subline}
               </p>
+
+              {/* Headline */}
+              <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-6">
+                {study.headline}
+              </h3>
 
               {/* Three Column Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
