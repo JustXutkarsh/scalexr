@@ -26,24 +26,40 @@ import jewelryAnklet from "@/assets/jewelry-anklet.png";
 
 const modules = [
   {
-    icon: Bot,
-    title: "AI Receptionist",
-    description: "Answers every call & message instantly",
+    icon: Zap,
+    title: "Trigger",
+    description: "Captures leads from any channel",
+    step: "01",
+    color: "from-amber-500/20 to-orange-500/20",
+    borderColor: "border-amber-500/30",
+    iconColor: "text-amber-400",
+  },
+  {
+    icon: Brain,
+    title: "AI Agent",
+    description: "Understands intent & responds",
+    step: "02",
+    color: "from-emerald-500/20 to-teal-500/20",
+    borderColor: "border-emerald-500/30",
+    iconColor: "text-emerald-400",
   },
   {
     icon: Calendar,
-    title: "Smart Booking",
-    description: "Books appointments automatically",
-  },
-  {
-    icon: MessageSquare,
-    title: "Lead Follow-ups",
-    description: "Never lets a lead go cold",
+    title: "Auto Action",
+    description: "Books appointments instantly",
+    step: "03",
+    color: "from-blue-500/20 to-indigo-500/20",
+    borderColor: "border-blue-500/30",
+    iconColor: "text-blue-400",
   },
   {
     icon: Database,
-    title: "CRM Updates",
-    description: "Your data stays organized",
+    title: "Sync & Store",
+    description: "Updates CRM in real-time",
+    step: "04",
+    color: "from-violet-500/20 to-purple-500/20",
+    borderColor: "border-violet-500/30",
+    iconColor: "text-violet-400",
   },
 ];
 
@@ -398,14 +414,24 @@ const Solution = () => {
             {modules.map((module, index) => (
               <div
                 key={index}
-                className={`p-4 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 hover:scale-105 ${
+                className={`relative p-4 rounded-xl border bg-gradient-to-br ${module.color} ${module.borderColor} backdrop-blur-sm hover:scale-105 transition-all duration-500 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
                 style={{ transitionDelay: `${800 + index * 100}ms` }}
               >
+                {/* Step number */}
+                <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center">
+                  <span className="text-[10px] font-bold text-muted-foreground">{module.step}</span>
+                </div>
+                
+                {/* Connector line */}
+                {index < modules.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-gradient-to-r from-border to-transparent" />
+                )}
+                
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <module.icon className="w-6 h-6 text-primary" />
+                  <div className={`w-12 h-12 rounded-xl bg-background/50 border ${module.borderColor} flex items-center justify-center`}>
+                    <module.icon className={`w-6 h-6 ${module.iconColor}`} />
                   </div>
                   <div>
                     <h4 className="font-semibold text-sm text-foreground">{module.title}</h4>
