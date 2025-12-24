@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import CircleHighlight from '../CircleHighlight';
 import {
   Bot,
   Calendar,
@@ -149,7 +150,7 @@ const Solution = () => {
         >
           {/* Architecture heading */}
           <div className="text-center mb-10">
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX Intelligent Architecture</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
             <p className="text-muted-foreground text-sm sm:text-base">
               Proprietary node-based logic driving 24/7 customer conversion.
             </p>

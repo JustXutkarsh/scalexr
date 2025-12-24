@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
+import CircleHighlight from '../CircleHighlight';
 
 const principles = [
   {
@@ -103,7 +104,7 @@ const OperatingPrinciples = () => {
           style={{ transitionDelay: '100ms' }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground max-w-xl leading-tight">
-            How ScaleX actually builds automation
+            How <CircleHighlight>ScaleX</CircleHighlight> actually builds automation
           </h2>
         </div>
 
