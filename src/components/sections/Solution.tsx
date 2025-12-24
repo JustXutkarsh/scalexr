@@ -16,7 +16,6 @@ import {
   Maximize2,
   X,
   Mic,
-  Image as ImageIcon,
   ShoppingCart,
   Sparkles,
   Linkedin,
@@ -25,7 +24,6 @@ import {
   Globe,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import n8nWorkflow from "@/assets/n8n-workflow.png";
 import linkedinWorkflow from "@/assets/linkedin-workflow.png";
 import jewelryHairAccessory from "@/assets/jewelry-hair-accessory.png";
@@ -103,10 +101,11 @@ const linkedinMessages = [
 
 const Solution = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const horizontalSectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
   const [isLinkedinWorkflowOpen, setIsLinkedinWorkflowOpen] = useState(false);
-  const [activeWorkflow, setActiveWorkflow] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -124,6 +123,37 @@ const Solution = () => {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  // Handle horizontal scroll on vertical scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!horizontalSectionRef.current) return;
+      
+      const rect = horizontalSectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = horizontalSectionRef.current.offsetHeight;
+      
+      // Calculate progress based on section position
+      // Start when section top reaches middle of screen, end when section bottom leaves middle
+      const start = windowHeight * 0.5;
+      const scrollableDistance = sectionHeight - windowHeight * 0.5;
+      
+      if (rect.top <= start && rect.bottom >= windowHeight * 0.5) {
+        const scrolled = start - rect.top;
+        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+        setScrollProgress(progress);
+      } else if (rect.top > start) {
+        setScrollProgress(0);
+      } else {
+        setScrollProgress(1);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -176,394 +206,324 @@ const Solution = () => {
             </p>
           </div>
 
-          {/* Workflow Navigation Dots */}
-          <div className="flex justify-center gap-3 mb-6">
-            <button
-              onClick={() => setActiveWorkflow(0)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                activeWorkflow === 0
-                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                  : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
-              }`}
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp Sales</span>
-            </button>
-            <button
-              onClick={() => setActiveWorkflow(1)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                activeWorkflow === 1
-                  ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                  : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
-              }`}
-            >
-              <Linkedin className="w-4 h-4" />
-              <span>LinkedIn Leads</span>
-            </button>
-          </div>
+          {/* Horizontal Scroll Section - Extra height for scroll distance */}
+          <div 
+            ref={horizontalSectionRef}
+            className="relative"
+            style={{ height: '200vh' }}
+          >
+            {/* Sticky container for horizontal scroll effect */}
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+              <div 
+                className="flex transition-transform duration-100 ease-out"
+                style={{ 
+                  transform: `translateX(-${scrollProgress * 100}%)`,
+                  width: '200%'
+                }}
+              >
+                {/* Workflow 1: WhatsApp Sales */}
+                <div className="w-1/2 flex-shrink-0 px-4">
+                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                    {/* Left: WhatsApp Phone Mockup */}
+                    <div className="flex justify-center">
+                      <div className="relative">
+                        {/* Phone frame */}
+                        <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                          {/* Phone notch */}
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
-          {/* Horizontal Scroll Container for Workflows */}
-          <ScrollArea className="w-full">
-            <div 
-              className="flex gap-8 transition-transform duration-500 ease-out pb-4"
-              style={{ transform: `translateX(-${activeWorkflow * 100}%)` }}
-            >
-              {/* Workflow 1: WhatsApp Sales */}
-              <div className="min-w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-                  {/* Left: WhatsApp Phone Mockup */}
-                  <div
-                    className={`flex justify-center transition-all duration-700 ${
-                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-                    }`}
-                    style={{ transitionDelay: "400ms" }}
-                  >
-                    <div className="relative">
-                      {/* Phone frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
-                        {/* Phone notch */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
-
-                        {/* Screen */}
-                        <div className="relative bg-[#0b141a] rounded-[24px] sm:rounded-[32px] overflow-hidden">
-                          {/* WhatsApp header */}
-                          <div className="bg-[#1f2c34] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                              <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
+                          {/* Screen */}
+                          <div className="relative bg-[#0b141a] rounded-[24px] sm:rounded-[32px] overflow-hidden">
+                            {/* WhatsApp header */}
+                            <div className="bg-[#1f2c34] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
+                                <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white text-xs sm:text-sm font-medium truncate">Kanyadhan Jewellers</p>
+                                <p className="text-[9px] sm:text-[10px] text-green-400 flex items-center gap-1">
+                                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
+                                  Online • 24/7 Sales Assistant
+                                </p>
+                              </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-white text-xs sm:text-sm font-medium truncate">Kanyadhan Jewellers</p>
-                              <p className="text-[9px] sm:text-[10px] text-green-400 flex items-center gap-1">
-                                <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
-                                Online • 24/7 Sales Assistant
-                              </p>
-                            </div>
-                          </div>
 
-                          {/* Chat messages */}
-                          <div className="p-2 sm:p-3 space-y-2 h-[320px] sm:h-[420px] overflow-y-auto">
-                            {whatsappMessages.map((msg, index) => (
-                              <div
-                                key={index}
-                                className={`flex ${msg.type === "sent" ? "justify-end" : "justify-start"}`}
-                                style={{
-                                  opacity: isVisible ? 1 : 0,
-                                  transform: isVisible ? "translateY(0)" : "translateY(10px)",
-                                  transition: `all 0.5s ease-out ${600 + index * 150}ms`,
-                                }}
-                              >
+                            {/* Chat messages */}
+                            <div className="p-2 sm:p-3 space-y-2 h-[280px] sm:h-[360px] overflow-y-auto">
+                              {whatsappMessages.map((msg, index) => (
                                 <div
-                                  className={`max-w-[85%] px-3 py-2 rounded-lg text-xs ${
-                                    msg.type === "sent"
-                                      ? "bg-[#005c4b] text-white rounded-br-none"
-                                      : "bg-[#1f2c34] text-white rounded-bl-none"
-                                  }`}
+                                  key={index}
+                                  className={`flex ${msg.type === "sent" ? "justify-end" : "justify-start"}`}
                                 >
-                                  <p className="whitespace-pre-line">{msg.text}</p>
+                                  <div
+                                    className={`max-w-[85%] px-3 py-2 rounded-lg text-xs ${
+                                      msg.type === "sent"
+                                        ? "bg-[#005c4b] text-white rounded-br-none"
+                                        : "bg-[#1f2c34] text-white rounded-bl-none"
+                                    }`}
+                                  >
+                                    <p className="whitespace-pre-line">{msg.text}</p>
 
-                                  {/* Product recommendations with thumbnails */}
-                                  {msg.products && (
-                                    <div className="mt-2 space-y-1.5">
-                                      {msg.products.map((product, pIdx) => (
-                                        <div key={pIdx} className="flex items-center gap-2 bg-white/10 rounded-lg p-1.5">
-                                          <img
-                                            src={product.image}
-                                            alt={product.name}
-                                            className="w-10 h-10 rounded-md object-cover"
-                                          />
-                                          <div className="flex-1 min-w-0">
-                                            <p className="text-[10px] font-medium truncate">{product.name}</p>
-                                            <p className="text-[9px] text-emerald-300">{product.price}</p>
+                                    {msg.products && (
+                                      <div className="mt-2 space-y-1.5">
+                                        {msg.products.map((product, pIdx) => (
+                                          <div key={pIdx} className="flex items-center gap-2 bg-white/10 rounded-lg p-1.5">
+                                            <img
+                                              src={product.image}
+                                              alt={product.name}
+                                              className="w-10 h-10 rounded-md object-cover"
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                              <p className="text-[10px] font-medium truncate">{product.name}</p>
+                                              <p className="text-[9px] text-emerald-300">{product.price}</p>
+                                            </div>
                                           </div>
-                                        </div>
-                                      ))}
-                                      <p className="text-[10px] mt-1.5 opacity-80">
-                                        Would you like to see photos or product links?
-                                      </p>
+                                        ))}
+                                        <p className="text-[10px] mt-1.5 opacity-80">
+                                          Would you like to see photos or product links?
+                                        </p>
+                                      </div>
+                                    )}
+
+                                    {msg.images && (
+                                      <div className="mt-2 flex gap-1.5">
+                                        {msg.images.map((img, imgIdx) => (
+                                          <img
+                                            key={imgIdx}
+                                            src={img}
+                                            alt={`Product ${imgIdx + 1}`}
+                                            className="w-16 h-16 rounded-lg object-cover border border-white/20"
+                                          />
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {msg.afterText && <p className="whitespace-pre-line mt-2">{msg.afterText}</p>}
+
+                                    <div className="flex items-center justify-end gap-1 mt-1">
+                                      {msg.type === "sent" && <Check className="w-3 h-3 text-blue-400" />}
                                     </div>
-                                  )}
-
-                                  {/* Image gallery */}
-                                  {msg.images && (
-                                    <div className="mt-2 flex gap-1.5">
-                                      {msg.images.map((img, imgIdx) => (
-                                        <img
-                                          key={imgIdx}
-                                          src={img}
-                                          alt={`Product ${imgIdx + 1}`}
-                                          className="w-16 h-16 rounded-lg object-cover border border-white/20"
-                                        />
-                                      ))}
-                                    </div>
-                                  )}
-
-                                  {/* After text (for messages with images) */}
-                                  {msg.afterText && <p className="whitespace-pre-line mt-2">{msg.afterText}</p>}
-
-                                  <div className="flex items-center justify-end gap-1 mt-1">
-                                    {msg.type === "sent" && <Check className="w-3 h-3 text-blue-400" />}
                                   </div>
                                 </div>
+                              ))}
+                            </div>
+
+                            {/* Input bar */}
+                            <div className="bg-[#1f2c34] px-2 sm:px-3 py-2 flex items-center gap-2">
+                              <div className="flex-1 bg-[#2a3942] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
+                                Type a message...
                               </div>
-                            ))}
-                          </div>
-
-                          {/* Input bar */}
-                          <div className="bg-[#1f2c34] px-2 sm:px-3 py-2 flex items-center gap-2">
-                            <div className="flex-1 bg-[#2a3942] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
-                              Type a message...
-                            </div>
-                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
-                              <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground" />
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
+                                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground" />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Decorative glow */}
-                      <div className="absolute -inset-4 bg-gradient-to-r from-green-500/20 via-primary/20 to-blue-500/20 rounded-[50px] blur-2xl -z-10 opacity-60" />
+                        {/* Decorative glow */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-green-500/20 via-primary/20 to-blue-500/20 rounded-[50px] blur-2xl -z-10 opacity-60" />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right: n8n Workflow in Glassmorphism container */}
-                  <div
-                    className={`relative transition-all duration-700 ${
-                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-                    }`}
-                    style={{ transitionDelay: "500ms" }}
-                  >
-                    {/* Blue outer glow */}
-                    <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
-                    <div className="absolute -inset-2 bg-primary/10 rounded-2xl blur-xl" />
+                    {/* Right: n8n Workflow */}
+                    <div className="relative">
+                      <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
+                      <div className="absolute -inset-2 bg-primary/10 rounded-2xl blur-xl" />
 
-                    {/* Glassmorphism container */}
-                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
-                      {/* Technology badges */}
-                      <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
-                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
-                          <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">ScaleX</span>
+                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
+                        <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
+                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
+                            <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
+                            <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">ScaleX</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
-                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
-                          <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">Vector Search</span>
+                        <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
+                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
+                            <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
+                            <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">Vector Search</span>
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Actual n8n Workflow Image - Clickable */}
-                      <div
-                        className="relative rounded-xl overflow-hidden cursor-pointer group"
-                        onClick={() => setIsWorkflowOpen(true)}
-                      >
-                        <img
-                          src={n8nWorkflow}
-                          alt="ScaleX n8n Automation Workflow showing WhatsApp integration, AI Agent, OpenAI, and Supabase Vector Store"
-                          className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
-                        />
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                            <Maximize2 className="w-4 h-4 text-white" />
-                            <span className="text-white text-sm font-medium">View Full Workflow</span>
+                        <div
+                          className="relative rounded-xl overflow-hidden cursor-pointer group"
+                          onClick={() => setIsWorkflowOpen(true)}
+                        >
+                          <img
+                            src={n8nWorkflow}
+                            alt="ScaleX n8n Automation Workflow"
+                            className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                              <Maximize2 className="w-4 h-4 text-white" />
+                              <span className="text-white text-sm font-medium">View Full Workflow</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1.5">
+                            <Clock className="w-3 h-3 text-primary" />
+                            <span>Real-time Processing</span>
+                          </div>
+                          <span className="text-white/20">•</span>
+                          <div className="flex items-center gap-1.5">
+                            <Zap className="w-3 h-3 text-yellow-500" />
+                            <span>24/7 Automation</span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Processing indicator */}
-                      <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="w-3 h-3 text-primary" />
-                          <span>Real-time Processing</span>
-                        </div>
-                        <span className="text-white/20">•</span>
-                        <div className="flex items-center gap-1.5">
-                          <Zap className="w-3 h-3 text-yellow-500" />
-                          <span>24/7 Automation</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Workflow Description Note */}
-                    <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
-                      <div className="flex items-start gap-2 sm:gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
-                        </div>
-                        <div>
-                          <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
-                            How This Automation Works
-                          </h4>
-                          <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <Mic className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary mt-0.5 flex-shrink-0" />
-                              <span>Understands text, voice & images</span>
-                            </li>
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
-                              <span>AI analyzes intent & searches catalog</span>
-                            </li>
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <ShoppingCart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
-                              <span>Recommends products 24/7</span>
-                            </li>
-                          </ul>
+                      <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
+                              How This Automation Works
+                            </h4>
+                            <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <Mic className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary mt-0.5 flex-shrink-0" />
+                                <span>Understands text, voice & images</span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
+                                <span>AI analyzes intent & searches catalog</span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <ShoppingCart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                                <span>Recommends products 24/7</span>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Workflow 2: LinkedIn Lead Scraper */}
-              <div className="min-w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-                  {/* Left: LinkedIn Terminal Mockup */}
-                  <div
-                    className={`flex justify-center transition-all duration-700 ${
-                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-                    }`}
-                    style={{ transitionDelay: "400ms" }}
-                  >
-                    <div className="relative">
-                      {/* Terminal frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[16px] sm:rounded-[20px] p-2 shadow-2xl shadow-black/50">
-                        {/* Terminal header */}
-                        <div className="bg-[#1a1a2e] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 rounded-t-lg">
-                          <div className="flex gap-1.5">
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
-                          </div>
-                          <div className="flex-1 text-center">
-                            <p className="text-white/60 text-[10px] sm:text-xs font-mono">linkedin-scraper.js</p>
-                          </div>
-                        </div>
-
-                        {/* Terminal content */}
-                        <div className="bg-[#0d1117] rounded-b-lg p-3 sm:p-4 h-[320px] sm:h-[420px] overflow-y-auto font-mono text-[10px] sm:text-xs">
-                          {linkedinMessages.map((msg, index) => (
-                            <div
-                              key={index}
-                              className="mb-2"
-                              style={{
-                                opacity: isVisible ? 1 : 0,
-                                transform: isVisible ? "translateY(0)" : "translateY(10px)",
-                                transition: `all 0.5s ease-out ${600 + index * 200}ms`,
-                              }}
-                            >
-                              {msg.type === "system" && (
-                                <p className="text-green-400">{msg.text}</p>
-                              )}
-                              {msg.type === "result" && (
-                                <div className="ml-2 p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
-                                  <p className="text-blue-300 font-medium">{msg.name}</p>
-                                  <p className="text-white/60 text-[9px] sm:text-[10px]">{msg.title}</p>
-                                  <p className="text-blue-400/60 text-[8px] sm:text-[9px]">{msg.url}</p>
-                                </div>
-                              )}
+                {/* Workflow 2: LinkedIn Lead Scraper */}
+                <div className="w-1/2 flex-shrink-0 px-4">
+                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                    {/* Left: LinkedIn Terminal Mockup */}
+                    <div className="flex justify-center">
+                      <div className="relative">
+                        <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[16px] sm:rounded-[20px] p-2 shadow-2xl shadow-black/50">
+                          <div className="bg-[#1a1a2e] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 rounded-t-lg">
+                            <div className="flex gap-1.5">
+                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
+                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
+                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
                             </div>
-                          ))}
-                          <div className="flex items-center gap-1 text-white/40 mt-4">
-                            <span className="animate-pulse">▊</span>
+                            <div className="flex-1 text-center">
+                              <p className="text-white/60 text-[10px] sm:text-xs font-mono">linkedin-scraper.js</p>
+                            </div>
+                          </div>
+
+                          <div className="bg-[#0d1117] rounded-b-lg p-3 sm:p-4 h-[280px] sm:h-[360px] overflow-y-auto font-mono text-[10px] sm:text-xs">
+                            {linkedinMessages.map((msg, index) => (
+                              <div key={index} className="mb-2">
+                                {msg.type === "system" && (
+                                  <p className="text-green-400">{msg.text}</p>
+                                )}
+                                {msg.type === "result" && (
+                                  <div className="ml-2 p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
+                                    <p className="text-blue-300 font-medium">{msg.name}</p>
+                                    <p className="text-white/60 text-[9px] sm:text-[10px]">{msg.title}</p>
+                                    <p className="text-blue-400/60 text-[8px] sm:text-[9px]">{msg.url}</p>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                            <div className="flex items-center gap-1 text-white/40 mt-4">
+                              <span className="animate-pulse">▊</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-[30px] blur-2xl -z-10 opacity-60" />
+                      </div>
+                    </div>
+
+                    {/* Right: LinkedIn Workflow */}
+                    <div className="relative">
+                      <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
+                      <div className="absolute -inset-2 bg-blue-600/10 rounded-2xl blur-xl" />
+
+                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
+                        <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
+                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
+                            <Linkedin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
+                            <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">LinkedIn</span>
+                          </div>
+                        </div>
+                        <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
+                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-500/30 rounded-full">
+                            <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400" />
+                            <span className="text-[8px] sm:text-[10px] font-medium text-green-300">Google Sheets</span>
+                          </div>
+                        </div>
+
+                        <div
+                          className="relative rounded-xl overflow-hidden cursor-pointer group"
+                          onClick={() => setIsLinkedinWorkflowOpen(true)}
+                        >
+                          <img
+                            src={linkedinWorkflow}
+                            alt="ScaleX LinkedIn Lead Scraper Automation Workflow"
+                            className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                              <Maximize2 className="w-4 h-4 text-white" />
+                              <span className="text-white text-sm font-medium">View Full Workflow</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1.5">
+                            <Users className="w-3 h-3 text-blue-400" />
+                            <span>Up to 1000 Leads</span>
+                          </div>
+                          <span className="text-white/20">•</span>
+                          <div className="flex items-center gap-1.5">
+                            <Globe className="w-3 h-3 text-green-400" />
+                            <span>Any Niche & Location</span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Decorative glow */}
-                      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-[30px] blur-2xl -z-10 opacity-60" />
-                    </div>
-                  </div>
-
-                  {/* Right: LinkedIn Workflow in Glassmorphism container */}
-                  <div
-                    className={`relative transition-all duration-700 ${
-                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-                    }`}
-                    style={{ transitionDelay: "500ms" }}
-                  >
-                    {/* Blue outer glow */}
-                    <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
-                    <div className="absolute -inset-2 bg-blue-600/10 rounded-2xl blur-xl" />
-
-                    {/* Glassmorphism container */}
-                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
-                      {/* Technology badges */}
-                      <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
-                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
-                          <Linkedin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">LinkedIn</span>
-                        </div>
-                      </div>
-                      <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
-                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-500/30 rounded-full">
-                          <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-green-300">Google Sheets</span>
-                        </div>
-                      </div>
-
-                      {/* LinkedIn Workflow Image - Clickable */}
-                      <div
-                        className="relative rounded-xl overflow-hidden cursor-pointer group"
-                        onClick={() => setIsLinkedinWorkflowOpen(true)}
-                      >
-                        <img
-                          src={linkedinWorkflow}
-                          alt="ScaleX LinkedIn Lead Scraper Automation Workflow"
-                          className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
-                        />
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                            <Maximize2 className="w-4 h-4 text-white" />
-                            <span className="text-white text-sm font-medium">View Full Workflow</span>
+                      <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 border border-white/10">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" />
                           </div>
-                        </div>
-                      </div>
-
-                      {/* Processing indicator */}
-                      <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-3 h-3 text-blue-400" />
-                          <span>Up to 1000 Leads</span>
-                        </div>
-                        <span className="text-white/20">•</span>
-                        <div className="flex items-center gap-1.5">
-                          <Globe className="w-3 h-3 text-green-400" />
-                          <span>Any Niche & Location</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Workflow Description Note */}
-                    <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 border border-white/10">
-                      <div className="flex items-start gap-2 sm:gap-3">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" />
-                        </div>
-                        <div>
-                          <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
-                            How This Automation Works
-                          </h4>
-                          <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
-                              <span>Finds LinkedIn profiles via Google Search</span>
-                            </li>
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400 mt-0.5 flex-shrink-0" />
-                              <span>Scrapes name, title, link & description</span>
-                            </li>
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400 mt-0.5 flex-shrink-0" />
-                              <span>Exports leads to Google Sheets in real-time</span>
-                            </li>
-                            <li className="flex items-start gap-1.5 sm:gap-2">
-                              <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-400 mt-0.5 flex-shrink-0" />
-                              <span>Handles pagination for up to 1000 results</span>
-                            </li>
-                          </ul>
+                          <div>
+                            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
+                              How This Automation Works
+                            </h4>
+                            <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                                <span>Finds LinkedIn profiles via Google Search</span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                                <span>Scrapes name, title, link & description</span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400 mt-0.5 flex-shrink-0" />
+                                <span>Exports leads to Google Sheets in real-time</span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-400 mt-0.5 flex-shrink-0" />
+                                <span>Handles pagination for up to 1000 results</span>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -571,23 +531,12 @@ const Solution = () => {
                 </div>
               </div>
             </div>
-            <ScrollBar orientation="horizontal" className="opacity-0" />
-          </ScrollArea>
 
-          {/* Workflow indicator dots */}
-          <div className="flex justify-center gap-2 mt-6">
-            <button
-              onClick={() => setActiveWorkflow(0)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                activeWorkflow === 0 ? "bg-primary w-6" : "bg-white/20 hover:bg-white/40"
-              }`}
-            />
-            <button
-              onClick={() => setActiveWorkflow(1)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                activeWorkflow === 1 ? "bg-blue-500 w-6" : "bg-white/20 hover:bg-white/40"
-              }`}
-            />
+            {/* Progress indicator */}
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2" style={{ opacity: scrollProgress > 0 && scrollProgress < 1 ? 1 : 0, transition: 'opacity 0.3s' }}>
+              <div className={`w-2 h-2 rounded-full transition-all ${scrollProgress < 0.5 ? 'bg-primary w-6' : 'bg-white/30'}`} />
+              <div className={`w-2 h-2 rounded-full transition-all ${scrollProgress >= 0.5 ? 'bg-blue-500 w-6' : 'bg-white/30'}`} />
+            </div>
           </div>
         </div>
 
