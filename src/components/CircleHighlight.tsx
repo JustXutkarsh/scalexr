@@ -10,7 +10,7 @@ const CircleHighlight: React.FC<CircleHighlightProps> = ({ children, className =
     <span className={`relative inline-block ${className}`}>
       {children}
       <svg
-        className="absolute -inset-x-4 -inset-y-3 w-[calc(100%+32px)] h-[calc(100%+24px)] pointer-events-none"
+        className="absolute -inset-x-4 -inset-y-1 top-1 w-[calc(100%+32px)] h-[calc(100%+16px)] pointer-events-none"
         viewBox="0 0 220 80"
         preserveAspectRatio="none"
         fill="none"
