@@ -34,8 +34,8 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 lg:py-0">
-        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
+      <div className="relative z-10 container mx-auto px-4 py-20 lg:py-0 pt-32 lg:pt-24">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto mt-8 lg:mt-16">
           
           {/* Top Label */}
           <div 
