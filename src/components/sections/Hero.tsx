@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Building2, Phone, Zap, Calendar, DollarSign } from 'lucide-react';
+import { ArrowRight, Phone, Zap, Calendar, DollarSign } from 'lucide-react';
+import CircleHighlight from '../CircleHighlight';
 
 const Hero = () => {
   const [mounted, setMounted] = useState(false);
@@ -38,12 +39,12 @@ const Hero = () => {
           
           {/* Top Label */}
           <div 
-            className={`mb-4 transition-all duration-500 ${
+            className={`mb-6 transition-all duration-500 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            <span className="text-sm sm:text-base font-medium text-muted-foreground tracking-wide">
-              Built on 100+ Automation and Conversion Experiments
+            <span className="text-base sm:text-lg md:text-xl font-bold text-foreground tracking-wide">
+              <CircleHighlight>Built on 100+ Automations</CircleHighlight> and Conversion Experiments
             </span>
           </div>
 
