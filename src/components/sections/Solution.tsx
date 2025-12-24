@@ -206,57 +206,57 @@ const Solution = () => {
             </p>
           </div>
 
-          {/* Horizontal Scroll Section - Extra height for scroll distance */}
+          {/* Horizontal Scroll Section - Reduced height for faster scroll */}
           <div 
             ref={horizontalSectionRef}
             className="relative"
-            style={{ height: '200vh' }}
+            style={{ height: '120vh' }}
           >
             {/* Sticky container for horizontal scroll effect */}
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden py-8">
               <div 
-                className="flex transition-transform duration-100 ease-out"
+                className="flex transition-transform duration-75 ease-out"
                 style={{ 
                   transform: `translateX(-${scrollProgress * 100}%)`,
                   width: '200%'
                 }}
               >
                 {/* Workflow 1: WhatsApp Sales */}
-                <div className="w-1/2 flex-shrink-0 px-4">
-                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                <div className="w-1/2 flex-shrink-0 px-4 lg:px-8">
+                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
                     {/* Left: WhatsApp Phone Mockup */}
                     <div className="flex justify-center">
                       <div className="relative">
                         {/* Phone frame */}
-                        <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                        <div className="relative w-[280px] sm:w-[340px] lg:w-[380px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[36px] sm:rounded-[44px] p-2.5 shadow-2xl shadow-black/50">
                           {/* Phone notch */}
-                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-6 sm:h-7 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
                           {/* Screen */}
-                          <div className="relative bg-[#0b141a] rounded-[24px] sm:rounded-[32px] overflow-hidden">
+                          <div className="relative bg-[#0b141a] rounded-[28px] sm:rounded-[36px] overflow-hidden">
                             {/* WhatsApp header */}
-                            <div className="bg-[#1f2c34] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                                <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
+                            <div className="bg-[#1f2c34] px-4 sm:px-5 py-3 sm:py-4 flex items-center gap-3 sm:gap-4">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
+                                <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-white text-xs sm:text-sm font-medium truncate">Kanyadhan Jewellers</p>
-                                <p className="text-[9px] sm:text-[10px] text-green-400 flex items-center gap-1">
-                                  <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
+                                <p className="text-white text-sm sm:text-base font-medium truncate">Kanyadhan Jewellers</p>
+                                <p className="text-[10px] sm:text-xs text-green-400 flex items-center gap-1">
+                                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse" />
                                   Online • 24/7 Sales Assistant
                                 </p>
                               </div>
                             </div>
 
                             {/* Chat messages */}
-                            <div className="p-2 sm:p-3 space-y-2 h-[280px] sm:h-[360px] overflow-y-auto">
+                            <div className="p-3 sm:p-4 space-y-2.5 h-[320px] sm:h-[400px] lg:h-[440px] overflow-y-auto">
                               {whatsappMessages.map((msg, index) => (
                                 <div
                                   key={index}
                                   className={`flex ${msg.type === "sent" ? "justify-end" : "justify-start"}`}
                                 >
                                   <div
-                                    className={`max-w-[85%] px-3 py-2 rounded-lg text-xs ${
+                                    className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-sm ${
                                       msg.type === "sent"
                                         ? "bg-[#005c4b] text-white rounded-br-none"
                                         : "bg-[#1f2c34] text-white rounded-bl-none"
@@ -265,34 +265,34 @@ const Solution = () => {
                                     <p className="whitespace-pre-line">{msg.text}</p>
 
                                     {msg.products && (
-                                      <div className="mt-2 space-y-1.5">
+                                      <div className="mt-2.5 space-y-2">
                                         {msg.products.map((product, pIdx) => (
-                                          <div key={pIdx} className="flex items-center gap-2 bg-white/10 rounded-lg p-1.5">
+                                          <div key={pIdx} className="flex items-center gap-2.5 bg-white/10 rounded-lg p-2">
                                             <img
                                               src={product.image}
                                               alt={product.name}
-                                              className="w-10 h-10 rounded-md object-cover"
+                                              className="w-12 h-12 rounded-md object-cover"
                                             />
                                             <div className="flex-1 min-w-0">
-                                              <p className="text-[10px] font-medium truncate">{product.name}</p>
-                                              <p className="text-[9px] text-emerald-300">{product.price}</p>
+                                              <p className="text-xs font-medium truncate">{product.name}</p>
+                                              <p className="text-[10px] text-emerald-300">{product.price}</p>
                                             </div>
                                           </div>
                                         ))}
-                                        <p className="text-[10px] mt-1.5 opacity-80">
+                                        <p className="text-xs mt-2 opacity-80">
                                           Would you like to see photos or product links?
                                         </p>
                                       </div>
                                     )}
 
                                     {msg.images && (
-                                      <div className="mt-2 flex gap-1.5">
+                                      <div className="mt-2.5 flex gap-2">
                                         {msg.images.map((img, imgIdx) => (
                                           <img
                                             key={imgIdx}
                                             src={img}
                                             alt={`Product ${imgIdx + 1}`}
-                                            className="w-16 h-16 rounded-lg object-cover border border-white/20"
+                                            className="w-20 h-20 rounded-lg object-cover border border-white/20"
                                           />
                                         ))}
                                       </div>
@@ -309,12 +309,12 @@ const Solution = () => {
                             </div>
 
                             {/* Input bar */}
-                            <div className="bg-[#1f2c34] px-2 sm:px-3 py-2 flex items-center gap-2">
-                              <div className="flex-1 bg-[#2a3942] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
+                            <div className="bg-[#1f2c34] px-3 sm:px-4 py-2.5 flex items-center gap-2.5">
+                              <div className="flex-1 bg-[#2a3942] rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm text-white/50">
                                 Type a message...
                               </div>
-                              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
-                                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary-foreground" />
+                              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center">
+                                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
                               </div>
                             </div>
                           </div>
@@ -327,73 +327,73 @@ const Solution = () => {
 
                     {/* Right: n8n Workflow */}
                     <div className="relative">
-                      <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
-                      <div className="absolute -inset-2 bg-primary/10 rounded-2xl blur-xl" />
+                      <div className="absolute -inset-6 bg-blue-500/20 rounded-3xl blur-2xl" />
+                      <div className="absolute -inset-3 bg-primary/10 rounded-2xl blur-xl" />
 
-                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
-                        <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
-                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
-                            <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
-                            <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">ScaleX</span>
+                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_0_80px_-15px_rgba(59,130,246,0.5)]">
+                        <div className="absolute -top-4 right-3 sm:right-6 flex gap-2 z-20">
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
+                            <Brain className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
+                            <span className="text-[10px] sm:text-xs font-medium text-emerald-300">ScaleX</span>
                           </div>
                         </div>
-                        <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
-                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
-                            <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
-                            <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">Vector Search</span>
+                        <div className="absolute -bottom-4 left-3 sm:left-6 flex gap-2 z-20">
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
+                            <Search className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
+                            <span className="text-[10px] sm:text-xs font-medium text-blue-300">Vector Search</span>
                           </div>
                         </div>
 
                         <div
-                          className="relative rounded-xl overflow-hidden cursor-pointer group"
+                          className="relative rounded-2xl overflow-hidden cursor-pointer group"
                           onClick={() => setIsWorkflowOpen(true)}
                         >
                           <img
                             src={n8nWorkflow}
                             alt="ScaleX n8n Automation Workflow"
-                            className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+                            className="w-full h-auto rounded-2xl transition-transform duration-300 group-hover:scale-[1.02]"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                              <Maximize2 className="w-4 h-4 text-white" />
-                              <span className="text-white text-sm font-medium">View Full Workflow</span>
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2.5 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20">
+                              <Maximize2 className="w-5 h-5 text-white" />
+                              <span className="text-white text-base font-medium">View Full Workflow</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
-                          <div className="flex items-center gap-1.5">
-                            <Clock className="w-3 h-3 text-primary" />
+                        <div className="mt-5 flex items-center justify-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-primary" />
                             <span>Real-time Processing</span>
                           </div>
                           <span className="text-white/20">•</span>
-                          <div className="flex items-center gap-1.5">
-                            <Zap className="w-3 h-3 text-yellow-500" />
+                          <div className="flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-yellow-500" />
                             <span>24/7 Automation</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
-                        <div className="flex items-start gap-2 sm:gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+                      <div className="mt-5 sm:mt-8 p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/5 via-blue-500/5 to-purple-500/5 border border-white/10">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                           </div>
                           <div>
-                            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
+                            <h4 className="text-sm sm:text-base font-semibold text-foreground mb-2 sm:mb-3">
                               How This Automation Works
                             </h4>
-                            <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <Mic className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary mt-0.5 flex-shrink-0" />
+                            <ul className="text-xs sm:text-sm text-muted-foreground space-y-1.5 sm:space-y-2">
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <Mic className="w-3 h-3 sm:w-4 sm:h-4 text-primary mt-0.5 flex-shrink-0" />
                                 <span>Understands text, voice & images</span>
                               </li>
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 mt-0.5 flex-shrink-0" />
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <Brain className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
                                 <span>AI analyzes intent & searches catalog</span>
                               </li>
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <ShoppingCart className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                                 <span>Recommends products 24/7</span>
                               </li>
                             </ul>
@@ -405,34 +405,34 @@ const Solution = () => {
                 </div>
 
                 {/* Workflow 2: LinkedIn Lead Scraper */}
-                <div className="w-1/2 flex-shrink-0 px-4">
-                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                <div className="w-1/2 flex-shrink-0 px-4 lg:px-8">
+                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
                     {/* Left: LinkedIn Terminal Mockup */}
                     <div className="flex justify-center">
                       <div className="relative">
-                        <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[16px] sm:rounded-[20px] p-2 shadow-2xl shadow-black/50">
-                          <div className="bg-[#1a1a2e] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 rounded-t-lg">
-                            <div className="flex gap-1.5">
-                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
-                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
-                              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
+                        <div className="relative w-[280px] sm:w-[340px] lg:w-[380px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[18px] sm:rounded-[24px] p-2.5 shadow-2xl shadow-black/50">
+                          <div className="bg-[#1a1a2e] px-4 sm:px-5 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 rounded-t-xl">
+                            <div className="flex gap-2">
+                              <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-red-500" />
+                              <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-yellow-500" />
+                              <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500" />
                             </div>
                             <div className="flex-1 text-center">
-                              <p className="text-white/60 text-[10px] sm:text-xs font-mono">linkedin-scraper.js</p>
+                              <p className="text-white/60 text-xs sm:text-sm font-mono">linkedin-scraper.js</p>
                             </div>
                           </div>
 
-                          <div className="bg-[#0d1117] rounded-b-lg p-3 sm:p-4 h-[280px] sm:h-[360px] overflow-y-auto font-mono text-[10px] sm:text-xs">
+                          <div className="bg-[#0d1117] rounded-b-xl p-4 sm:p-5 h-[320px] sm:h-[400px] lg:h-[440px] overflow-y-auto font-mono text-xs sm:text-sm">
                             {linkedinMessages.map((msg, index) => (
-                              <div key={index} className="mb-2">
+                              <div key={index} className="mb-3">
                                 {msg.type === "system" && (
                                   <p className="text-green-400">{msg.text}</p>
                                 )}
                                 {msg.type === "result" && (
-                                  <div className="ml-2 p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
-                                    <p className="text-blue-300 font-medium">{msg.name}</p>
-                                    <p className="text-white/60 text-[9px] sm:text-[10px]">{msg.title}</p>
-                                    <p className="text-blue-400/60 text-[8px] sm:text-[9px]">{msg.url}</p>
+                                  <div className="ml-3 p-3 bg-blue-500/10 rounded-lg border border-blue-500/20 mb-2">
+                                    <p className="text-blue-300 font-medium text-sm">{msg.name}</p>
+                                    <p className="text-white/60 text-xs">{msg.title}</p>
+                                    <p className="text-blue-400/60 text-[10px]">{msg.url}</p>
                                   </div>
                                 )}
                               </div>
@@ -449,77 +449,77 @@ const Solution = () => {
 
                     {/* Right: LinkedIn Workflow */}
                     <div className="relative">
-                      <div className="absolute -inset-4 bg-blue-500/20 rounded-3xl blur-2xl" />
-                      <div className="absolute -inset-2 bg-blue-600/10 rounded-2xl blur-xl" />
+                      <div className="absolute -inset-6 bg-blue-500/20 rounded-3xl blur-2xl" />
+                      <div className="absolute -inset-3 bg-blue-600/10 rounded-2xl blur-xl" />
 
-                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]">
-                        <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
-                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
-                            <Linkedin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
-                            <span className="text-[8px] sm:text-[10px] font-medium text-blue-300">LinkedIn</span>
+                      <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_0_80px_-15px_rgba(59,130,246,0.5)]">
+                        <div className="absolute -top-4 right-3 sm:right-6 flex gap-2 z-20">
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30 rounded-full">
+                            <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
+                            <span className="text-[10px] sm:text-xs font-medium text-blue-300">LinkedIn</span>
                           </div>
                         </div>
-                        <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
-                          <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-500/30 rounded-full">
-                            <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400" />
-                            <span className="text-[8px] sm:text-[10px] font-medium text-green-300">Google Sheets</span>
+                        <div className="absolute -bottom-4 left-3 sm:left-6 flex gap-2 z-20">
+                          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-500/30 rounded-full">
+                            <FileSpreadsheet className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
+                            <span className="text-[10px] sm:text-xs font-medium text-green-300">Google Sheets</span>
                           </div>
                         </div>
 
                         <div
-                          className="relative rounded-xl overflow-hidden cursor-pointer group"
+                          className="relative rounded-2xl overflow-hidden cursor-pointer group"
                           onClick={() => setIsLinkedinWorkflowOpen(true)}
                         >
                           <img
                             src={linkedinWorkflow}
                             alt="ScaleX LinkedIn Lead Scraper Automation Workflow"
-                            className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+                            className="w-full h-auto rounded-2xl transition-transform duration-300 group-hover:scale-[1.02]"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                              <Maximize2 className="w-4 h-4 text-white" />
-                              <span className="text-white text-sm font-medium">View Full Workflow</span>
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2.5 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20">
+                              <Maximize2 className="w-5 h-5 text-white" />
+                              <span className="text-white text-base font-medium">View Full Workflow</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
-                          <div className="flex items-center gap-1.5">
-                            <Users className="w-3 h-3 text-blue-400" />
+                        <div className="mt-5 flex items-center justify-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Users className="w-4 h-4 text-blue-400" />
                             <span>Up to 1000 Leads</span>
                           </div>
                           <span className="text-white/20">•</span>
-                          <div className="flex items-center gap-1.5">
-                            <Globe className="w-3 h-3 text-green-400" />
+                          <div className="flex items-center gap-2">
+                            <Globe className="w-4 h-4 text-green-400" />
                             <span>Any Niche & Location</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 border border-white/10">
-                        <div className="flex items-start gap-2 sm:gap-3">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" />
+                      <div className="mt-5 sm:mt-8 p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 border border-white/10">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                           </div>
                           <div>
-                            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
+                            <h4 className="text-sm sm:text-base font-semibold text-foreground mb-2 sm:mb-3">
                               How This Automation Works
                             </h4>
-                            <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <Search className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                            <ul className="text-xs sm:text-sm text-muted-foreground space-y-1.5 sm:space-y-2">
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <Search className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                                 <span>Finds LinkedIn profiles via Google Search</span>
                               </li>
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400 mt-0.5 flex-shrink-0" />
                                 <span>Scrapes name, title, link & description</span>
                               </li>
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <FileSpreadsheet className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400 mt-0.5 flex-shrink-0" />
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <FileSpreadsheet className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 mt-0.5 flex-shrink-0" />
                                 <span>Exports leads to Google Sheets in real-time</span>
                               </li>
-                              <li className="flex items-start gap-1.5 sm:gap-2">
-                                <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-400 mt-0.5 flex-shrink-0" />
+                              <li className="flex items-start gap-2 sm:gap-2.5">
+                                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
                                 <span>Handles pagination for up to 1000 results</span>
                               </li>
                             </ul>
