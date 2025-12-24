@@ -192,10 +192,10 @@ const Solution = () => {
         <div
           ref={workflowContainerRef}
           className="relative"
-          style={{ height: '200vh' }} // Double height for scroll space
+          style={{ height: '300vh' }} // Triple height for more scroll space
         >
           {/* Sticky container that pins content while scrolling */}
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
             {/* Architecture heading */}
             <div className="text-center mb-10">
               <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
