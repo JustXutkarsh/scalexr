@@ -125,7 +125,7 @@ const Solution = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Handle horizontal scroll on vertical scroll
+  // Handle horizontal scroll on vertical scroll - snap between frames
   useEffect(() => {
     const handleScroll = () => {
       if (!horizontalSectionRef.current) return;
@@ -134,15 +134,27 @@ const Solution = () => {
       const windowHeight = window.innerHeight;
       const sectionHeight = horizontalSectionRef.current.offsetHeight;
       
-      // Calculate progress based on section position
-      // Start when section top reaches middle of screen, end when section bottom leaves middle
-      const start = windowHeight * 0.5;
-      const scrollableDistance = sectionHeight - windowHeight * 0.5;
+      // Calculate progress - much slower, requires full scroll through section
+      const start = windowHeight * 0.3; // Start earlier
+      const scrollableDistance = sectionHeight - windowHeight;
       
-      if (rect.top <= start && rect.bottom >= windowHeight * 0.5) {
+      if (rect.top <= start && rect.bottom >= windowHeight) {
         const scrolled = start - rect.top;
-        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
-        setScrollProgress(progress);
+        const rawProgress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+        
+        // Create snap points: 0-40% scroll = show WhatsApp, 60-100% = show LinkedIn
+        // Middle 40-60% = transition zone
+        let snappedProgress: number;
+        if (rawProgress < 0.4) {
+          snappedProgress = 0; // Stay on WhatsApp
+        } else if (rawProgress > 0.6) {
+          snappedProgress = 1; // Stay on LinkedIn
+        } else {
+          // Smooth transition in the middle zone (0.4 to 0.6 maps to 0 to 1)
+          snappedProgress = (rawProgress - 0.4) / 0.2;
+        }
+        
+        setScrollProgress(snappedProgress);
       } else if (rect.top > start) {
         setScrollProgress(0);
       } else {
@@ -206,16 +218,16 @@ const Solution = () => {
             </p>
           </div>
 
-          {/* Horizontal Scroll Section - Reduced height for faster scroll */}
+          {/* Horizontal Scroll Section - Tall for slower scroll with distinct frames */}
           <div 
             ref={horizontalSectionRef}
             className="relative"
-            style={{ height: '120vh' }}
+            style={{ height: '300vh' }}
           >
             {/* Sticky container for horizontal scroll effect */}
             <div className="sticky top-0 h-screen flex items-center overflow-hidden py-8">
               <div 
-                className="flex transition-transform duration-75 ease-out"
+                className="flex transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                 style={{ 
                   transform: `translateX(-${scrollProgress * 100}%)`,
                   width: '200%'
