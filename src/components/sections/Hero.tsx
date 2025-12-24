@@ -36,14 +36,15 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 py-20 lg:py-0">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
-          {/* Badge */}
+          {/* Top Label */}
           <div 
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border/50 mb-8 transition-all duration-500 ${
+            className={`mb-4 transition-all duration-500 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            <Building2 className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-muted-foreground">Built on 100+ Automation and Conversion Experiments</span>
+            <span className="text-sm sm:text-base font-medium text-muted-foreground tracking-wide">
+              Built on 100+ Automation and Conversion Experiments
+            </span>
           </div>
 
           {/* Main Headline */}
