@@ -461,52 +461,70 @@ const Solution = () => {
                     style={{ transitionDelay: "400ms" }}
                   >
                     <div className="relative">
-                      {/* Terminal frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[16px] sm:rounded-[20px] p-2 shadow-2xl shadow-black/50">
-                        {/* Terminal header */}
-                        <div className="bg-[#1a1a2e] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3 rounded-t-lg">
-                          <div className="flex gap-1.5">
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
-                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
-                          </div>
-                          <div className="flex-1 text-center">
-                            <p className="text-white/60 text-[10px] sm:text-xs font-mono">linkedin-scraper.js</p>
-                          </div>
-                        </div>
+                      {/* Phone frame */}
+                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                        {/* Phone notch */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
-                        {/* Terminal content */}
-                        <div className="bg-[#0d1117] rounded-b-lg p-3 sm:p-4 h-[320px] sm:h-[420px] overflow-y-auto font-mono text-[10px] sm:text-xs">
-                          {linkedinMessages.map((msg, index) => (
-                            <div
-                              key={index}
-                              className="mb-2"
-                              style={{
-                                opacity: isVisible ? 1 : 0,
-                                transform: isVisible ? "translateY(0)" : "translateY(10px)",
-                                transition: `all 0.5s ease-out ${600 + index * 200}ms`,
-                              }}
-                            >
-                              {msg.type === "system" && (
-                                <p className="text-green-400">{msg.text}</p>
-                              )}
-                              {msg.type === "result" && (
-                                <div className="ml-2 p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
-                                  <p className="text-blue-300 font-medium">{msg.name}</p>
-                                  <p className="text-white/60 text-[9px] sm:text-[10px]">{msg.title}</p>
-                                  <p className="text-blue-400/60 text-[8px] sm:text-[9px]">{msg.url}</p>
-                                </div>
-                              )}
+                        {/* Screen */}
+                        <div className="relative bg-[#0d1117] rounded-[24px] sm:rounded-[32px] overflow-hidden">
+                          {/* LinkedIn header */}
+                          <div className="bg-[#0a66c2] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center">
+                              <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                             </div>
-                          ))}
-                          <div className="flex items-center gap-1 text-white/40 mt-4">
-                            <span className="animate-pulse">▊</span>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-xs sm:text-sm font-medium truncate">Lead Scraper</p>
+                              <p className="text-[9px] sm:text-[10px] text-blue-200 flex items-center gap-1">
+                                <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
+                                Scraping in progress...
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Terminal content */}
+                          <div className="p-2 sm:p-3 h-[320px] sm:h-[420px] overflow-y-auto font-mono text-[10px] sm:text-xs">
+                            {linkedinMessages.map((msg, index) => (
+                              <div
+                                key={index}
+                                className="mb-2"
+                                style={{
+                                  opacity: isVisible ? 1 : 0,
+                                  transform: isVisible ? "translateY(0)" : "translateY(10px)",
+                                  transition: `all 0.5s ease-out ${600 + index * 200}ms`,
+                                }}
+                              >
+                                {msg.type === "system" && (
+                                  <p className="text-green-400">{msg.text}</p>
+                                )}
+                                {msg.type === "result" && (
+                                  <div className="ml-2 p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
+                                    <p className="text-blue-300 font-medium">{msg.name}</p>
+                                    <p className="text-white/60 text-[9px] sm:text-[10px]">{msg.title}</p>
+                                    <p className="text-blue-400/60 text-[8px] sm:text-[9px]">{msg.url}</p>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                            <div className="flex items-center gap-1 text-white/40 mt-4">
+                              <span className="animate-pulse">▊</span>
+                            </div>
+                          </div>
+
+                          {/* Bottom bar */}
+                          <div className="bg-[#1a1a2e] px-2 sm:px-3 py-2 flex items-center gap-2">
+                            <div className="flex-1 bg-[#0d1117] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
+                              linkedin-scraper.js
+                            </div>
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#0a66c2] rounded-full flex items-center justify-center">
+                              <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       {/* Decorative glow */}
-                      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-[30px] blur-2xl -z-10 opacity-60" />
+                      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-[50px] blur-2xl -z-10 opacity-60" />
                     </div>
                   </div>
 
