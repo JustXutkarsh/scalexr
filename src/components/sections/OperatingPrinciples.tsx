@@ -60,14 +60,18 @@ const OperatingPrinciples = () => {
     const viewportHeight = window.innerHeight;
     
     // Calculate which principle should be active based on scroll position
-    const scrollProgress = Math.max(0, -sectionTop + viewportHeight * 0.4);
-    const principleHeight = sectionRect.height / principles.length;
+    // Slower scroll progression - more scroll distance per principle
+    const scrollProgress = Math.max(0, -sectionTop + viewportHeight * 0.3);
+    const principleHeight = (sectionRect.height * 0.7) / principles.length; // Use 70% of section height
     const newActive = Math.min(
       principles.length - 1,
       Math.max(0, Math.floor(scrollProgress / principleHeight))
     );
     
-    setActivePrinciple(newActive);
+    // Only update if the section is in view and we haven't scrolled past it
+    if (sectionRect.top < viewportHeight && sectionRect.bottom > 0) {
+      setActivePrinciple(newActive);
+    }
   }, []);
 
   useEffect(() => {
@@ -82,7 +86,7 @@ const OperatingPrinciples = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="py-24 lg:py-32 relative overflow-hidden bg-background"
+      className="py-32 lg:py-48 relative overflow-hidden bg-background min-h-[120vh]"
     >
       <div className="container mx-auto px-4 relative z-10">
         {/* Section label */}
