@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, CheckCircle } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine, CartesianGrid } from 'recharts';
+import TextHighlighter from '../TextHighlighter';
 
 const credibilityStats = [
   { value: "19", label: "Active automation systems" },
@@ -151,7 +152,7 @@ const WhyScaleX = () => {
           }`}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Results from businesses like yours
+            Results from <TextHighlighter><span className="text-primary">businesses like yours</span></TextHighlighter>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Based on automation systems deployed over the last 6–9 months
