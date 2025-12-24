@@ -99,8 +99,8 @@ const CTA = () => {
     return (
       <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
@@ -131,18 +131,18 @@ const CTA = () => {
 
   return (
     <section id="cta" ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Dramatic background */}
+      {/* Subtle background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Animated particles */}
+      {/* Subtle particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1.5 h-1.5 bg-primary/30 rounded-full"
+            className="absolute w-1 h-1 bg-primary/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -158,7 +158,7 @@ const CTA = () => {
           <div className="max-w-3xl mx-auto text-center">
             {/* Badge */}
             <div 
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full glass glow-sm mb-8 transition-all duration-700 ${
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
@@ -174,7 +174,7 @@ const CTA = () => {
               style={{ transitionDelay: '100ms' }}
             >
               Let us show you where your business is{' '}
-              <span className="text-primary glow-text">leaking money</span>
+              <span className="text-primary">leaking money</span>
             </h2>
 
             {/* Subtext */}
@@ -196,14 +196,13 @@ const CTA = () => {
             >
               <Button 
                 size="lg" 
-                className="group relative overflow-hidden glow px-6 sm:px-10 py-5 sm:py-7 text-base sm:text-lg font-semibold w-full sm:w-auto"
+                className="group relative overflow-hidden px-6 sm:px-10 py-5 sm:py-7 text-base sm:text-lg font-semibold w-full sm:w-auto"
                 onClick={() => setShowForm(true)}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                   Book a Free Audit
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </Button>
               
               <Button 
@@ -231,7 +230,7 @@ const CTA = () => {
           <div className="max-w-2xl mx-auto">
             {/* Form Header */}
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass glow-sm mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium">Free Business Audit</span>
               </div>
@@ -357,7 +356,7 @@ const CTA = () => {
                 <Button 
                   type="submit"
                   size="lg" 
-                  className="flex-1 glow py-6 text-lg font-semibold"
+                  className="flex-1 py-6 text-lg font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
