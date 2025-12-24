@@ -43,7 +43,7 @@ const Hero = () => {
             }`}
           >
             <Building2 className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-muted-foreground">Built for service-based businesses</span>
+            <span className="text-sm font-medium text-muted-foreground">Built on 100+ Automation and Conversion Experiments</span>
           </div>
 
           {/* Main Headline */}
@@ -52,11 +52,8 @@ const Hero = () => {
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground/90 mb-2">
-              Stop losing leads.
-            </span>
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
-              Turn every inquiry into a booking with AI.
+              AI Systems That Turn Traffic Into Customers
             </span>
           </h1>
 
@@ -66,7 +63,9 @@ const Hero = () => {
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            ScaleX answers every call, books appointments automatically, and follows up until the customer shows up.
+            We've tested what actually converts for local businesses so you don't have to.
+            <br />
+            <span className="text-foreground/80 font-medium">No guesswork. Just systems that work.</span>
           </p>
 
           {/* CTAs */}
