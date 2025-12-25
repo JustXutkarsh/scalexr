@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import utkarshProfile from "@/assets/utkarsh-profile.jpeg";
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,12 +14,14 @@ const WhatsAppWidget = () => {
         <div className="absolute bottom-20 right-0 w-80 rounded-2xl overflow-hidden shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
           <div className="bg-[#075E54] p-4 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-primary-foreground font-bold text-lg">
-              U
-            </div>
+            <img 
+              src={utkarshProfile} 
+              alt="Utkarsh" 
+              className="w-12 h-12 rounded-full object-cover border-2 border-white/20"
+            />
             <div>
               <h3 className="text-white font-semibold text-lg">Utkarsh</h3>
-              <p className="text-white/80 text-sm">ScaleXR Partner</p>
+              <p className="text-white/80 text-sm">ScaleX</p>
             </div>
           </div>
 
@@ -27,7 +30,7 @@ const WhatsAppWidget = () => {
             <div className="bg-white rounded-lg p-4 shadow-sm">
               <p className="font-semibold text-gray-900 mb-1">Utkarsh</p>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Hi there! I can help you with your growth and scalability questions. I'm human, not AI, this is my personal WhatsApp.
+                This is my personal WhatsApp. I work directly with business owners on conversion-focused websites and AI automation systems. You'll be chatting with a human, not a bot.
               </p>
             </div>
           </div>
