@@ -6,41 +6,42 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Light theme */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 10%;
 
-    --card: 240 10% 5%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 98%;
+    --card-foreground: 240 10% 10%;
 
-    --popover: 240 10% 5%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
 
-    --primary: 217 91% 60%;
+    --primary: 217 91% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 10% 10%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 10% 10%;
 
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 240 5% 92%;
+    --muted-foreground: 240 5% 45%;
 
-    --accent: 217 91% 60%;
+    --accent: 217 91% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 10% 15%;
-    --input: 240 10% 15%;
-    --ring: 217 91% 60%;
+    --border: 240 5% 87%;
+    --input: 240 5% 87%;
+    --ring: 217 91% 55%;
 
     --radius: 0.75rem;
 
     /* Custom ScaleX tokens */
-    --glow: 217 91% 60%;
+    --glow: 217 91% 55%;
     --glow-muted: 217 91% 40%;
-    --surface: 240 10% 8%;
-    --surface-elevated: 240 10% 12%;
+    --surface: 240 5% 96%;
+    --surface-elevated: 0 0% 100%;
   }
 
   .dark {
@@ -71,6 +72,12 @@
     --border: 240 10% 15%;
     --input: 240 10% 15%;
     --ring: 217 91% 60%;
+
+    /* Custom ScaleX tokens */
+    --glow: 217 91% 60%;
+    --glow-muted: 217 91% 40%;
+    --surface: 240 10% 8%;
+    --surface-elevated: 240 10% 12%;
   }
 }
 

@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Zap, Menu, X } from 'lucide-react';
+import { Zap, Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +25,10 @@ const Navbar = () => {
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
@@ -37,33 +48,65 @@ const Navbar = () => {
           </a>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('solution')}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               How It Works
             </button>
+            
+            {/* Theme Toggle */}
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Moon className="w-5 h-5 text-foreground" />
+                )}
+              </button>
+            )}
+            
             <Button 
               size="sm" 
               className="gradient-cta animate-pulse-cta"
-onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+              onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
             >
               Book a Call
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <button 
-            className="md:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
+          <div className="md:hidden flex items-center gap-2">
+            {/* Theme Toggle Mobile */}
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-5 h-5 text-foreground" />
+                ) : (
+                  <Moon className="w-5 h-5 text-foreground" />
+                )}
+              </button>
             )}
-          </button>
+            <button 
+              className="p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
