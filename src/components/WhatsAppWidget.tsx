@@ -14,11 +14,14 @@ const WhatsAppWidget = () => {
         <div className="absolute bottom-20 right-0 w-80 rounded-2xl overflow-hidden shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
           <div className="bg-[#075E54] p-4 flex items-center gap-3">
-            <img 
-              src={utkarshProfile} 
-              alt="Utkarsh" 
-              className="w-12 h-12 rounded-full object-cover border-2 border-white/20"
-            />
+            <div className="relative">
+              <img 
+                src={utkarshProfile} 
+                alt="Utkarsh" 
+                className="w-12 h-12 rounded-full object-cover border-2 border-white/20"
+              />
+              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#25D366] rounded-full border-2 border-[#075E54]" />
+            </div>
             <div>
               <h3 className="text-white font-semibold text-lg">Utkarsh</h3>
               <p className="text-white/80 text-sm">ScaleX</p>
