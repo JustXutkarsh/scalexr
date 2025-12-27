@@ -54,7 +54,7 @@ const Hero = () => {
             }`}
           >
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
-              High-Converting Websites and AI Systems That Turn Traffic Into Customers
+              Websites and AI Systems That Turn Traffic Into Customers
             </span>
           </h1>
 
@@ -64,7 +64,7 @@ const Hero = () => {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            We design SEO-friendly websites and automation systems that capture, convert, and follow up with every lead.
+            SEO-friendly websites and automation that capture, convert, and follow up with every lead.
             <br />
             <span className="text-foreground/80 font-medium">No guesswork. Just systems that work.</span>
           </p>
