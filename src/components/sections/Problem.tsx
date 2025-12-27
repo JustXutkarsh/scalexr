@@ -4,7 +4,7 @@ const assumptions = [
   "We answer most customer calls.",
   "Bookings are under control.",
   "We reply quickly enough.",
-  "Our website looks professional."
+  "Our website brings in customers."
 ];
 
 const realities = [

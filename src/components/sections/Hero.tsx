@@ -54,7 +54,7 @@ const Hero = () => {
             }`}
           >
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
-              AI Systems That Turn Traffic Into Customers
+              High-Converting Websites and AI Systems That Turn Traffic Into Customers
             </span>
           </h1>
 
@@ -64,7 +64,7 @@ const Hero = () => {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            We've tested what actually converts for local businesses so you don't have to.
+            We design SEO-friendly websites and automation systems that capture, convert, and follow up with every lead.
             <br />
             <span className="text-foreground/80 font-medium">No guesswork. Just systems that work.</span>
           </p>
@@ -104,11 +104,20 @@ const Hero = () => {
 
           {/* Trust Line */}
           <p
-            className={`text-sm text-muted-foreground/70 mb-12 transition-all duration-500 delay-400 ${
+            className={`text-sm text-muted-foreground/70 mb-6 transition-all duration-500 delay-400 ${
               mounted ? "opacity-100" : "opacity-0"
             }`}
           >
             No new tools. We integrate with what you already use.
+          </p>
+          
+          {/* Website CTA line */}
+          <p
+            className={`text-sm text-muted-foreground/80 mb-12 transition-all duration-500 delay-450 ${
+              mounted ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Don't have a website yet? We build fast, SEO-ready websites designed to convert local traffic.
           </p>
 
           {/* Glassmorphism Automation Container */}
@@ -123,34 +132,42 @@ const Hero = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
               {/* Placeholder content */}
-              <div className="relative z-10 h-auto min-h-[140px] sm:h-48 flex flex-col items-center justify-center py-4 sm:py-0">
+              <div className="relative z-10 h-auto min-h-[180px] sm:min-h-[220px] flex flex-col items-center justify-center py-4 sm:py-6">
                 <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4 text-center sm:text-left">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center">
                     <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
                   <div>
                     <div className="text-base sm:text-lg font-semibold text-foreground">
-                      Automation Workflow Preview
+                      The Growth System We Deploy
                     </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">Visual workflow builder coming soon</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Every ScaleX system has two layers working together:</div>
                   </div>
                 </div>
 
-                {/* Placeholder grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full max-w-md mt-4">
-                  {[...Array(4)].map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-12 sm:h-16 rounded-lg bg-muted/30 border border-border/30 transition-all duration-500 ${
-                        mounted ? "opacity-100" : "opacity-0"
-                      }`}
-                      style={{ transitionDelay: `${600 + i * 100}ms` }}
-                    />
-                  ))}
+                {/* Two layers */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg mt-4">
+                  <div
+                    className={`p-4 rounded-lg bg-muted/20 border border-border/30 transition-all duration-500 ${
+                      mounted ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ transitionDelay: "600ms" }}
+                  >
+                    <div className="text-sm font-semibold text-foreground mb-2">Acquisition layer</div>
+                    <div className="text-xs text-muted-foreground">SEO-optimized websites, landing pages, and local online presence</div>
+                  </div>
+                  <div
+                    className={`p-4 rounded-lg bg-muted/20 border border-border/30 transition-all duration-500 ${
+                      mounted ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ transitionDelay: "700ms" }}
+                  >
+                    <div className="text-sm font-semibold text-foreground mb-2">Conversion layer</div>
+                    <div className="text-xs text-muted-foreground">AI responses, booking automation, follow-ups, and CRM sync</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground/60 mt-3 text-center">Proprietary Automation Architecture</p>
           </div>
 
           {/* Flow Diagram - Enhanced */}

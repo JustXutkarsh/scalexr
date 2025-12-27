@@ -173,10 +173,13 @@ const Solution = () => {
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">The Solution</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Turn leads into bookings on <TextHighlighter>autopilot</TextHighlighter>
+            Turn website visitors and inbound leads into booked customers on <TextHighlighter>autopilot</TextHighlighter>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             ScaleX captures every lead, books appointments automatically, and follows up without manual effort.
+          </p>
+          <p className="text-muted-foreground/80 text-sm mt-3 max-w-xl mx-auto">
+            If you don't have a website yet — or your current one doesn't convert — we build it as part of the system.
           </p>
         </div>
 
