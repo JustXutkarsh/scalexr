@@ -9,7 +9,7 @@ import OperatingPrinciples from '@/components/sections/OperatingPrinciples';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
 import IntroSequence from '@/components/IntroSequence';
-import WhatsAppWidget from '@/components/WhatsAppWidget';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(false);
@@ -52,7 +52,7 @@ const Index = () => {
         <OperatingPrinciples />
         <CTA />
         <Footer />
-        <WhatsAppWidget />
+        <ElevenLabsWidget />
       </div>
     </>
   );
