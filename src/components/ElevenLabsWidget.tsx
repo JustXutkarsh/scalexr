@@ -16,8 +16,11 @@ const ElevenLabsWidget = () => {
   }, []);
 
   return (
-    // @ts-ignore - Custom element from ElevenLabs
-    <elevenlabs-convai agent-id="agent_2001ke452dpcfqgsp4a62v2cx34j"></elevenlabs-convai>
+    <div 
+      dangerouslySetInnerHTML={{ 
+        __html: '<elevenlabs-convai agent-id="agent_2001ke452dpcfqgsp4a62v2cx34j" branch-id="agtbrch_9601ke452eddeqxbdh3m511d225y"></elevenlabs-convai>' 
+      }} 
+    />
   );
 };
 
