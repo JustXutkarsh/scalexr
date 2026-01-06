@@ -177,14 +177,6 @@ const Hero = () => {
             }`}
           >
             <div className="relative flex items-start justify-between px-2 sm:px-8">
-              {/* Connecting Line - hidden on mobile */}
-              <div className="absolute top-6 sm:top-8 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent hidden sm:block" />
-              <div
-                className={`absolute top-6 sm:top-8 left-[10%] h-[2px] bg-gradient-to-r from-primary via-primary to-primary transition-all duration-1000 ease-out hidden sm:block ${
-                  mounted ? "right-[10%]" : "right-[90%]"
-                }`}
-                style={{ transitionDelay: "700ms" }}
-              />
 
               {/* Flow Steps */}
               {flowSteps.map((step, index) => (
