@@ -33,6 +33,7 @@ import n8nWorkflow from "@/assets/n8n-workflow.png";
 import linkedinWorkflow from "@/assets/linkedin-workflow.png";
 import ugcWorkflow from "@/assets/ugc-automation-workflow.png";
 import ugcSampleVideo from "@/assets/ugc-sample-video.mp4";
+import ugcProductDress from "@/assets/ugc-product-dress.png";
 import jewelryHairAccessory from "@/assets/jewelry-hair-accessory.png";
 import jewelryShellEarrings from "@/assets/jewelry-shell-earrings.png";
 import jewelryAnklet from "@/assets/jewelry-anklet.png";
@@ -108,7 +109,7 @@ const linkedinMessages = [
 
 const telegramMessages = [
   { type: "received", text: "📸 Sending product image..." },
-  { type: "received", isImage: true, imageUrl: "https://invisible-orange-3ujtbasuwm.edgeone.app/Screenshot%202026-01-07%20at%2012.01.17%20AM.png" },
+  { type: "received", isImage: true, imageUrl: ugcProductDress },
   { type: "sent", text: "✅ Image received! Processing your UGC video..." },
   { type: "sent", text: "🎬 Generating AI-powered UGC content with realistic creator..." },
   { type: "system", text: "⏳ Analyzing product features..." },
