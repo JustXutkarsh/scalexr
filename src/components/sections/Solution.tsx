@@ -108,7 +108,7 @@ const linkedinMessages = [
 
 const telegramMessages = [
   { type: "received", text: "📸 Sending product image..." },
-  { type: "received", isImage: true, imageUrl: jewelryShellEarrings },
+  { type: "received", isImage: true, imageUrl: "https://invisible-orange-3ujtbasuwm.edgeone.app/Screenshot%202026-01-07%20at%2012.01.17%20AM.png" },
   { type: "sent", text: "✅ Image received! Processing your UGC video..." },
   { type: "sent", text: "🎬 Generating AI-powered UGC content with realistic creator..." },
   { type: "system", text: "⏳ Analyzing product features..." },
