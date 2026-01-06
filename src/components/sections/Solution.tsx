@@ -32,6 +32,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import n8nWorkflow from "@/assets/n8n-workflow.png";
 import linkedinWorkflow from "@/assets/linkedin-workflow.png";
 import ugcWorkflow from "@/assets/ugc-automation-workflow.png";
+import ugcSampleVideo from "@/assets/ugc-sample-video.mp4";
 import jewelryHairAccessory from "@/assets/jewelry-hair-accessory.png";
 import jewelryShellEarrings from "@/assets/jewelry-shell-earrings.png";
 import jewelryAnklet from "@/assets/jewelry-anklet.png";
@@ -723,12 +724,17 @@ const Solution = () => {
                                         <img src={msg.imageUrl} alt="Product" className="w-full h-full object-cover" />
                                       </div>
                                     ) : msg.isVideo ? (
-                                      <div className="flex items-center gap-2 bg-white/10 rounded-lg p-2">
-                                        <Video className="w-8 h-8 text-purple-300" />
-                                        <div>
-                                          <p className="text-[10px] font-medium">{msg.text}</p>
-                                          <p className="text-[9px] text-purple-300">Tap to download</p>
-                                        </div>
+                                      <div className="w-full rounded-lg overflow-hidden bg-black/20">
+                                        <video 
+                                          src={ugcSampleVideo} 
+                                          className="w-full h-auto max-h-32 rounded-lg object-cover"
+                                          controls
+                                          muted
+                                          playsInline
+                                          loop
+                                          poster=""
+                                        />
+                                        <p className="text-[9px] text-purple-300 mt-1 text-center">{msg.text}</p>
                                       </div>
                                     ) : (
                                       <p className="whitespace-pre-line">{msg.text}</p>
