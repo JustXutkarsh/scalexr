@@ -730,6 +730,8 @@ const Solution = () => {
                                           src={ugcSampleVideo} 
                                           className="w-full h-auto max-h-32 rounded-lg object-cover"
                                           controls
+                                          controlsList="nofullscreen nodownload"
+                                          disablePictureInPicture={false}
                                           muted
                                           playsInline
                                           loop
