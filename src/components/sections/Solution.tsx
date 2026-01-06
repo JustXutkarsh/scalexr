@@ -23,11 +23,15 @@ import {
   FileSpreadsheet,
   Users,
   Globe,
+  Send,
+  Video,
+  Download,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import n8nWorkflow from "@/assets/n8n-workflow.png";
 import linkedinWorkflow from "@/assets/linkedin-workflow.png";
+import ugcWorkflow from "@/assets/ugc-automation-workflow.png";
 import jewelryHairAccessory from "@/assets/jewelry-hair-accessory.png";
 import jewelryShellEarrings from "@/assets/jewelry-shell-earrings.png";
 import jewelryAnklet from "@/assets/jewelry-anklet.png";
@@ -101,12 +105,26 @@ const linkedinMessages = [
   { type: "system", text: "⏳ Processing page 2 of 20..." },
 ];
 
+const telegramMessages = [
+  { type: "received", text: "📸 Sending product image..." },
+  { type: "received", isImage: true, imageUrl: jewelryShellEarrings },
+  { type: "sent", text: "✅ Image received! Processing your UGC video..." },
+  { type: "sent", text: "🎬 Generating AI-powered UGC content with realistic creator..." },
+  { type: "system", text: "⏳ Analyzing product features..." },
+  { type: "system", text: "⏳ Creating script & voiceover..." },
+  { type: "system", text: "⏳ Rendering video (30-60 seconds)..." },
+  { type: "sent", text: "🎉 Your UGC video is ready!" },
+  { type: "sent", text: "📹 Includes: AI creator, product showcase, call-to-action" },
+  { type: "sent", isVideo: true, text: "UGC_Video_001.mp4 • Ready to download" },
+];
+
 const Solution = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const workflowContainerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
   const [isLinkedinWorkflowOpen, setIsLinkedinWorkflowOpen] = useState(false);
+  const [isUgcWorkflowOpen, setIsUgcWorkflowOpen] = useState(false);
   const [activeWorkflow, setActiveWorkflow] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -130,12 +148,21 @@ const Solution = () => {
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
     
-    if (isLeftSwipe && activeWorkflow < 1) {
-      setActiveWorkflow(1);
+    if (isLeftSwipe && activeWorkflow < 2) {
+      setActiveWorkflow(prev => prev + 1);
     }
     if (isRightSwipe && activeWorkflow > 0) {
-      setActiveWorkflow(0);
+      setActiveWorkflow(prev => prev - 1);
     }
+  };
+
+  const handleDownloadTemplate = (workflowName: string, imageSrc: string) => {
+    const link = document.createElement('a');
+    link.href = imageSrc;
+    link.download = `${workflowName}-template.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   useEffect(() => {
@@ -210,10 +237,10 @@ const Solution = () => {
           </div>
 
           {/* Workflow Navigation Dots */}
-          <div className="flex justify-center gap-3 mb-6">
+          <div className="flex justify-center gap-2 sm:gap-3 mb-6 flex-wrap">
             <button
               onClick={() => setActiveWorkflow(0)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition-all ${
                 activeWorkflow === 0
                   ? "bg-green-500/20 text-green-400 border border-green-500/30"
                   : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
@@ -224,7 +251,7 @@ const Solution = () => {
             </button>
             <button
               onClick={() => setActiveWorkflow(1)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition-all ${
                 activeWorkflow === 1
                   ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
                   : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
@@ -232,6 +259,17 @@ const Solution = () => {
             >
               <Linkedin className="w-4 h-4" />
               <span>LinkedIn Leads</span>
+            </button>
+            <button
+              onClick={() => setActiveWorkflow(2)}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition-all ${
+                activeWorkflow === 2
+                  ? "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+                  : "bg-white/5 text-muted-foreground border border-white/10 hover:border-white/20"
+              }`}
+            >
+              <Send className="w-4 h-4" />
+              <span>UGC Creator</span>
             </button>
           </div>
 
@@ -625,6 +663,196 @@ const Solution = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Workflow 3: UGC Creator (Telegram) */}
+              <div className="min-w-full">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                  {/* Left: Telegram Phone Mockup */}
+                  <div
+                    className={`flex justify-center transition-all duration-700 ${
+                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+                    }`}
+                    style={{ transitionDelay: "400ms" }}
+                  >
+                    <div className="relative">
+                      {/* Phone frame */}
+                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                        {/* Phone notch */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
+
+                        {/* Screen */}
+                        <div className="relative bg-[#17212b] rounded-[24px] sm:rounded-[32px] overflow-hidden">
+                          {/* Telegram header */}
+                          <div className="bg-[#242f3d] px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                              <Video className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-xs sm:text-sm font-medium truncate">UGC Creator Bot</p>
+                              <p className="text-[9px] sm:text-[10px] text-purple-300 flex items-center gap-1">
+                                <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-400 rounded-full animate-pulse" />
+                                AI-Powered UGC Generator
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Chat messages */}
+                          <div className="p-2 sm:p-3 space-y-2 h-[320px] sm:h-[420px] overflow-y-auto">
+                            {telegramMessages.map((msg, index) => (
+                              <div
+                                key={index}
+                                className={`flex ${msg.type === "sent" ? "justify-end" : msg.type === "system" ? "justify-center" : "justify-start"}`}
+                                style={{
+                                  opacity: isVisible ? 1 : 0,
+                                  transform: isVisible ? "translateY(0)" : "translateY(10px)",
+                                  transition: `all 0.5s ease-out ${600 + index * 150}ms`,
+                                }}
+                              >
+                                {msg.type === "system" ? (
+                                  <p className="text-[10px] text-purple-300/70 font-mono">{msg.text}</p>
+                                ) : (
+                                  <div
+                                    className={`max-w-[85%] px-3 py-2 rounded-lg text-xs ${
+                                      msg.type === "sent"
+                                        ? "bg-[#5b5ea6] text-white rounded-br-none"
+                                        : "bg-[#242f3d] text-white rounded-bl-none"
+                                    }`}
+                                  >
+                                    {msg.isImage ? (
+                                      <div className="w-24 h-24 rounded-lg overflow-hidden">
+                                        <img src={msg.imageUrl} alt="Product" className="w-full h-full object-cover" />
+                                      </div>
+                                    ) : msg.isVideo ? (
+                                      <div className="flex items-center gap-2 bg-white/10 rounded-lg p-2">
+                                        <Video className="w-8 h-8 text-purple-300" />
+                                        <div>
+                                          <p className="text-[10px] font-medium">{msg.text}</p>
+                                          <p className="text-[9px] text-purple-300">Tap to download</p>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <p className="whitespace-pre-line">{msg.text}</p>
+                                    )}
+                                    <div className="flex items-center justify-end gap-1 mt-1">
+                                      {msg.type === "sent" && <Check className="w-3 h-3 text-white/60" />}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Input bar */}
+                          <div className="bg-[#242f3d] px-2 sm:px-3 py-2 flex items-center gap-2">
+                            <div className="flex-1 bg-[#17212b] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-white/50">
+                              Send product image...
+                            </div>
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                              <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Decorative glow */}
+                      <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-purple-500/20 rounded-[50px] blur-2xl -z-10 opacity-60" />
+                    </div>
+                  </div>
+
+                  {/* Right: UGC Workflow in Glassmorphism container */}
+                  <div
+                    className={`relative transition-all duration-700 ${
+                      isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+                    }`}
+                    style={{ transitionDelay: "500ms" }}
+                  >
+                    {/* Purple outer glow */}
+                    <div className="absolute -inset-4 bg-purple-500/20 rounded-3xl blur-2xl" />
+                    <div className="absolute -inset-2 bg-purple-600/10 rounded-2xl blur-xl" />
+
+                    {/* Glassmorphism container */}
+                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-[0_0_60px_-15px_rgba(147,51,234,0.5)]">
+                      {/* Technology badges */}
+                      <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
+                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-purple-500/20 to-purple-600/20 backdrop-blur-sm border border-purple-500/30 rounded-full">
+                          <Send className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400" />
+                          <span className="text-[8px] sm:text-[10px] font-medium text-purple-300">Telegram</span>
+                        </div>
+                      </div>
+                      <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
+                        <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-pink-500/20 to-pink-600/20 backdrop-blur-sm border border-pink-500/30 rounded-full">
+                          <Video className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-pink-400" />
+                          <span className="text-[8px] sm:text-[10px] font-medium text-pink-300">AI Video</span>
+                        </div>
+                      </div>
+
+                      {/* UGC Workflow Image - Clickable */}
+                      <div
+                        className="relative rounded-xl overflow-hidden cursor-pointer group"
+                        onClick={() => setIsUgcWorkflowOpen(true)}
+                      >
+                        <img
+                          src={ugcWorkflow}
+                          alt="ScaleX UGC Creator Automation Workflow"
+                          className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
+                        />
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                            <Maximize2 className="w-4 h-4 text-white" />
+                            <span className="text-white text-sm font-medium">View Full Workflow</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Processing indicator */}
+                      <div className="mt-4 flex items-center justify-center gap-3 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1.5">
+                          <ImageIcon className="w-3 h-3 text-purple-400" />
+                          <span>Image to Video</span>
+                        </div>
+                        <span className="text-white/20">•</span>
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3 text-pink-400" />
+                          <span>AI-Generated UGC</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Workflow Description Note */}
+                    <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-purple-500/5 border border-white/10">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1.5 sm:mb-2">
+                            How This Automation Works
+                          </h4>
+                          <ul className="text-[10px] sm:text-xs text-muted-foreground space-y-1 sm:space-y-1.5">
+                            <li className="flex items-start gap-1.5 sm:gap-2">
+                              <ImageIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                              <span>User sends product image via Telegram</span>
+                            </li>
+                            <li className="flex items-start gap-1.5 sm:gap-2">
+                              <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-pink-400 mt-0.5 flex-shrink-0" />
+                              <span>AI analyzes product & generates script</span>
+                            </li>
+                            <li className="flex items-start gap-1.5 sm:gap-2">
+                              <Video className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                              <span>Creates realistic UGC video with AI creator</span>
+                            </li>
+                            <li className="flex items-start gap-1.5 sm:gap-2">
+                              <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-400 mt-0.5 flex-shrink-0" />
+                              <span>Returns ready-to-use marketing video</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <ScrollBar orientation="horizontal" className="opacity-0" />
           </ScrollArea>
@@ -641,6 +869,12 @@ const Solution = () => {
               onClick={() => setActiveWorkflow(1)}
               className={`w-2 h-2 rounded-full transition-all ${
                 activeWorkflow === 1 ? "bg-blue-500 w-6" : "bg-white/20 hover:bg-white/40"
+              }`}
+            />
+            <button
+              onClick={() => setActiveWorkflow(2)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                activeWorkflow === 2 ? "bg-purple-500 w-6" : "bg-white/20 hover:bg-white/40"
               }`}
             />
           </div>
@@ -660,6 +894,13 @@ const Solution = () => {
                 <div className="text-center mb-4">
                   <h3 className="text-xl font-bold text-white">WhatsApp Sales Automation</h3>
                   <p className="text-sm text-white/60">Proprietary node-based logic driving 24/7 customer conversion</p>
+                  <button
+                    onClick={() => handleDownloadTemplate('whatsapp-sales', n8nWorkflow)}
+                    className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 rounded-full text-sm transition-colors border border-green-500/30"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Template
+                  </button>
                 </div>
                 <img
                   src={n8nWorkflow}
@@ -685,10 +926,49 @@ const Solution = () => {
                 <div className="text-center mb-4">
                   <h3 className="text-xl font-bold text-white">LinkedIn Lead Scraper Automation</h3>
                   <p className="text-sm text-white/60">Automated lead generation from LinkedIn profiles</p>
+                  <button
+                    onClick={() => handleDownloadTemplate('linkedin-leads', linkedinWorkflow)}
+                    className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-full text-sm transition-colors border border-blue-500/30"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Template
+                  </button>
                 </div>
                 <img
                   src={linkedinWorkflow}
                   alt="ScaleX LinkedIn Lead Scraper Workflow - Full View"
+                  className="w-full h-auto rounded-xl"
+                />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Fullscreen UGC Workflow Dialog */}
+        <Dialog open={isUgcWorkflowOpen} onOpenChange={setIsUgcWorkflowOpen}>
+          <DialogContent className="max-w-[95vw] w-full max-h-[95vh] p-0 bg-zinc-900/95 backdrop-blur-xl border-white/10">
+            <div className="relative w-full h-full">
+              <button
+                onClick={() => setIsUgcWorkflowOpen(false)}
+                className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+              <div className="p-4 overflow-auto max-h-[90vh]">
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-white">AI UGC Creator Automation</h3>
+                  <p className="text-sm text-white/60">Turn product images into AI-powered UGC videos via Telegram</p>
+                  <button
+                    onClick={() => handleDownloadTemplate('ugc-creator', ugcWorkflow)}
+                    className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-full text-sm transition-colors border border-purple-500/30"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Template
+                  </button>
+                </div>
+                <img
+                  src={ugcWorkflow}
+                  alt="ScaleX UGC Creator Workflow - Full View"
                   className="w-full h-auto rounded-xl"
                 />
               </div>
