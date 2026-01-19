@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const N8N_WEBHOOK_URL = Deno.env.get("N8N_WEBHOOK_URL");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -132,6 +133,32 @@ const handler = async (req: Request): Promise<Response> => {
       // Don't throw here - admin was notified, that's the priority
     } else {
       console.log("User confirmation sent successfully");
+    }
+
+    // Trigger n8n workflow for calling automation
+    if (N8N_WEBHOOK_URL) {
+      try {
+        const n8nResponse = await fetch(N8N_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            businessName: data.businessName,
+            businessType: data.businessType,
+            currentChallenges: data.currentChallenges,
+            monthlyLeads: data.monthlyLeads,
+            submittedAt: new Date().toISOString(),
+          }),
+        });
+        console.log("n8n webhook triggered, status:", n8nResponse.status);
+      } catch (n8nError) {
+        console.error("Failed to trigger n8n webhook:", n8nError);
+        // Don't throw - emails were sent, that's the priority
+      }
+    } else {
+      console.warn("N8N_WEBHOOK_URL not configured, skipping calling automation");
     }
 
     return new Response(
