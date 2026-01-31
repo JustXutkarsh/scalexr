@@ -2,10 +2,7 @@ import { MessageCircle } from 'lucide-react';
 
 const ElevenLabsWidget = () => {
   const handleClick = () => {
-    window.open(
-      'https://elevenlabs.io/app/talk-to?agent_id=agent_9301kg9t47xtfdq8ptgdqj6tnmfb&branch_id=agtbrch_0501kg9t48t2fd49jnfs4yxm3hqy',
-      '_blank'
-    );
+    window.location.href = 'https://elevenlabs.io/app/talk-to?agent_id=agent_9301kg9t47xtfdq8ptgdqj6tnmfb&branch_id=agtbrch_0501kg9t48t2fd49jnfs4yxm3hqy';
   };
 
   return (
