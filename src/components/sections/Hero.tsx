@@ -54,7 +54,7 @@ const Hero = () => {
             }`}
           >
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
-              Websites and AI Systems That Turn Traffic Into Customers
+              Autonix: Websites and AI Systems That Turn Traffic Into Customers
             </span>
           </h1>
 
@@ -64,7 +64,7 @@ const Hero = () => {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            SEO-friendly websites and automation that capture, convert, and follow up with every lead.
+            Autonix builds SEO-friendly websites and AI automation that capture, convert, and follow up with every lead.
             <br />
             <span className="text-foreground/80 font-medium">No guesswork. Just systems that work.</span>
           </p>
@@ -117,7 +117,7 @@ const Hero = () => {
               mounted ? "opacity-100" : "opacity-0"
             }`}
           >
-            Don't have a website yet? We build fast, SEO-ready websites designed to convert local traffic.
+            Don't have a website yet? Autonix builds fast, SEO-ready websites designed to convert local traffic.
           </p>
 
           {/* Glassmorphism Automation Container */}
@@ -141,7 +141,7 @@ const Hero = () => {
                     <div className="text-base sm:text-lg font-semibold text-foreground">
                       The Growth System We Deploy
                     </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">Every Autonix system has two layers working together:</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Every Autonix growth system has two layers working together:</div>
                   </div>
                 </div>
 

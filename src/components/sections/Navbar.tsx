@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Zap, Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -8,6 +9,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     setMounted(true);
@@ -23,6 +26,10 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
+    if (!isHomePage) {
+      window.location.href = `/#${id}`;
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
@@ -31,30 +38,49 @@ const Navbar = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const navLinks = [
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/services' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'glass py-3' : 'py-5'
       }`}
+      aria-label="Main navigation"
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="Autonix Home">
             <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:scale-105">
-              <Zap className="w-5 h-5 text-primary" />
+              <Zap className="w-5 h-5 text-primary" aria-hidden="true" />
             </div>
             <span className="text-xl font-bold">Autonix</span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-6">
-            <button 
-              onClick={() => scrollToSection('solution')}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              How It Works
-            </button>
+            {navLinks.map((link) => (
+              <Link 
+                key={link.href}
+                to={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            
+            {isHomePage && (
+              <button 
+                onClick={() => scrollToSection('solution')}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                How It Works
+              </button>
+            )}
             
             {/* Theme Toggle */}
             {mounted && (
@@ -64,9 +90,9 @@ const Navbar = () => {
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-foreground" />
+                  <Sun className="w-5 h-5 text-foreground" aria-hidden="true" />
                 ) : (
-                  <Moon className="w-5 h-5 text-foreground" />
+                  <Moon className="w-5 h-5 text-foreground" aria-hidden="true" />
                 )}
               </button>
             )}
@@ -90,20 +116,22 @@ const Navbar = () => {
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-foreground" />
+                  <Sun className="w-5 h-5 text-foreground" aria-hidden="true" />
                 ) : (
-                  <Moon className="w-5 h-5 text-foreground" />
+                  <Moon className="w-5 h-5 text-foreground" aria-hidden="true" />
                 )}
               </button>
             )}
             <button 
               className="p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-6 h-6" aria-hidden="true" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-6 h-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -113,12 +141,24 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border/50 pt-4 animate-slide-up">
             <div className="flex flex-col gap-4">
-              <button 
-                onClick={() => scrollToSection('solution')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                How It Works
-              </button>
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.href}
+                  to={link.href}
+                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {isHomePage && (
+                <button 
+                  onClick={() => scrollToSection('solution')}
+                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
+                >
+                  How It Works
+                </button>
+              )}
               <Button 
                 className="w-full glow-sm"
                 onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
