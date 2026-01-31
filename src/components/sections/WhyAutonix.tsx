@@ -69,14 +69,14 @@ const WhyAutonix = () => {
     <section className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="mb-6">
+        <header className="mb-6">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
-            <span className="bg-white/10 px-2 py-1">Operational results from deployed automation systems</span>
+            <span className="bg-white/10 px-2 py-1">Real results from Autonix automation systems</span>
           </h2>
           <p className="text-sm text-muted-foreground">
-            Measured across live systems running for 3–9 months. Median outcomes shown.
+            Measured across live Autonix systems running for 3–9 months. Median outcomes shown.
           </p>
-        </div>
+        </header>
 
         {/* Header Divider */}
         <div className="border-t border-border mb-12" />
