@@ -64,7 +64,7 @@ const caseStudies = [
   }
 ];
 
-const WhyScaleX = () => {
+const WhyAutonix = () => {
   return (
     <section className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
@@ -158,4 +158,4 @@ const WhyScaleX = () => {
   );
 };
 
-export default WhyScaleX;
+export default WhyAutonix;

@@ -95,7 +95,7 @@ const Authority = () => {
                   <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
                   <div className="w-3 h-3 rounded-full bg-green-500/60" />
                 </div>
-                <div className="text-sm text-muted-foreground">ScaleX Automation Dashboard</div>
+                <div className="text-sm text-muted-foreground">Autonix Automation Dashboard</div>
                 <div className="w-20" />
               </div>
 

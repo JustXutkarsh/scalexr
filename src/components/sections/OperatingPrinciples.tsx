@@ -108,7 +108,7 @@ const OperatingPrinciples = () => {
           style={{ transitionDelay: '100ms' }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground max-w-xl leading-tight">
-            How <CircleHighlight>ScaleX</CircleHighlight> actually builds automation
+            How <CircleHighlight>Autonix</CircleHighlight> actually builds automation
           </h2>
         </div>
 

@@ -14,7 +14,7 @@ const IntroSequence = ({ onComplete }: IntroSequenceProps) => {
     if (isExiting) return;
     setIsExiting(true);
     setTimeout(() => {
-      sessionStorage.setItem('scaleX-intro-seen', 'true');
+      sessionStorage.setItem('autonix-intro-seen', 'true');
       onComplete();
     }, 400);
   }, [onComplete, isExiting]);

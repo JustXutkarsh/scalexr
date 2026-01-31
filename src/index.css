@@ -11,7 +11,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ScaleX Design System - Dark mode, Electric Blue accent */
+/* Autonix Design System - Dark mode, Electric Blue accent */
 
 @layer base {
   :root {
@@ -46,7 +46,7 @@
 
     --radius: 1.25rem;
 
-    /* Custom ScaleX tokens */
+    /* Custom Autonix tokens */
     --glow: 217 91% 55%;
     --glow-muted: 217 91% 40%;
     --surface: 240 5% 96%;
@@ -108,7 +108,7 @@
     --input: 0 0% 32%;
     --ring: 234 89% 73%;
 
-    /* Custom ScaleX tokens */
+    /* Custom Autonix tokens */
     --glow: 217 91% 60%;
     --glow-muted: 217 91% 40%;
     --surface: 240 10% 8%;

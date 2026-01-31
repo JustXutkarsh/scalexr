@@ -4,7 +4,7 @@ import Hero from '@/components/sections/Hero';
 import IntegrationBar from '@/components/sections/IntegrationBar';
 import Problem from '@/components/sections/Problem';
 import Solution from '@/components/sections/Solution';
-import WhyScaleX from '@/components/sections/WhyScaleX';
+import WhyAutonix from '@/components/sections/WhyAutonix';
 import OperatingPrinciples from '@/components/sections/OperatingPrinciples';
 import CTA from '@/components/sections/CTA';
 import Footer from '@/components/sections/Footer';
@@ -20,7 +20,7 @@ const Index = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     // Check if intro was already seen this session
-    const introSeen = sessionStorage.getItem('scaleX-intro-seen');
+    const introSeen = sessionStorage.getItem('autonix-intro-seen');
 
     if (prefersReducedMotion || introSeen) {
       setContentVisible(true);
@@ -48,7 +48,7 @@ const Index = () => {
         <IntegrationBar />
         <Problem />
         <Solution />
-        <WhyScaleX />
+        <WhyAutonix />
         <OperatingPrinciples />
         <CTA />
         <Footer />
