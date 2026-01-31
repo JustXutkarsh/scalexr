@@ -18,7 +18,7 @@ const ElevenLabsWidget = () => {
   return (
     <div 
       dangerouslySetInnerHTML={{ 
-        __html: '<elevenlabs-convai agent-id="agent_2001ke452dpcfqgsp4a62v2cx34j" branch-id="agtbrch_9601ke452eddeqxbdh3m511d225y"></elevenlabs-convai>' 
+        __html: '<elevenlabs-convai agent-id="agent_9301kg9t47xtfdq8ptgdqj6tnmfb"></elevenlabs-convai>' 
       }} 
     />
   );
