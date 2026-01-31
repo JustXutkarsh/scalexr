@@ -141,7 +141,7 @@ const Hero = () => {
                     <div className="text-base sm:text-lg font-semibold text-foreground">
                       The Growth System We Deploy
                     </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">Every ScaleX system has two layers working together:</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">Every Autonix system has two layers working together:</div>
                   </div>
                 </div>
 

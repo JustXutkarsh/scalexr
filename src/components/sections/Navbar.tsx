@@ -44,7 +44,7 @@ const Navbar = () => {
             <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:scale-105">
               <Zap className="w-5 h-5 text-primary" />
             </div>
-            <span className="text-xl font-bold">ScaleX</span>
+            <span className="text-xl font-bold">Autonix</span>
           </a>
 
           {/* Desktop nav */}

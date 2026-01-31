@@ -1,4 +1,4 @@
-# ScaleX Automation
+# Autonix
 
 AI-powered automation systems for service-based businesses.
 

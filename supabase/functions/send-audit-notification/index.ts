@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "ScaleX Audit <onboarding@resend.dev>",
+        from: "Autonix Audit <onboarding@resend.dev>",
         to: ["utkarshp034@gmail.com"],
         subject: `🔔 New Audit Request from ${data.businessName}`,
         html: `
@@ -71,7 +71,7 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             
             <p style="color: #666; font-size: 14px; margin-top: 30px;">
-              This request was submitted via the ScaleX website. Please respond within 24-48 hours.
+              This request was submitted via the Autonix website. Please respond within 24-48 hours.
             </p>
           </div>
         `,
@@ -94,7 +94,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "ScaleX <onboarding@resend.dev>",
+        from: "Autonix <onboarding@resend.dev>",
         to: [data.email],
         subject: "We've received your audit request! 🎉",
         html: `
@@ -121,7 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <p style="color: #666; margin-top: 30px;">
               Best regards,<br>
-              <strong>The ScaleX Team</strong>
+              <strong>The Autonix Team</strong>
             </p>
           </div>
         `,

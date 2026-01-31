@@ -205,7 +205,7 @@ const Solution = () => {
             Turn website visitors and inbound leads into booked customers on <TextHighlighter>autopilot</TextHighlighter>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            ScaleX captures every lead, books appointments automatically, and follows up without manual effort.
+            Autonix captures every lead, books appointments automatically, and follows up without manual effort.
           </p>
           <p className="text-muted-foreground/80 text-sm mt-3 max-w-xl mx-auto">
             If you don't have a website yet — or your current one doesn't convert — we build it as part of the system.
@@ -223,7 +223,7 @@ const Solution = () => {
           </p>
         </div>
 
-        {/* ScaleX Intelligent Architecture Section */}
+        {/* Autonix Intelligent Architecture Section */}
         <div
           className={`mb-20 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
@@ -232,7 +232,7 @@ const Solution = () => {
         >
           {/* Architecture heading */}
           <div className="text-center mb-10">
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">ScaleX <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Autonix <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
             <p className="text-muted-foreground text-sm sm:text-base">
               Proprietary node-based logic driving 24/7 customer conversion.
             </p>
@@ -419,7 +419,7 @@ const Solution = () => {
                       <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
                         <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
                           <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">ScaleX</span>
+                          <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">Autonix</span>
                         </div>
                       </div>
                       <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
@@ -436,7 +436,7 @@ const Solution = () => {
                       >
                         <img
                           src={n8nWorkflow}
-                          alt="ScaleX n8n Automation Workflow showing WhatsApp integration, AI Agent, OpenAI, and Supabase Vector Store"
+                          alt="Autonix n8n Automation Workflow showing WhatsApp integration, AI Agent, OpenAI, and Supabase Vector Store"
                           className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
                         />
                         {/* Hover overlay */}
@@ -605,7 +605,7 @@ const Solution = () => {
                       >
                         <img
                           src={linkedinWorkflow}
-                          alt="ScaleX LinkedIn Lead Scraper Automation Workflow"
+                          alt="Autonix LinkedIn Lead Scraper Automation Workflow"
                           className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
                         />
                         {/* Hover overlay */}
@@ -802,7 +802,7 @@ const Solution = () => {
                       >
                         <img
                           src={ugcWorkflow}
-                          alt="ScaleX UGC Creator Automation Workflow"
+                          alt="Autonix UGC Creator Automation Workflow"
                           className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
                         />
                         {/* Hover overlay */}
@@ -913,7 +913,7 @@ const Solution = () => {
                 </div>
                 <img
                   src={n8nWorkflow}
-                  alt="ScaleX n8n Automation Workflow - Full View"
+                  alt="Autonix n8n Automation Workflow - Full View"
                   className="w-full h-auto rounded-xl"
                 />
               </div>
@@ -945,7 +945,7 @@ const Solution = () => {
                 </div>
                 <img
                   src={linkedinWorkflow}
-                  alt="ScaleX LinkedIn Lead Scraper Workflow - Full View"
+                  alt="Autonix LinkedIn Lead Scraper Workflow - Full View"
                   className="w-full h-auto rounded-xl"
                 />
               </div>
@@ -977,7 +977,7 @@ const Solution = () => {
                 </div>
                 <img
                   src={ugcWorkflow}
-                  alt="ScaleX UGC Creator Workflow - Full View"
+                  alt="Autonix UGC Creator Workflow - Full View"
                   className="w-full h-auto rounded-xl"
                 />
               </div>

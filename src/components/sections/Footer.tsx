@@ -21,7 +21,7 @@ const Footer = () => {
     ],
     contact: [
       { label: 'Book a Call', href: 'https://calendly.com/scalee-x/new-meeting', external: true },
-      { label: 'hello@scalex.ai', href: 'mailto:hello@scalex.ai' },
+      { label: 'hello@autonix.ai', href: 'mailto:hello@autonix.ai' },
     ],
   };
 
@@ -109,11 +109,11 @@ const Footer = () => {
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Zap className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-lg font-bold">ScaleX</span>
+              <span className="text-lg font-bold">Autonix</span>
             </div>
 
             <p className="text-sm text-muted-foreground">
-              © {currentYear} ScaleX. All rights reserved.
+              © {currentYear} Autonix. All rights reserved.
             </p>
           </div>
         </div>
