@@ -86,34 +86,34 @@ const OperatingPrinciples = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="py-32 lg:py-48 relative overflow-hidden bg-background min-h-[120vh]"
+      className="py-20 sm:py-24 lg:py-48 relative overflow-hidden bg-background min-h-[80vh] lg:min-h-[120vh]"
     >
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section label */}
         <div 
-          className={`mb-4 transition-all duration-700 ${
+          className={`mb-3 sm:mb-4 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <span className="text-primary/70 font-medium text-xs uppercase tracking-[0.2em]">
+          <span className="text-primary/70 font-medium text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em]">
             OUR APPROACH
           </span>
         </div>
 
         {/* Headline */}
         <div 
-          className={`mb-20 lg:mb-24 transition-all duration-700 ${
+          className={`mb-10 sm:mb-14 lg:mb-24 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '100ms' }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground max-w-xl leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground max-w-xl leading-tight">
             How <CircleHighlight>Autonix</CircleHighlight> actually builds automation
           </h2>
         </div>
 
         {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-16">
           {/* Left column - Navigation (30-35%) */}
           <div 
             className={`lg:w-[32%] transition-all duration-700 ${
@@ -140,13 +140,13 @@ const OperatingPrinciples = () => {
                   <button
                     key={principle.id}
                     onClick={() => handlePrincipleClick(index)}
-                    className={`w-full text-left py-3 sm:py-5 lg:py-6 pl-4 lg:pl-6 transition-all duration-300 ${
+                    className={`w-full text-left py-2.5 sm:py-3 lg:py-6 pl-3 sm:pl-4 lg:pl-6 transition-all duration-300 ${
                       activePrinciple === index 
                         ? 'text-foreground' 
                         : 'text-muted-foreground/50 hover:text-muted-foreground/80'
                     }`}
                   >
-                    <span className={`text-sm sm:text-base lg:text-lg font-medium leading-snug transition-all duration-300 ${
+                    <span className={`text-xs sm:text-sm lg:text-lg font-medium leading-snug transition-all duration-300 ${
                       activePrinciple === index ? 'translate-x-0' : ''
                     }`}>
                       {principle.title}
@@ -164,7 +164,7 @@ const OperatingPrinciples = () => {
             }`}
             style={{ transitionDelay: '300ms' }}
           >
-            <div className="min-h-[180px] sm:min-h-[220px] lg:min-h-[280px]">
+            <div className="min-h-[140px] sm:min-h-[180px] lg:min-h-[280px]">
               {principles.map((principle, index) => (
                 <div
                   key={principle.id}
@@ -176,15 +176,15 @@ const OperatingPrinciples = () => {
                   }`}
                 >
                   {activePrinciple === index && (
-                    <div className="space-y-4 sm:space-y-8">
+                    <div className="space-y-3 sm:space-y-5 lg:space-y-8">
                       {/* Main content paragraph */}
-                      <p className="text-base sm:text-xl lg:text-2xl text-foreground/90 leading-relaxed font-light">
+                      <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-foreground/90 leading-relaxed font-light">
                         {principle.content}
                       </p>
                       
                       {/* Implication line */}
-                      <div className="pt-4">
-                        <p className="text-sm text-muted-foreground/70 leading-relaxed">
+                      <div className="pt-2 sm:pt-3 lg:pt-4">
+                        <p className="text-xs sm:text-sm text-muted-foreground/70 leading-relaxed">
                           <span className="text-primary/60 mr-2">→</span>
                           {principle.implication}
                         </p>
@@ -199,24 +199,24 @@ const OperatingPrinciples = () => {
 
         {/* Closing line */}
         <div 
-          className={`mt-24 lg:mt-32 pt-12 border-t border-border/20 transition-all duration-700 ${
+          className={`mt-12 sm:mt-16 lg:mt-32 pt-8 sm:pt-10 lg:pt-12 border-t border-border/20 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '500ms' }}
         >
-          <p className="text-muted-foreground/60 text-base lg:text-lg italic max-w-2xl">
+          <p className="text-muted-foreground/60 text-sm sm:text-base lg:text-lg italic max-w-2xl">
             "This is why our systems feel boring to competitors — and powerful to clients."
           </p>
         </div>
 
         {/* Disclaimer */}
         <div 
-          className={`mt-8 transition-all duration-700 ${
+          className={`mt-4 sm:mt-6 lg:mt-8 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
           style={{ transitionDelay: '600ms' }}
         >
-          <p className="text-xs text-muted-foreground/40">
+          <p className="text-[10px] sm:text-xs text-muted-foreground/40">
             Results vary based on business type, existing processes, and implementation scope.
           </p>
         </div>

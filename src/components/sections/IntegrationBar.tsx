@@ -24,23 +24,23 @@ const IntegrationBar = () => {
   }, []);
 
   return (
-    <section className="py-12 border-y border-border/30 bg-muted/20">
-      <div className="container mx-auto px-4">
+    <section className="py-8 sm:py-10 lg:py-12 border-y border-border/30 bg-muted/20">
+      <div className="container mx-auto px-4 sm:px-6">
         <div 
           className={`flex flex-col items-center transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <p className="text-sm text-muted-foreground mb-6 flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse" />
             Verified Integration Partners
           </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-10">
             {integrations.map((integration, index) => (
               <div 
                 key={integration.name}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-card/50 border border-border/30 transition-all duration-500 hover:border-primary/30 hover:bg-card ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg bg-card/50 border border-border/30 transition-all duration-500 hover:border-primary/30 hover:bg-card ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
@@ -48,14 +48,14 @@ const IntegrationBar = () => {
                 <img 
                   src={integration.logo} 
                   alt={`${integration.name} logo`}
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                 />
-                <span className="text-sm font-medium text-foreground/80">{integration.name}</span>
+                <span className="text-xs sm:text-sm font-medium text-foreground/80">{integration.name}</span>
               </div>
             ))}
           </div>
           
-          <p className="text-xs text-muted-foreground/60 mt-6">
+          <p className="text-[10px] sm:text-xs text-muted-foreground/60 mt-4 sm:mt-6">
             Seamlessly integrates with your stack
           </p>
         </div>
