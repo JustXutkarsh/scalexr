@@ -47,7 +47,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Sending contact form email from:", email, "Name:", name);
 
     const emailResponse = await resend.emails.send({
-      from: "Autonix Contact Form <onboarding@resend.dev>",
+      from: "Autonix Contact Form <noreply@agencyautonix.com>",
       to: ["utkarsh@agencyautonix.com"],
       reply_to: email,
       subject: `New Contact Form Submission from ${name}`,
