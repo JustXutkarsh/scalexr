@@ -186,54 +186,54 @@ const Solution = () => {
   }, []);
 
   return (
-    <section id="solution" ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden bg-background">
+    <section id="solution" ref={sectionRef} className="py-16 sm:py-20 lg:py-32 relative overflow-hidden bg-background">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section header */}
         <div
-          className={`text-center mb-8 transition-all duration-700 ${
+          className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">The Solution</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+          <span className="text-primary font-semibold text-xs sm:text-sm uppercase tracking-wider">The Solution</span>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 leading-tight">
             Turn website visitors and inbound leads into booked customers on <TextHighlighter>autopilot</TextHighlighter>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
             Autonix captures every lead, books appointments automatically, and follows up without manual effort.
           </p>
-          <p className="text-muted-foreground/80 text-sm mt-3 max-w-xl mx-auto">
+          <p className="text-muted-foreground/80 text-xs sm:text-sm mt-2 sm:mt-3 max-w-xl mx-auto">
             If you don't have a website yet — or your current one doesn't convert — we build it as part of the system.
           </p>
         </div>
 
         {/* Friction removal line */}
         <div
-          className={`text-center mb-12 transition-all duration-700 delay-100 ${
+          className={`text-center mb-8 sm:mb-10 lg:mb-12 transition-all duration-700 delay-100 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <p className="text-muted-foreground/70 text-sm">
+          <p className="text-muted-foreground/70 text-xs sm:text-sm">
             No new tools to learn. We integrate with what you already use.
           </p>
         </div>
 
         {/* Autonix Intelligent Architecture Section */}
         <div
-          className={`mb-20 transition-all duration-1000 ${
+          className={`mb-12 sm:mb-16 lg:mb-20 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
           style={{ transitionDelay: "200ms" }}
         >
           {/* Architecture heading */}
-          <div className="text-center mb-10">
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Autonix <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
-            <p className="text-muted-foreground text-sm sm:text-base">
+          <div className="text-center mb-6 sm:mb-8 lg:mb-10">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2 sm:mb-3">Autonix <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
+            <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">
               Proprietary node-based logic driving 24/7 customer conversion.
             </p>
           </div>

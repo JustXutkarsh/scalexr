@@ -49,13 +49,13 @@ const Problem = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 sm:py-20 lg:py-32 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Two-column layout */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 max-w-5xl mx-auto">
           
           {/* Left column - Assumptions */}
           <div 
@@ -69,21 +69,21 @@ const Problem = () => {
           >
             {/* Cursor spotlight effect */}
             <div 
-              className="pointer-events-none absolute -inset-4 transition-opacity duration-300"
+              className="pointer-events-none absolute -inset-4 transition-opacity duration-300 hidden md:block"
               style={{
                 opacity: isHovering ? 1 : 0,
                 background: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.15), transparent 60%)`
               }}
             />
             
-            <h3 className="text-lg font-medium text-muted-foreground/60 mb-8 uppercase tracking-wider relative z-10">
+            <h3 className="text-sm sm:text-base lg:text-lg font-medium text-muted-foreground/60 mb-5 sm:mb-6 lg:mb-8 uppercase tracking-wider relative z-10">
               What most businesses assume
             </h3>
-            <ul className="space-y-6 relative z-10">
+            <ul className="space-y-4 sm:space-y-5 lg:space-y-6 relative z-10">
               {assumptions.map((item, index) => (
                 <li
                   key={index}
-                  className={`text-lg lg:text-xl text-muted-foreground/50 transition-all duration-500 ${
+                  className={`text-base sm:text-lg lg:text-xl text-muted-foreground/50 transition-all duration-500 ${
                     isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                   }`}
                   style={{ transitionDelay: `${index * 100 + 200}ms` }}
@@ -101,14 +101,14 @@ const Problem = () => {
             }`}
             style={{ transitionDelay: '100ms' }}
           >
-            <h3 className="text-lg font-medium text-foreground mb-8 uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base lg:text-lg font-medium text-foreground mb-5 sm:mb-6 lg:mb-8 uppercase tracking-wider">
               What's actually happening
             </h3>
-            <ul className="space-y-6">
+            <ul className="space-y-4 sm:space-y-5 lg:space-y-6">
               {realities.map((item, index) => (
                 <li
                   key={index}
-                  className={`text-lg lg:text-xl text-foreground/90 transition-all duration-500 ${
+                  className={`text-base sm:text-lg lg:text-xl text-foreground/90 transition-all duration-500 ${
                     isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                   }`}
                   style={{ transitionDelay: `${index * 100 + 300}ms` }}
@@ -124,12 +124,12 @@ const Problem = () => {
 
         {/* Transition text */}
         <div 
-          className={`text-center mt-20 lg:mt-24 transition-all duration-700 ${
+          className={`text-center mt-12 sm:mt-16 lg:mt-24 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '800ms' }}
         >
-          <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed">
+          <p className="text-muted-foreground text-base sm:text-lg lg:text-xl leading-relaxed">
             The problem isn't effort.
             <br />
             <span className="text-foreground font-medium">It's the lack of automation.</span>

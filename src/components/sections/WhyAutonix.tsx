@@ -66,45 +66,45 @@ const caseStudies = [
 
 const WhyAutonix = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 lg:py-32 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <header className="mb-6">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+        <header className="mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-foreground mb-2">
             <span className="bg-white/10 px-2 py-1">Real results from Autonix automation systems</span>
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Measured across live Autonix systems running for 3–9 months. Median outcomes shown.
           </p>
         </header>
 
         {/* Header Divider */}
-        <div className="border-t border-border mb-12" />
+        <div className="border-t border-border mb-8 sm:mb-10 lg:mb-12" />
 
         {/* Case Studies */}
         <div>
           {caseStudies.map((study, index) => (
             <div key={index}>
               {/* Subline */}
-              <p className="text-sm font-medium text-muted-foreground mb-1">
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">
                 {study.subline}
               </p>
 
               {/* Headline */}
-              <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-6">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-4 sm:mb-5 lg:mb-6">
                 {study.headline}
               </h3>
 
               {/* Three Column Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-4 sm:mb-5 lg:mb-6">
                 {/* Left Column - What we automated */}
                 <div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wide mb-3">
+                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
                     What we automated
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1 sm:space-y-1.5">
                     {study.automated.map((item, i) => (
-                      <li key={i} className="text-sm text-foreground">
+                      <li key={i} className="text-xs sm:text-sm text-foreground">
                         – {item}
                       </li>
                     ))}
@@ -113,27 +113,27 @@ const WhyAutonix = () => {
 
                 {/* Middle Column - Before → After */}
                 <div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wide mb-3">
+                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
                     Before → After
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1 sm:space-y-1.5">
                     {study.beforeAfter.map((row, i) => (
-                      <div key={i} className="text-sm">
+                      <div key={i} className="text-xs sm:text-sm">
                         <span className="text-muted-foreground">{row.metric}</span>
-                        <span className="text-foreground ml-4">{row.before} → {row.after}</span>
+                        <span className="text-foreground ml-2 sm:ml-4">{row.before} → {row.after}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Right Column - Outcome */}
-                <div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wide mb-3">
+                <div className="sm:col-span-2 md:col-span-1">
+                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
                     Outcome
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1 sm:space-y-1.5">
                     {study.outcomes.map((item, i) => (
-                      <li key={i} className="text-sm text-foreground">
+                      <li key={i} className="text-xs sm:text-sm text-foreground">
                         – {item}
                       </li>
                     ))}
@@ -142,13 +142,13 @@ const WhyAutonix = () => {
               </div>
 
               {/* Footer Metadata */}
-              <p className="text-xs text-muted-foreground mb-8">
+              <p className="text-[10px] sm:text-xs text-muted-foreground mb-6 sm:mb-8">
                 {study.footer}
               </p>
 
               {/* Divider before next case */}
               {index < caseStudies.length - 1 && (
-                <div className="border-t border-border mb-10" />
+                <div className="border-t border-border mb-8 sm:mb-10" />
               )}
             </div>
           ))}
