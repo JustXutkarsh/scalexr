@@ -184,10 +184,10 @@ const Contact = () => {
                     Prefer email? Send us a message and we'll respond within 24 hours.
                   </p>
                   <a 
-                    href="mailto:hello@agencyautonix.com"
+                    href="mailto:utkarsh@agencyautonix.com"
                     className="text-primary hover:underline font-medium"
                   >
-                    hello@agencyautonix.com
+                    utkarsh@agencyautonix.com
                   </a>
                 </div>
 

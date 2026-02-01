@@ -21,7 +21,7 @@ const Footer = () => {
     ],
     contact: [
       { label: 'Book a Call', href: 'https://calendly.com/scalee-x/new-meeting', external: true },
-      { label: 'hello@agencyautonix.com', href: 'mailto:hello@agencyautonix.com' },
+      { label: 'utkarsh@agencyautonix.com', href: 'mailto:utkarsh@agencyautonix.com' },
     ],
   };
 
