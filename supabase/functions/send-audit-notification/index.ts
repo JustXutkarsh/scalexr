@@ -42,8 +42,8 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Autonix Audit <onboarding@resend.dev>",
-        to: ["utkarshp034@gmail.com"],
+        from: "Autonix Audit <noreply@agencyautonix.com>",
+        to: ["utkarsh@agencyautonix.com"],
         subject: `🔔 New Audit Request from ${data.businessName}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -94,7 +94,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Autonix <onboarding@resend.dev>",
+        from: "Autonix <noreply@agencyautonix.com>",
         to: [data.email],
         subject: "We've received your audit request! 🎉",
         html: `
