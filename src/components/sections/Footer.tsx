@@ -7,17 +7,19 @@ const Footer = () => {
   const footerLinks = {
     company: [
       { label: 'About', href: '/about' },
-      { label: 'Services', href: '/services' },
+      { label: 'Case Studies', href: '/case-studies' },
+      { label: 'Our Process', href: '/process' },
       { label: 'Contact', href: '/contact' },
     ],
     services: [
-      { label: 'AI Automation', href: '/services#ai-automation' },
-      { label: 'Website Development', href: '/services#websites' },
-      { label: 'Booking Automation', href: '/services#booking' },
+      { label: 'AI Receptionist', href: '/ai-receptionist' },
+      { label: 'Booking Automation', href: '/booking-automation' },
+      { label: 'SEO Websites', href: '/seo-websites' },
+      { label: 'Industries', href: '/industries' },
     ],
-    legal: [
+    resources: [
+      { label: 'Blog & Guides', href: '/resources' },
       { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/privacy' },
     ],
     contact: [
       { label: 'Book a Call', href: 'https://calendly.com/scalee-x/new-meeting', external: true },
@@ -65,11 +67,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Legal */}
+            {/* Resources */}
             <div>
-              <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-3 sm:mb-4">Legal</h4>
+              <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-3 sm:mb-4">Resources</h4>
               <ul className="space-y-2 sm:space-y-3">
-                {footerLinks.legal.map((link) => (
+                {footerLinks.resources.map((link) => (
                   <li key={link.label}>
                     <Link 
                       to={link.href}
