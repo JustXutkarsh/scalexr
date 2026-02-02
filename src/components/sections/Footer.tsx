@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap } from 'lucide-react';
+import logoImage from '@/assets/logo.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -108,9 +108,11 @@ const Footer = () => {
           <div className="pt-6 sm:pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             {/* Brand */}
             <Link to="/" className="flex items-center gap-2" aria-label="Autonix Home">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
-              </div>
+              <img 
+                src={logoImage} 
+                alt="Autonix Logo" 
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg"
+              />
               <span className="text-base sm:text-lg font-bold">Autonix</span>
             </Link>
 

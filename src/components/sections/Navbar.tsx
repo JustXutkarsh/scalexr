@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Zap, Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import logoImage from '@/assets/logo.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,9 +57,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group" aria-label="Autonix Home">
-            <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:scale-105">
-              <Zap className="w-5 h-5 text-primary" aria-hidden="true" />
-            </div>
+            <img 
+              src={logoImage} 
+              alt="Autonix Logo" 
+              className="w-9 h-9 rounded-lg transition-all group-hover:scale-105"
+            />
             <span className="text-xl font-bold">Autonix</span>
           </Link>
 
