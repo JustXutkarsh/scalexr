@@ -118,7 +118,7 @@ const CTA = () => {
             <Button 
               size="lg"
               className="glow"
-              onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+              onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
             >
               <Phone className="w-4 h-4 mr-2" />
               Book a Call Instead
@@ -209,7 +209,7 @@ const CTA = () => {
                 size="lg" 
                 variant="outline"
                 className="px-6 sm:px-8 py-5 sm:py-7 text-base sm:text-lg font-semibold border-primary/30 hover:bg-primary/10 w-full sm:w-auto"
-                onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+                onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Book a Call
@@ -387,7 +387,7 @@ const CTA = () => {
                 <button 
                   type="button"
                   className="text-primary hover:underline"
-                  onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+                  onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
                 >
                   Book a call instead
                 </button>

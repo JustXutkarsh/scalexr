@@ -815,7 +815,7 @@ The businesses that figure out this balance first will have a significant compet
               If you have read our resources and want to discuss how these strategies apply to your specific situation, book a call.
             </p>
             <Button asChild size="lg" className="gradient-cta">
-              <a href="https://calendly.com/scalee-x/new-meeting" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendly.com/autonix_agency/new-meeting" target="_blank" rel="noopener noreferrer">
                 Schedule a Discussion <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>

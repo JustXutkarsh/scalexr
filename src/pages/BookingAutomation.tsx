@@ -312,7 +312,7 @@ const BookingAutomation = () => {
               Book a 15-minute call to see a live demo of automated booking for your specific business type.
             </p>
             <Button asChild size="lg" className="gradient-cta">
-              <a href="https://calendly.com/scalee-x/new-meeting" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendly.com/autonix_agency/new-meeting" target="_blank" rel="noopener noreferrer">
                 Schedule Your Demo <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>

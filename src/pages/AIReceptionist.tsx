@@ -280,7 +280,7 @@ const AIReceptionist = () => {
               Book a 15-minute call to see how an AI receptionist would work for your specific business. We will show you exactly how it handles your most common inquiries.
             </p>
             <Button asChild size="lg" className="gradient-cta">
-              <a href="https://calendly.com/scalee-x/new-meeting" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendly.com/autonix_agency/new-meeting" target="_blank" rel="noopener noreferrer">
                 Schedule Your Demo <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>
