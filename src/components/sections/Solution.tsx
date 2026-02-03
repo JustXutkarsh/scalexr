@@ -225,7 +225,7 @@ const Solution = () => {
 
         {/* Autonix Intelligent Architecture Section */}
         <div
-          className={`mb-12 sm:mb-16 lg:mb-20 transition-all duration-1000 ${
+          className={`mb-12 sm:mb-16 lg:mb-20 overflow-hidden transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
           style={{ transitionDelay: "200ms" }}
@@ -276,18 +276,18 @@ const Solution = () => {
           </div>
 
           {/* Horizontal Scroll Container for Workflows */}
-          <ScrollArea className="w-full">
+          <ScrollArea className="w-full overflow-hidden">
             <div 
               ref={workflowContainerRef}
-              className="flex gap-8 transition-transform duration-500 ease-out pb-4 touch-pan-y"
-              style={{ transform: `translateX(-${activeWorkflow * 100}%)` }}
+              className="flex transition-transform duration-500 ease-out pb-4 touch-pan-y"
+              style={{ transform: `translateX(calc(-${activeWorkflow * 100}%))` }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
               {/* Workflow 1: WhatsApp Sales */}
-              <div className="min-w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+              <div className="min-w-full w-full shrink-0 px-2 sm:px-4">
+                <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center max-w-6xl mx-auto">
                   {/* Left: WhatsApp Phone Mockup */}
                   <div
                     className={`flex justify-center transition-all duration-700 ${
@@ -295,9 +295,9 @@ const Solution = () => {
                     }`}
                     style={{ transitionDelay: "400ms" }}
                   >
-                    <div className="relative">
+                    <div className="relative max-w-full">
                       {/* Phone frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                      <div className="relative w-[260px] sm:w-[320px] max-w-[85vw] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
                         {/* Phone notch */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
@@ -494,8 +494,8 @@ const Solution = () => {
               </div>
 
               {/* Workflow 2: LinkedIn Lead Scraper */}
-              <div className="min-w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+              <div className="min-w-full w-full shrink-0 px-2 sm:px-4">
+                <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center max-w-6xl mx-auto">
                   {/* Left: LinkedIn Terminal Mockup */}
                   <div
                     className={`flex justify-center transition-all duration-700 ${
@@ -503,9 +503,9 @@ const Solution = () => {
                     }`}
                     style={{ transitionDelay: "400ms" }}
                   >
-                    <div className="relative">
+                    <div className="relative max-w-full">
                       {/* Phone frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                      <div className="relative w-[260px] sm:w-[320px] max-w-[85vw] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
                         {/* Phone notch */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
@@ -667,8 +667,8 @@ const Solution = () => {
               </div>
 
               {/* Workflow 3: UGC Creator (Telegram) */}
-              <div className="min-w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+              <div className="min-w-full w-full shrink-0 px-2 sm:px-4">
+                <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center max-w-6xl mx-auto">
                   {/* Left: Telegram Phone Mockup */}
                   <div
                     className={`flex justify-center transition-all duration-700 ${
@@ -676,9 +676,9 @@ const Solution = () => {
                     }`}
                     style={{ transitionDelay: "400ms" }}
                   >
-                    <div className="relative">
+                    <div className="relative max-w-full">
                       {/* Phone frame */}
-                      <div className="relative w-[260px] sm:w-[320px] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
+                      <div className="relative w-[260px] sm:w-[320px] max-w-[85vw] bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-[32px] sm:rounded-[40px] p-2 shadow-2xl shadow-black/50">
                         {/* Phone notch */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 sm:h-6 bg-zinc-900 rounded-b-xl sm:rounded-b-2xl z-10" />
 
