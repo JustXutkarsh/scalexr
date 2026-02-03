@@ -116,7 +116,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <p style="font-size: 16px; line-height: 1.6; color: #333;">
               In the meantime, if you'd like to discuss your needs right away, feel free to 
-              <a href="https://calendly.com/scalee-x/new-meeting" style="color: #7c3aed;">book a call with us</a>.
+              <a href="https://calendly.com/autonix_agency/new-meeting" style="color: #7c3aed;">book a call with us</a>.
             </p>
             
             <p style="color: #666; margin-top: 30px;">

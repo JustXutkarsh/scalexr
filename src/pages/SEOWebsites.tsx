@@ -346,7 +346,7 @@ const SEOWebsites = () => {
               Book a 15-minute call to discuss your current website, target keywords, and how we can help you capture more organic traffic.
             </p>
             <Button asChild size="lg" className="gradient-cta">
-              <a href="https://calendly.com/scalee-x/new-meeting" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendly.com/autonix_agency/new-meeting" target="_blank" rel="noopener noreferrer">
                 Schedule Your SEO Consultation <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>

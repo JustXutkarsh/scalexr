@@ -185,7 +185,7 @@ const Contact = () => {
                   <Button 
                     className="w-full gradient-cta" 
                     size="lg"
-                    onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+                    onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
                   >
                     Schedule a Call <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>

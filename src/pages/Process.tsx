@@ -341,7 +341,7 @@ const Process = () => {
               Book a 15-minute call to walk through the process for your specific situation and get a clear timeline for implementation.
             </p>
             <Button asChild size="lg" className="gradient-cta">
-              <a href="https://calendly.com/scalee-x/new-meeting" target="_blank" rel="noopener noreferrer">
+              <a href="https://calendly.com/autonix_agency/new-meeting" target="_blank" rel="noopener noreferrer">
                 Schedule Your Discovery Call <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>

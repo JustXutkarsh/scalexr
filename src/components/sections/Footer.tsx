@@ -22,7 +22,7 @@ const Footer = () => {
       { label: 'Privacy Policy', href: '/privacy' },
     ],
     contact: [
-      { label: 'Book a Call', href: 'https://calendly.com/scalee-x/new-meeting', external: true },
+      { label: 'Book a Call', href: 'https://calendly.com/autonix_agency/new-meeting', external: true },
       { label: 'utkarsh@agencyautonix.com', href: 'mailto:utkarsh@agencyautonix.com' },
     ],
   };

@@ -104,7 +104,7 @@ const Navbar = () => {
             <Button 
               size="sm" 
               className="gradient-cta animate-pulse-cta"
-              onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+              onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
             >
               Book a Call
             </Button>
@@ -165,7 +165,7 @@ const Navbar = () => {
               )}
               <Button 
                 className="w-full glow-sm"
-                onClick={() => window.open('https://calendly.com/scalee-x/new-meeting', '_blank')}
+                onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
               >
                 Book a Call
               </Button>
