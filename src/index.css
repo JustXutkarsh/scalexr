@@ -432,6 +432,12 @@
   button, a {
     -webkit-tap-highlight-color: transparent;
   }
+  
+  /* Reduce ElevenLabs widget size on mobile */
+  elevenlabs-convai {
+    transform: scale(0.85);
+    transform-origin: bottom right;
+  }
 }
 
 /* Safe area insets for notched devices */
