@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Instagram, Linkedin } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
 
 const Footer = () => {
@@ -26,6 +27,19 @@ const Footer = () => {
       { label: 'utkarsh@agencyautonix.com', href: 'mailto:utkarsh@agencyautonix.com' },
     ],
   };
+
+  const socialLinks = [
+    { 
+      label: 'Instagram', 
+      href: 'https://www.instagram.com/agency_autonix/', 
+      icon: Instagram 
+    },
+    { 
+      label: 'LinkedIn', 
+      href: 'https://www.linkedin.com/company/autonix-agency/', 
+      icon: Linkedin 
+    },
+  ];
 
   return (
     <footer className="py-10 sm:py-12 lg:py-16 border-t border-border/50 bg-background" role="contentinfo">
@@ -101,6 +115,21 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+              {/* Social Links */}
+              <div className="flex items-center gap-3 mt-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
