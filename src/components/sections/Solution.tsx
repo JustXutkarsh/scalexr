@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
-import CircleHighlight from '../CircleHighlight';
-import TextHighlighter from '../TextHighlighter';
+import CircleHighlight from "../CircleHighlight";
+import TextHighlighter from "../TextHighlighter";
 import {
   Bot,
   Calendar,
@@ -97,7 +97,7 @@ const whatsappMessages = [
 ];
 
 const linkedinMessages = [
-  { type: "system", text: "🔍 Searching: \"Marketing Manager\" in San Francisco..." },
+  { type: "system", text: '🔍 Searching: "Marketing Manager" in San Francisco...' },
   { type: "system", text: "✅ Found 847 profiles matching criteria" },
   { type: "result", name: "Sarah Johnson", title: "Marketing Manager at TechCorp", url: "linkedin.com/in/sjohnson" },
   { type: "result", name: "Michael Chen", title: "Sr. Marketing Manager at StartupXYZ", url: "linkedin.com/in/mchen" },
@@ -145,21 +145,21 @@ const Solution = () => {
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-    
+
     if (isLeftSwipe && activeWorkflow < 2) {
-      setActiveWorkflow(prev => prev + 1);
+      setActiveWorkflow((prev) => prev + 1);
     }
     if (isRightSwipe && activeWorkflow > 0) {
-      setActiveWorkflow(prev => prev - 1);
+      setActiveWorkflow((prev) => prev - 1);
     }
   };
 
   const handleDownloadTemplate = (workflowName: string, imageSrc: string) => {
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = imageSrc;
     link.download = `${workflowName}-template.png`;
     document.body.appendChild(link);
@@ -202,7 +202,8 @@ const Solution = () => {
         >
           <span className="text-primary font-semibold text-xs sm:text-sm uppercase tracking-wider">The Solution</span>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 leading-tight">
-            Turn website visitors and inbound leads into booked customers on <TextHighlighter>autopilot</TextHighlighter>
+            Turn website visitors and inbound leads into booked customers on{" "}
+            <TextHighlighter>autopilot</TextHighlighter>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
             Autonix captures every lead, books appointments automatically, and follows up without manual effort.
@@ -232,7 +233,9 @@ const Solution = () => {
         >
           {/* Architecture heading */}
           <div className="text-center mb-6 sm:mb-8 lg:mb-10">
-            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2 sm:mb-3">Autonix <CircleHighlight>Intelligent Architecture</CircleHighlight></h3>
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2 sm:mb-3">
+              Autonix <CircleHighlight>Intelligent Architecture</CircleHighlight>
+            </h3>
             <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">
               Proprietary node-based logic driving 24/7 customer conversion.
             </p>
@@ -277,7 +280,7 @@ const Solution = () => {
 
           {/* Horizontal Scroll Container for Workflows */}
           <ScrollArea className="w-full overflow-hidden">
-            <div 
+            <div
               ref={workflowContainerRef}
               className="flex transition-transform duration-500 ease-out pb-4 touch-pan-y"
               style={{ transform: `translateX(calc(-${activeWorkflow * 100}%))` }}
@@ -309,7 +312,9 @@ const Solution = () => {
                               <Bot className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-primary-foreground" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">Kanyadhan Jewellers</p>
+                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">
+                                Kanyadhan Jewellers
+                              </p>
                               <p className="text-[8px] sm:text-[9px] lg:text-[10px] text-green-400 flex items-center gap-1">
                                 <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
                                 Online • 24/7 Sales Assistant
@@ -342,14 +347,19 @@ const Solution = () => {
                                   {msg.products && (
                                     <div className="mt-1.5 sm:mt-2 space-y-1 sm:space-y-1.5">
                                       {msg.products.map((product, pIdx) => (
-                                        <div key={pIdx} className="flex items-center gap-1.5 sm:gap-2 bg-white/10 rounded-lg p-1 sm:p-1.5">
+                                        <div
+                                          key={pIdx}
+                                          className="flex items-center gap-1.5 sm:gap-2 bg-white/10 rounded-lg p-1 sm:p-1.5"
+                                        >
                                           <img
                                             src={product.image}
                                             alt={product.name}
                                             className="w-8 h-8 sm:w-10 sm:h-10 rounded-md object-cover"
                                           />
                                           <div className="flex-1 min-w-0">
-                                            <p className="text-[9px] sm:text-[10px] font-medium truncate">{product.name}</p>
+                                            <p className="text-[9px] sm:text-[10px] font-medium truncate">
+                                              {product.name}
+                                            </p>
                                             <p className="text-[8px] sm:text-[9px] text-emerald-300">{product.price}</p>
                                           </div>
                                         </div>
@@ -375,10 +385,14 @@ const Solution = () => {
                                   )}
 
                                   {/* After text (for messages with images) */}
-                                  {msg.afterText && <p className="whitespace-pre-line mt-1.5 sm:mt-2">{msg.afterText}</p>}
+                                  {msg.afterText && (
+                                    <p className="whitespace-pre-line mt-1.5 sm:mt-2">{msg.afterText}</p>
+                                  )}
 
                                   <div className="flex items-center justify-end gap-1 mt-0.5 sm:mt-1">
-                                    {msg.type === "sent" && <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />}
+                                    {msg.type === "sent" && (
+                                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
+                                    )}
                                   </div>
                                 </div>
                               </div>
@@ -419,7 +433,7 @@ const Solution = () => {
                       <div className="absolute -top-3 right-2 sm:right-4 flex gap-2 z-20">
                         <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm border border-emerald-500/30 rounded-full">
                           <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400" />
-                          <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">Autonix</span>
+                          <span className="text-[8px] sm:text-[10px] font-medium text-emerald-300">WhatsApp</span>
                         </div>
                       </div>
                       <div className="absolute -bottom-3 left-2 sm:left-4 flex gap-2 z-20">
@@ -517,7 +531,9 @@ const Solution = () => {
                               <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">Lead Scraper</p>
+                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">
+                                Lead Scraper
+                              </p>
                               <p className="text-[8px] sm:text-[9px] lg:text-[10px] text-blue-200 flex items-center gap-1">
                                 <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse" />
                                 Scraping in progress...
@@ -537,9 +553,7 @@ const Solution = () => {
                                   transition: `all 0.5s ease-out ${600 + index * 200}ms`,
                                 }}
                               >
-                                {msg.type === "system" && (
-                                  <p className="text-green-400">{msg.text}</p>
-                                )}
+                                {msg.type === "system" && <p className="text-green-400">{msg.text}</p>}
                                 {msg.type === "result" && (
                                   <div className="ml-1 sm:ml-2 p-1.5 sm:p-2 bg-blue-500/10 rounded border border-blue-500/20 mb-1">
                                     <p className="text-blue-300 font-medium">{msg.name}</p>
@@ -690,7 +704,9 @@ const Solution = () => {
                               <Video className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">UGC Creator Bot</p>
+                              <p className="text-white text-[10px] sm:text-xs lg:text-sm font-medium truncate">
+                                UGC Creator Bot
+                              </p>
                               <p className="text-[8px] sm:text-[9px] lg:text-[10px] text-purple-300 flex items-center gap-1">
                                 <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-400 rounded-full animate-pulse" />
                                 AI-Powered UGC Generator
@@ -726,8 +742,8 @@ const Solution = () => {
                                       </div>
                                     ) : msg.isVideo ? (
                                       <div className="w-full rounded-lg overflow-hidden bg-black/20">
-                                        <video 
-                                          src={ugcSampleVideo} 
+                                        <video
+                                          src={ugcSampleVideo}
                                           className="w-full h-auto max-h-24 sm:max-h-32 rounded-lg object-cover"
                                           controls
                                           controlsList="nofullscreen nodownload"
@@ -737,13 +753,17 @@ const Solution = () => {
                                           loop
                                           poster=""
                                         />
-                                        <p className="text-[8px] sm:text-[9px] text-purple-300 mt-1 text-center">{msg.text}</p>
+                                        <p className="text-[8px] sm:text-[9px] text-purple-300 mt-1 text-center">
+                                          {msg.text}
+                                        </p>
                                       </div>
                                     ) : (
                                       <p className="whitespace-pre-line">{msg.text}</p>
                                     )}
                                     <div className="flex items-center justify-end gap-1 mt-0.5 sm:mt-1">
-                                      {msg.type === "sent" && <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/60" />}
+                                      {msg.type === "sent" && (
+                                        <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/60" />
+                                      )}
                                     </div>
                                   </div>
                                 )}
@@ -904,7 +924,7 @@ const Solution = () => {
                   <h3 className="text-xl font-bold text-white">WhatsApp Sales Automation</h3>
                   <p className="text-sm text-white/60">Proprietary node-based logic driving 24/7 customer conversion</p>
                   <button
-                    onClick={() => handleDownloadTemplate('whatsapp-sales', n8nWorkflow)}
+                    onClick={() => handleDownloadTemplate("whatsapp-sales", n8nWorkflow)}
                     className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 rounded-full text-sm transition-colors border border-green-500/30"
                   >
                     <Download className="w-4 h-4" />
@@ -936,7 +956,7 @@ const Solution = () => {
                   <h3 className="text-xl font-bold text-white">LinkedIn Lead Scraper Automation</h3>
                   <p className="text-sm text-white/60">Automated lead generation from LinkedIn profiles</p>
                   <button
-                    onClick={() => handleDownloadTemplate('linkedin-leads', linkedinWorkflow)}
+                    onClick={() => handleDownloadTemplate("linkedin-leads", linkedinWorkflow)}
                     className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-full text-sm transition-colors border border-blue-500/30"
                   >
                     <Download className="w-4 h-4" />
@@ -968,7 +988,7 @@ const Solution = () => {
                   <h3 className="text-xl font-bold text-white">AI UGC Creator Automation</h3>
                   <p className="text-sm text-white/60">Turn product images into AI-powered UGC videos via Telegram</p>
                   <button
-                    onClick={() => handleDownloadTemplate('ugc-creator', ugcWorkflow)}
+                    onClick={() => handleDownloadTemplate("ugc-creator", ugcWorkflow)}
                     className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-full text-sm transition-colors border border-purple-500/30"
                   >
                     <Download className="w-4 h-4" />
