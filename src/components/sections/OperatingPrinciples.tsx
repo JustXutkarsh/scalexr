@@ -83,8 +83,8 @@ const OperatingPrinciples = () => {
     <section
       ref={sectionRef}
       className="relative bg-background"
-      // Height = 100vh per principle so user scrolls through all 4 while content is pinned
-      style={{ height: `${principles.length * 100}vh` }}
+      // ~60vh per principle for a lighter, faster scroll
+      style={{ height: `${principles.length * 60 + 40}vh` }}
     >
       {/* Sticky container that stays pinned for the entire section scroll */}
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
