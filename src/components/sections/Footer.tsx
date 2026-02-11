@@ -136,7 +136,7 @@ const Footer = () => {
           {/* Bottom bar */}
           <div className="pt-6 sm:pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             {/* Brand */}
-            <Link to="/" className="flex items-center gap-2" aria-label="Autonix Home">
+            <Link to="/" className="flex items-center gap-2" aria-label="Autonix Home" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
               <img 
                 src={logoImage} 
                 alt="Autonix Logo" 
