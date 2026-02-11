@@ -56,7 +56,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group" aria-label="Autonix Home">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="Autonix Home" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <img 
               src={logoImage} 
               alt="Autonix Logo" 
