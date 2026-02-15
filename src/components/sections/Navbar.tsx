@@ -143,7 +143,7 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border/50 pt-4 animate-slide-up">
+          <div className="md:hidden fixed inset-0 top-[60px] bg-background z-50 pt-6 px-4 pb-8 animate-slide-up overflow-y-auto">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link 
