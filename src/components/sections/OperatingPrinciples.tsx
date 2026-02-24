@@ -1,37 +1,66 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
-import CircleHighlight from '../CircleHighlight';
+import { useRef, useEffect, useState } from 'react';
+import { Search, Globe, Bot, Settings, ArrowRight, FileSearch, DollarSign, Target, LayoutTemplate, Megaphone, FormInput, Zap, MessageSquare, Calendar, Users, MailCheck, Route, Database, TestTube, TrendingUp, MessageCircle, Gauge } from 'lucide-react';
 
-const principles = [
+const phases = [
   {
-    id: 'ai-foundation',
-    title: "AI is the foundation, not an add-on",
-    content: "We don't add AI to existing workflows. We design systems where automation and intelligence are the default, so businesses run consistently without constant human intervention.",
-    implication: "Reduces dependency on staff availability and manual follow-ups."
+    week: 'Week 1',
+    title: 'Audit & System Strategy',
+    summary: 'We map your customer journey and identify revenue leaks before building anything.',
+    icon: Search,
+    color: 'from-primary/20 to-primary/5',
+    points: [
+      { icon: FileSearch, text: 'Business audit + journey mapping' },
+      { icon: DollarSign, text: 'Revenue leak identification' },
+      { icon: Target, text: 'Define automation KPIs' },
+      { icon: LayoutTemplate, text: 'System blueprint creation' },
+    ],
   },
   {
-    id: 'local-operations',
-    title: "Built for real local operations",
-    content: "We work only with service-based businesses that rely on calls, messages, and bookings. Systems are designed around real customer behavior, not software demos.",
-    implication: "Less complexity, higher adoption, faster ROI."
+    week: 'Week 2',
+    title: 'Acquisition Layer',
+    summary: 'We strengthen your website to capture and convert traffic.',
+    icon: Globe,
+    color: 'from-emerald-500/20 to-emerald-500/5',
+    points: [
+      { icon: Megaphone, text: 'SEO-friendly structure' },
+      { icon: FormInput, text: 'High-converting layout + copy' },
+      { icon: Zap, text: 'Lead capture forms + tracking' },
+      { icon: Settings, text: 'Automation-ready infrastructure' },
+    ],
   },
   {
-    id: 'revenue-metric',
-    title: "Revenue is the only metric that matters",
-    content: "We don't optimize for dashboards or vanity metrics. If a system doesn't increase captured leads, confirmed bookings, or response speed, we don't build it.",
-    implication: "Every automation has a measurable business outcome."
+    week: 'Week 3',
+    title: 'Conversion Layer',
+    summary: 'We install AI automation and booking systems.',
+    icon: Bot,
+    color: 'from-blue-500/20 to-blue-500/5',
+    points: [
+      { icon: MessageSquare, text: 'AI instant responses' },
+      { icon: Calendar, text: 'Booking system integration' },
+      { icon: Users, text: 'CRM setup' },
+      { icon: MailCheck, text: 'Follow-ups + no-show flows' },
+      { icon: Route, text: 'Lead routing + data organization' },
+    ],
   },
   {
-    id: 'scale-systems',
-    title: "Systems that scale without breaking",
-    content: "Our automations are built to handle growth from day one. As volume increases, systems absorb it without bottlenecks or constant rework.",
-    implication: "You don't outgrow what we build."
-  }
+    week: 'Week 4',
+    title: 'Optimization & Testing',
+    summary: 'We simulate real scenarios and refine performance.',
+    icon: Settings,
+    color: 'from-amber-500/20 to-amber-500/5',
+    points: [
+      { icon: TestTube, text: 'End-to-end system testing' },
+      { icon: TrendingUp, text: 'Conversion optimization' },
+      { icon: MessageCircle, text: 'Real conversation simulations' },
+      { icon: Gauge, text: 'Performance tuning' },
+    ],
+  },
 ];
 
 const OperatingPrinciples = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activePrinciple, setActivePrinciple] = useState(0);
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false, false]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,182 +68,144 @@ const OperatingPrinciples = () => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           observer.disconnect();
+          // Stagger card reveals
+          phases.forEach((_, i) => {
+            setTimeout(() => {
+              setVisibleCards(prev => {
+                const next = [...prev];
+                next[i] = true;
+                return next;
+              });
+            }, 200 + i * 150);
+          });
         }
       },
       { threshold: 0.05 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleScroll = useCallback(() => {
-    if (!sectionRef.current) return;
-
-    const sectionRect = sectionRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-
-    if (sectionRect.top >= viewportHeight || sectionRect.bottom <= 0) return;
-
-    // Progress based on how far the top of the section has scrolled past the top of the viewport
-    const scrolled = -sectionRect.top;
-    const totalScrollable = sectionRect.height - viewportHeight;
-
-    if (totalScrollable <= 0) return;
-
-    const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
-    const newActive = Math.min(principles.length - 1, Math.floor(progress * principles.length));
-    setActivePrinciple(newActive);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  const handlePrincipleClick = (index: number) => {
-    setActivePrinciple(index);
-  };
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-background"
-      // ~60vh per principle for a lighter, faster scroll
-      style={{ height: `${principles.length * 60 + 40}vh` }}
-    >
-      {/* Sticky container that stays pinned for the entire section scroll */}
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Section label */}
-          <div
-            className={`mb-3 sm:mb-4 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            <span className="text-primary/70 font-medium text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em]">
-              OUR APPROACH
-            </span>
+    <section ref={sectionRef} className="relative py-20 sm:py-28 lg:py-36 bg-background overflow-hidden">
+      {/* Background ambient */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/3 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/2 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Header */}
+        <div className={`text-center max-w-3xl mx-auto mb-16 sm:mb-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <span className="text-primary/70 font-medium text-[10px] sm:text-xs uppercase tracking-[0.2em] mb-4 block">
+            THE FRAMEWORK
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight mb-5">
+            How Autonix Builds Your{' '}
+            <span className="text-primary">Growth System</span>
+          </h2>
+          <p className="text-muted-foreground text-base sm:text-lg">
+            A 4-Week Structured Implementation Framework
+          </p>
+        </div>
+
+        {/* Timeline connector — desktop only */}
+        <div className="hidden lg:block relative max-w-5xl mx-auto mb-4">
+          <div className={`absolute top-1/2 left-[6%] right-[6%] h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent transition-all duration-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+          <div className="flex justify-between px-[2%]">
+            {phases.map((_, i) => (
+              <div
+                key={i}
+                className={`w-3 h-3 rounded-full border-2 border-primary bg-background relative z-10 transition-all duration-500 ${visibleCards[i] ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+                style={{ transitionDelay: `${200 + i * 150}ms` }}
+              />
+            ))}
           </div>
+        </div>
 
-          {/* Headline */}
-          <div
-            className={`mb-10 sm:mb-14 lg:mb-20 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '100ms' }}
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground max-w-xl leading-tight">
-              How <CircleHighlight>Autonix</CircleHighlight> actually builds automation
-            </h2>
-          </div>
-
-          {/* Two-column layout */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-16">
-            {/* Left column - Navigation */}
-            <div
-              className={`lg:w-[32%] transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-              }`}
-              style={{ transitionDelay: '200ms' }}
-            >
-              <div className="relative">
-                {/* Vertical line indicator */}
-                <div className="absolute left-0 top-0 bottom-0 w-px bg-border/30" />
-
-                {/* Active indicator */}
-                <div
-                  className="absolute left-0 w-px bg-primary transition-all duration-500 ease-out"
-                  style={{
-                    top: `${activePrinciple * 25}%`,
-                    height: '25%'
-                  }}
-                />
-
-                {/* Principle titles */}
-                <div className="space-y-0">
-                  {principles.map((principle, index) => (
-                    <button
-                      key={principle.id}
-                      onClick={() => handlePrincipleClick(index)}
-                      className={`w-full text-left py-2.5 sm:py-3 lg:py-6 pl-3 sm:pl-4 lg:pl-6 transition-all duration-300 ${
-                        activePrinciple === index
-                          ? 'text-foreground'
-                          : 'text-muted-foreground/50 hover:text-muted-foreground/80'
-                      }`}
-                    >
-                      <span className={`text-xs sm:text-sm lg:text-lg font-medium leading-snug transition-all duration-300`}>
-                        {principle.title}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right column - Content */}
-            <div
-              className={`lg:w-[68%] transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-              }`}
-              style={{ transitionDelay: '300ms' }}
-            >
-              <div className="min-h-[140px] sm:min-h-[180px] lg:min-h-[280px] relative">
-                {principles.map((principle, index) => (
-                  <div
-                    key={principle.id}
-                    className={`transition-all duration-500 ${
-                      activePrinciple === index
-                        ? 'opacity-100 translate-y-0'
-                        : 'opacity-0 absolute top-0 left-0 right-0 pointer-events-none translate-y-4'
-                    }`}
-                  >
-                    {activePrinciple === index && (
-                      <div className="space-y-3 sm:space-y-5 lg:space-y-8">
-                        <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-foreground/90 leading-relaxed font-light">
-                          {principle.content}
-                        </p>
-
-                        <div className="pt-2 sm:pt-3 lg:pt-4">
-                          <p className="text-xs sm:text-sm text-muted-foreground/70 leading-relaxed">
-                            <span className="text-primary/60 mr-2">→</span>
-                            {principle.implication}
-                          </p>
-                        </div>
-                      </div>
-                    )}
+        {/* Phase Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
+          {phases.map((phase, i) => {
+            const Icon = phase.icon;
+            return (
+              <div
+                key={phase.week}
+                className={`group relative rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm p-6 sm:p-7 transition-all duration-700 hover:border-primary/40 hover:shadow-[0_0_30px_-10px_hsl(var(--primary)/0.15)] ${visibleCards[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              >
+                {/* Week badge */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${phase.color} flex items-center justify-center border border-border/20`}>
+                    <Icon className="w-5 h-5 text-primary" />
                   </div>
-                ))}
+                  <span className="text-[10px] uppercase tracking-[0.15em] text-primary/60 font-semibold">
+                    {phase.week}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-snug">
+                  {phase.title}
+                </h3>
+
+                {/* Summary */}
+                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+                  {phase.summary}
+                </p>
+
+                {/* Divider */}
+                <div className="w-8 h-px bg-border/40 mb-5" />
+
+                {/* Points */}
+                <ul className="space-y-3">
+                  {phase.points.map((point, j) => {
+                    const PointIcon = point.icon;
+                    return (
+                      <li key={j} className="flex items-start gap-2.5">
+                        <PointIcon className="w-4 h-4 text-primary/50 mt-0.5 shrink-0" />
+                        <span className="text-sm text-foreground/70 leading-snug">{point.text}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* Connector arrow — mobile between cards */}
+                {i < phases.length - 1 && (
+                  <div className="lg:hidden flex justify-center mt-5 -mb-2">
+                    <ArrowRight className="w-4 h-4 text-primary/30 rotate-90" />
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
 
-          {/* Closing line */}
-          <div
-            className={`mt-12 sm:mt-16 lg:mt-24 pt-8 sm:pt-10 lg:pt-12 border-t border-border/20 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '500ms' }}
-          >
-            <p className="text-muted-foreground/60 text-sm sm:text-base lg:text-lg italic max-w-2xl">
-              "This is why our systems feel boring to competitors — and powerful to clients."
-            </p>
+        {/* Flow labels */}
+        <div className={`hidden lg:flex justify-center gap-16 mt-10 transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground/50 uppercase tracking-wider">
+            <div className="w-6 h-px bg-primary/30" />
+            Acquisition Layer
+            <div className="w-6 h-px bg-primary/30" />
           </div>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground/50 uppercase tracking-wider">
+            <div className="w-6 h-px bg-primary/30" />
+            Conversion Layer
+            <div className="w-6 h-px bg-primary/30" />
+          </div>
+        </div>
 
-          {/* Disclaimer */}
-          <div
-            className={`mt-4 sm:mt-6 lg:mt-8 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '600ms' }}
+        {/* CTA */}
+        <div className={`text-center mt-16 sm:mt-20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-foreground/60 text-sm mb-6">Ready to install this in your business?</p>
+          <a
+            href="https://calendly.com/autonix-ai/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-xl hover:bg-primary/90 transition-colors text-sm sm:text-base"
           >
-            <p className="text-[10px] sm:text-xs text-muted-foreground/40">
-              Results vary based on business type, existing processes, and implementation scope.
-            </p>
-          </div>
+            Book Strategy Call
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
