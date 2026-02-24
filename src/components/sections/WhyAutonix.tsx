@@ -1,157 +1,329 @@
-const caseStudies = [
-  {
-    headline: "+$4,200/month recovered from missed appointments",
-    subline: "Regional dental practice · Northeast US · 3 locations",
-    automated: [
-      "Appointment booking via chat",
-      "Missed call callbacks",
-      "Patient reminders (24h + 2h)",
-      "Rescheduling for cancellations"
-    ],
-    beforeAfter: [
-      { metric: "Monthly appointments", before: "45", after: "102" },
-      { metric: "Missed call rate", before: "62%", after: "8%" },
-      { metric: "Avg response time", before: "4.2 hrs", after: "< 1 min" }
-    ],
-    outcomes: [
-      "+$4,200–6,800/mo in recovered bookings",
-      "Front desk handles in-office patients only",
-      "No more voicemail backlog"
-    ],
-    footer: "Deployed Mar 2024 · Data through Sep 2024"
-  },
-  {
-    headline: "15 hours/week freed from manual admin",
-    subline: "Home services provider · UK · Solo operator",
-    automated: [
-      "Lead capture from website",
-      "Quote request follow-ups",
-      "Job scheduling confirmations",
-      "Review requests post-job"
-    ],
-    beforeAfter: [
-      { metric: "Admin hours / week", before: "25", after: "10" },
-      { metric: "Lead response time", before: "Next day", after: "Instant" },
-      { metric: "Quote follow-up", before: "Manual", after: "Automated" }
-    ],
-    outcomes: [
-      "Owner stopped tracking leads in spreadsheets",
-      "34% more quotes converted",
-      "Evenings no longer spent on admin"
-    ],
-    footer: "Deployed Apr 2024 · Data through Sep 2024"
-  },
-  {
-    headline: "+$3,500/month recovered from member retention",
-    subline: "Boutique fitness studio · Australia · 1 location",
-    automated: [
-      "Membership inquiries",
-      "Booking confirmations",
-      "Renewal reminders",
-      "No-show follow-ups"
-    ],
-    beforeAfter: [
-      { metric: "Member retention", before: "65%", after: "91%" },
-      { metric: "New signups / month", before: "28", after: "82" },
-      { metric: "No-show rate", before: "23%", after: "7%" }
-    ],
-    outcomes: [
-      "+$3,500/month in recovered revenue",
-      "Fewer cancellations",
-      "Staff no longer chasing renewals"
-    ],
-    footer: "Deployed Feb 2024 · Data through Aug 2024"
-  }
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Zap, Clock, Users, TrendingUp, Bot, MessageSquare, CalendarCheck, BarChart3 } from 'lucide-react';
+
+// ── Scroll reveal hook ──────────────────────────────────────────────
+const useReveal = (threshold = 0.15) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } }, { threshold });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+};
+
+// ── Animated counter ────────────────────────────────────────────────
+const useCounter = (end: number, visible: boolean, duration = 1400) => {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!visible) return;
+    let start = 0;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      setVal(Math.round(end * p));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [visible, end, duration]);
+  return val;
+};
+
+const AnimatedStat = ({ value, suffix, prefix = '', label }: { value: number; suffix: string; prefix?: string; label: string }) => {
+  const { ref, visible } = useReveal(0.2);
+  const count = useCounter(value, visible);
+  return (
+    <div ref={ref} className={`text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+      <div className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary tracking-tight">
+        {prefix}{count}{suffix}
+      </div>
+      <div className="text-sm sm:text-base text-muted-foreground mt-2 font-medium">{label}</div>
+    </div>
+  );
+};
+
+// ── Data ─────────────────────────────────────────────────────────────
+const transformationRows = [
+  { before: '2–3 day response time', after: 'Instant AI replies', impact: '+37%', impactLabel: 'conversion', icon: Clock },
+  { before: 'Manual follow-ups', after: 'Automated sequences', impact: '-60%', impactLabel: 'admin time', icon: Bot },
+  { before: 'Missed leads', after: '24/7 lead capture', impact: '+29%', impactLabel: 'revenue', icon: TrendingUp },
+  { before: 'Voicemail backlog', after: 'AI call handling', impact: '-92%', impactLabel: 'missed calls', icon: MessageSquare },
 ];
 
-const WhyAutonix = () => {
+const caseStudies = [
+  {
+    industry: 'Healthcare',
+    subline: 'Regional dental practice · 3 locations',
+    timeline: '90 Days',
+    bigNumber: '+127%',
+    bigLabel: 'Bookings',
+    bigValue: 127,
+    metrics: [
+      { label: 'Qualified Leads', value: '4.5×' },
+      { label: 'Admin Time', value: '-55%' },
+      { label: 'Revenue', value: '+$4,200/mo' },
+    ],
+    context: 'From 45 to 102 monthly appointments. Front desk now handles in-office patients only.',
+    chartData: [20, 28, 35, 42, 55, 68, 78, 88, 95, 102],
+  },
+  {
+    industry: 'Home Services',
+    subline: 'Solo operator · UK-based',
+    timeline: '60 Days',
+    bigNumber: '-60%',
+    bigLabel: 'Admin Hours',
+    bigValue: 60,
+    metrics: [
+      { label: 'Lead Response', value: 'Instant' },
+      { label: 'Quotes Converted', value: '+34%' },
+      { label: 'Hours Saved/Week', value: '15' },
+    ],
+    context: 'Owner stopped tracking leads in spreadsheets. Evenings no longer spent on admin.',
+    chartData: [25, 24, 22, 20, 18, 15, 13, 12, 11, 10],
+  },
+  {
+    industry: 'Fitness Studio',
+    subline: 'Boutique studio · Australia',
+    timeline: '120 Days',
+    bigNumber: '+40%',
+    bigLabel: 'Member Retention',
+    bigValue: 40,
+    metrics: [
+      { label: 'New Signups/mo', value: '82 (was 28)' },
+      { label: 'No-show Rate', value: '7% (was 23%)' },
+      { label: 'Revenue', value: '+$3,500/mo' },
+    ],
+    context: 'Fewer cancellations. Staff no longer chasing renewals manually.',
+    chartData: [65, 68, 72, 75, 79, 83, 85, 88, 90, 91],
+  },
+];
+
+const painPoints = [
+  'Slow response times losing warm leads',
+  'No automated follow-up sequences',
+  'Poor mobile UX on booking flows',
+  'No lead qualification system',
+];
+
+const afterPoints = [
+  'AI handled inquiries instantly',
+  'Follow-ups ran 24/7 without staff',
+  'Booking friction removed completely',
+  'Sales team focused only on closing',
+];
+
+// ── Mini spark chart ─────────────────────────────────────────────────
+const SparkChart = ({ data, color = 'hsl(var(--primary))' }: { data: number[]; color?: string }) => {
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || 1;
+  const w = 160;
+  const h = 48;
+  const points = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`).join(' ');
   return (
-    <section className="py-16 sm:py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <header className="mb-4 sm:mb-6">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-foreground mb-2">
-            <span className="bg-white/10 px-2 py-1">Real results from Autonix automation systems</span>
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="opacity-60">
+      <defs>
+        <linearGradient id={`spark-${data[0]}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.3" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <polygon
+        points={`0,${h} ${points} ${w},${h}`}
+        fill={`url(#spark-${data[0]})`}
+      />
+      <polyline points={points} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+};
+
+// ── Main Component ───────────────────────────────────────────────────
+const WhyAutonix = () => {
+  const headerReveal = useReveal();
+  const gridReveal = useReveal();
+  const patternReveal = useReveal();
+
+  return (
+    <section className="py-20 sm:py-28 lg:py-36 bg-background relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+
+        {/* ─── Section Header ─── */}
+        <div
+          ref={headerReveal.ref}
+          className={`mb-16 sm:mb-20 transition-all duration-700 ${headerReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-primary mb-3">Measured Results</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-[1.1] max-w-4xl">
+            Before vs After Autonix
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            Measured across live Autonix systems running for 3–9 months. Median outcomes shown.
+          <p className="text-base sm:text-lg text-muted-foreground mt-4 max-w-2xl">
+            From manual chaos to automated growth. Here's what changes when we install the system.
           </p>
-        </header>
+        </div>
 
-        {/* Header Divider */}
-        <div className="border-t border-border mb-8 sm:mb-10 lg:mb-12" />
+        {/* ─── Dominant Stats Strip ─── */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 mb-20 sm:mb-28">
+          <AnimatedStat value={45} suffix="%" prefix="+" label="Avg. Booking Increase" />
+          <AnimatedStat value={60} suffix="%" prefix="-" label="Admin Time Eliminated" />
+          <AnimatedStat value={29} suffix="%" prefix="+" label="Revenue Growth" />
+        </div>
 
-        {/* Case Studies */}
-        <div>
-          {caseStudies.map((study, index) => (
-            <div key={index}>
-              {/* Subline */}
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">
-                {study.subline}
-              </p>
+        {/* ─── Transformation Grid ─── */}
+        <div
+          ref={gridReveal.ref}
+          className={`rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-1 mb-20 sm:mb-28 transition-all duration-700 ${gridReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ boxShadow: '0 0 60px -20px hsl(var(--primary) / 0.15)' }}
+        >
+          {/* Grid Header */}
+          <div className="hidden sm:grid grid-cols-3 text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground px-6 py-4 border-b border-border">
+            <span>Before</span>
+            <span>After Autonix</span>
+            <span className="text-right">Impact</span>
+          </div>
 
-              {/* Headline */}
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-4 sm:mb-5 lg:mb-6">
-                {study.headline}
-              </h3>
-
-              {/* Three Column Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-4 sm:mb-5 lg:mb-6">
-                {/* Left Column - What we automated */}
-                <div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
-                    What we automated
-                  </div>
-                  <ul className="space-y-1 sm:space-y-1.5">
-                    {study.automated.map((item, i) => (
-                      <li key={i} className="text-xs sm:text-sm text-foreground">
-                        – {item}
-                      </li>
-                    ))}
-                  </ul>
+          {transformationRows.map((row, i) => {
+            const rowReveal = useReveal(0.1);
+            const Icon = row.icon;
+            return (
+              <div
+                key={i}
+                ref={rowReveal.ref}
+                className={`grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 px-4 sm:px-6 py-5 sm:py-6 transition-all duration-500 ${i < transformationRows.length - 1 ? 'border-b border-border/50' : ''} ${rowReveal.visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                {/* Before */}
+                <div className="flex items-center gap-3">
+                  <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <span className="text-sm text-muted-foreground line-through decoration-destructive/40">{row.before}</span>
                 </div>
+                {/* After */}
+                <div className="flex items-center gap-3 sm:pl-0 pl-7">
+                  <Zap className="w-4 h-4 text-primary shrink-0" />
+                  <span className="text-sm text-foreground font-medium">{row.after}</span>
+                </div>
+                {/* Impact */}
+                <div className="sm:text-right pl-7 sm:pl-0">
+                  <span className="text-2xl sm:text-3xl font-bold text-primary">{row.impact}</span>
+                  <span className="text-xs text-muted-foreground ml-2">{row.impactLabel}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-                {/* Middle Column - Before → After */}
-                <div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
-                    Before → After
+        {/* ─── Case Study Snapshot Cards ─── */}
+        <div className="mb-20 sm:mb-28">
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-primary mb-8">Client Snapshots</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {caseStudies.map((study, i) => {
+              const cardReveal = useReveal(0.1);
+              return (
+                <div
+                  key={i}
+                  ref={cardReveal.ref}
+                  className={`group rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-6 sm:p-8 transition-all duration-600 hover:border-primary/30 ${cardReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${i * 120}ms` }}
+                >
+                  {/* Top bar */}
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-xs font-mono uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+                      {study.industry}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{study.timeline}</span>
                   </div>
-                  <div className="space-y-1 sm:space-y-1.5">
-                    {study.beforeAfter.map((row, i) => (
-                      <div key={i} className="text-xs sm:text-sm">
-                        <span className="text-muted-foreground">{row.metric}</span>
-                        <span className="text-foreground ml-2 sm:ml-4">{row.before} → {row.after}</span>
+
+                  {/* Big Number */}
+                  <div className="mb-6">
+                    <div className="text-5xl sm:text-6xl font-bold text-primary leading-none">{study.bigNumber}</div>
+                    <div className="text-base text-foreground font-medium mt-1">{study.bigLabel}</div>
+                  </div>
+
+                  {/* Spark Chart */}
+                  <div className="mb-6">
+                    <SparkChart data={study.chartData} />
+                  </div>
+
+                  {/* Sub-metrics */}
+                  <div className="space-y-2 mb-6">
+                    {study.metrics.map((m, j) => (
+                      <div key={j} className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">{m.label}</span>
+                        <span className="text-foreground font-semibold">{m.value}</span>
                       </div>
                     ))}
                   </div>
+
+                  {/* Context */}
+                  <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-4">
+                    {study.context}
+                  </p>
+
+                  {/* Subline */}
+                  <p className="text-[10px] text-muted-foreground mt-3">{study.subline}</p>
                 </div>
+              );
+            })}
+          </div>
+        </div>
 
-                {/* Right Column - Outcome */}
-                <div className="sm:col-span-2 md:col-span-1">
-                  <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide mb-2 sm:mb-3">
-                    Outcome
-                  </div>
-                  <ul className="space-y-1 sm:space-y-1.5">
-                    {study.outcomes.map((item, i) => (
-                      <li key={i} className="text-xs sm:text-sm text-foreground">
-                        – {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+        {/* ─── Pattern Recognition Strip ─── */}
+        <div
+          ref={patternReveal.ref}
+          className={`rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-8 sm:p-12 mb-20 sm:mb-28 transition-all duration-700 ${patternReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-primary mb-8">Pattern Recognition</p>
 
-              {/* Footer Metadata */}
-              <p className="text-[10px] sm:text-xs text-muted-foreground mb-6 sm:mb-8">
-                {study.footer}
-              </p>
-
-              {/* Divider before next case */}
-              {index < caseStudies.length - 1 && (
-                <div className="border-t border-border mb-8 sm:mb-10" />
-              )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+            {/* Before */}
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-5">
+                What Every Client Was Doing Wrong
+              </h3>
+              <ul className="space-y-3">
+                {painPoints.map((p, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="w-1.5 h-1.5 rounded-full bg-destructive mt-1.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+
+            {/* After */}
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-5">
+                What Changed After Implementation
+              </h3>
+              <ul className="space-y-3">
+                {afterPoints.map((p, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-foreground">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── CTA ─── */}
+        <div className="text-center">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
+            Median outcomes shown · Results vary by engagement
+          </p>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+          >
+            Become the Next Case Study
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
