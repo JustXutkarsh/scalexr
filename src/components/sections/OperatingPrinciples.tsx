@@ -1,13 +1,14 @@
 import { useRef, useEffect, useState } from 'react';
-import { Search, Globe, Bot, Settings, ArrowRight, FileSearch, DollarSign, Target, LayoutTemplate, Megaphone, FormInput, Zap, MessageSquare, Calendar, Users, MailCheck, Route, Database, TestTube, TrendingUp, MessageCircle, Gauge } from 'lucide-react';
+import { Search, Globe, Bot, Settings, FileSearch, DollarSign, Target, LayoutTemplate, Megaphone, FormInput, Zap, MessageSquare, Calendar, Users, MailCheck, Route, TestTube, TrendingUp, MessageCircle, Gauge, ArrowRight } from 'lucide-react';
 
-const phases = [
+const layers = [
   {
-    week: 'Week 1',
-    title: 'Audit & System Strategy',
-    summary: 'We map your customer journey and identify revenue leaks before building anything.',
+    label: 'LAYER 01',
+    title: 'Strategy & Audit',
     icon: Search,
-    color: 'from-primary/20 to-primary/5',
+    summary: 'We map your customer journey and identify revenue leaks before building anything.',
+    accent: 'hsl(var(--primary))',
+    glowColor: 'hsl(var(--primary) / 0.15)',
     points: [
       { icon: FileSearch, text: 'Business audit + journey mapping' },
       { icon: DollarSign, text: 'Revenue leak identification' },
@@ -16,11 +17,12 @@ const phases = [
     ],
   },
   {
-    week: 'Week 2',
+    label: 'LAYER 02',
     title: 'Acquisition Layer',
-    summary: 'We strengthen your website to capture and convert traffic.',
     icon: Globe,
-    color: 'from-emerald-500/20 to-emerald-500/5',
+    summary: 'We strengthen your website to capture and convert traffic.',
+    accent: 'hsl(160 60% 50%)',
+    glowColor: 'hsl(160 60% 50% / 0.12)',
     points: [
       { icon: Megaphone, text: 'SEO-friendly structure' },
       { icon: FormInput, text: 'High-converting layout + copy' },
@@ -29,11 +31,12 @@ const phases = [
     ],
   },
   {
-    week: 'Week 3',
+    label: 'LAYER 03',
     title: 'Conversion Layer',
-    summary: 'We install AI automation and booking systems.',
     icon: Bot,
-    color: 'from-blue-500/20 to-blue-500/5',
+    summary: 'We install AI automation and booking systems.',
+    accent: 'hsl(220 80% 60%)',
+    glowColor: 'hsl(220 80% 60% / 0.12)',
     points: [
       { icon: MessageSquare, text: 'AI instant responses' },
       { icon: Calendar, text: 'Booking system integration' },
@@ -43,11 +46,12 @@ const phases = [
     ],
   },
   {
-    week: 'Week 4',
-    title: 'Optimization & Testing',
+    label: 'LAYER 04',
+    title: 'Optimization & Scaling',
+    icon: TrendingUp,
     summary: 'We simulate real scenarios and refine performance.',
-    icon: Settings,
-    color: 'from-amber-500/20 to-amber-500/5',
+    accent: 'hsl(35 90% 55%)',
+    glowColor: 'hsl(35 90% 55% / 0.12)',
     points: [
       { icon: TestTube, text: 'End-to-end system testing' },
       { icon: TrendingUp, text: 'Conversion optimization' },
@@ -60,7 +64,7 @@ const phases = [
 const OperatingPrinciples = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false, false]);
+  const [revealedLayers, setRevealedLayers] = useState<boolean[]>(new Array(layers.length).fill(false));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,142 +72,141 @@ const OperatingPrinciples = () => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           observer.disconnect();
-          // Stagger card reveals
-          phases.forEach((_, i) => {
+          layers.forEach((_, i) => {
             setTimeout(() => {
-              setVisibleCards(prev => {
+              setRevealedLayers(prev => {
                 const next = [...prev];
                 next[i] = true;
                 return next;
               });
-            }, 200 + i * 150);
+            }, 300 + i * 200);
           });
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.08 }
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-20 sm:py-28 lg:py-36 bg-background overflow-hidden">
-      {/* Background ambient */}
+    <section ref={sectionRef} className="relative py-24 sm:py-32 lg:py-40 bg-background overflow-hidden">
+      {/* Ambient */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/3 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/2 rounded-full blur-[100px]" />
+        <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-primary/[0.04] rounded-full blur-[150px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-blue-500/[0.03] rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
-        <div className={`text-center max-w-3xl mx-auto mb-16 sm:mb-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className="text-primary/70 font-medium text-[10px] sm:text-xs uppercase tracking-[0.2em] mb-4 block">
-            THE FRAMEWORK
+        <div className={`text-center max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <span className="text-primary/60 font-semibold text-[10px] sm:text-xs uppercase tracking-[0.25em] mb-4 block">
+            SYSTEM ARCHITECTURE
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight mb-5">
-            How Autonix Builds Your{' '}
-            <span className="text-primary">Growth System</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-[1.1] mb-5">
+            The Autonix{' '}
+            <span className="bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent">
+              Growth Architecture
+            </span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg">
-            A 4-Week Structured Implementation Framework
+          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
+            A 4-Layer Automation System Rolled Out in 4 Weeks
           </p>
         </div>
 
-        {/* Timeline connector — desktop only */}
-        <div className="hidden lg:block relative max-w-5xl mx-auto mb-4">
-          <div className={`absolute top-1/2 left-[6%] right-[6%] h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent transition-all duration-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
-          <div className="flex justify-between px-[2%]">
-            {phases.map((_, i) => (
-              <div
-                key={i}
-                className={`w-3 h-3 rounded-full border-2 border-primary bg-background relative z-10 transition-all duration-500 ${visibleCards[i] ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
-                style={{ transitionDelay: `${200 + i * 150}ms` }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* Stacked Layers */}
+        <div className="max-w-4xl mx-auto relative">
+          {/* Vertical connector line */}
+          <div className={`absolute left-6 sm:left-8 top-0 bottom-0 w-px transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+            style={{ background: 'linear-gradient(to bottom, hsl(var(--primary) / 0.4), hsl(220 80% 60% / 0.3), hsl(35 90% 55% / 0.2), transparent)' }}
+          />
 
-        {/* Phase Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
-          {phases.map((phase, i) => {
-            const Icon = phase.icon;
+          {layers.map((layer, i) => {
+            const Icon = layer.icon;
+            const revealed = revealedLayers[i];
             return (
               <div
-                key={phase.week}
-                className={`group relative rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm p-6 sm:p-7 transition-all duration-700 hover:border-primary/40 hover:shadow-[0_0_30px_-10px_hsl(var(--primary)/0.15)] ${visibleCards[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                key={layer.label}
+                className="relative"
+                style={{
+                  marginTop: i === 0 ? 0 : '-12px',
+                  zIndex: layers.length - i,
+                }}
               >
-                {/* Week badge */}
-                <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${phase.color} flex items-center justify-center border border-border/20`}>
-                    <Icon className="w-5 h-5 text-primary" />
+                <div
+                  className={`relative rounded-2xl border border-border/20 backdrop-blur-sm transition-all duration-700 ease-out ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
+                  style={{
+                    background: `linear-gradient(135deg, hsl(var(--card) / 0.8), hsl(var(--card) / 0.4))`,
+                    boxShadow: revealed
+                      ? `0 -1px 0 0 ${layer.glowColor}, 0 8px 40px -12px ${layer.glowColor}, inset 0 1px 0 0 hsl(var(--border) / 0.1)`
+                      : 'none',
+                  }}
+                >
+                  {/* Top glow edge */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-px rounded-t-2xl"
+                    style={{ background: `linear-gradient(90deg, transparent 10%, ${layer.accent} / 0.4 50%, transparent 90%)` }}
+                  />
+
+                  <div className="p-6 sm:p-8 lg:p-10">
+                    <div className="flex flex-col sm:flex-row gap-6 sm:gap-10">
+                      {/* Left: Icon + label */}
+                      <div className="flex sm:flex-col items-center sm:items-start gap-4 sm:gap-3 sm:w-48 shrink-0">
+                        <div
+                          className="w-12 h-12 rounded-2xl flex items-center justify-center border border-border/20"
+                          style={{ background: `linear-gradient(135deg, ${layer.glowColor}, transparent)` }}
+                        >
+                          <Icon className="w-5 h-5" style={{ color: layer.accent }} />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] block mb-1" style={{ color: `${layer.accent}` }}>
+                            {layer.label}
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-tight">
+                            {layer.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      {/* Right: Summary + points */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-5">
+                          {layer.summary}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                          {layer.points.map((point, j) => {
+                            const PointIcon = point.icon;
+                            return (
+                              <div key={j} className="flex items-center gap-2.5 group/point">
+                                <PointIcon className="w-3.5 h-3.5 shrink-0 text-muted-foreground/40 group-hover/point:text-primary/60 transition-colors" />
+                                <span className="text-sm text-foreground/65 group-hover/point:text-foreground/90 transition-colors">
+                                  {point.text}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[10px] uppercase tracking-[0.15em] text-primary/60 font-semibold">
-                    {phase.week}
-                  </span>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-snug">
-                  {phase.title}
-                </h3>
-
-                {/* Summary */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                  {phase.summary}
-                </p>
-
-                {/* Divider */}
-                <div className="w-8 h-px bg-border/40 mb-5" />
-
-                {/* Points */}
-                <ul className="space-y-3">
-                  {phase.points.map((point, j) => {
-                    const PointIcon = point.icon;
-                    return (
-                      <li key={j} className="flex items-start gap-2.5">
-                        <PointIcon className="w-4 h-4 text-primary/50 mt-0.5 shrink-0" />
-                        <span className="text-sm text-foreground/70 leading-snug">{point.text}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {/* Connector arrow — mobile between cards */}
-                {i < phases.length - 1 && (
-                  <div className="lg:hidden flex justify-center mt-5 -mb-2">
-                    <ArrowRight className="w-4 h-4 text-primary/30 rotate-90" />
-                  </div>
-                )}
               </div>
             );
           })}
         </div>
 
-        {/* Flow labels */}
-        <div className={`hidden lg:flex justify-center gap-16 mt-10 transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground/50 uppercase tracking-wider">
-            <div className="w-6 h-px bg-primary/30" />
-            Acquisition Layer
-            <div className="w-6 h-px bg-primary/30" />
-          </div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground/50 uppercase tracking-wider">
-            <div className="w-6 h-px bg-primary/30" />
-            Conversion Layer
-            <div className="w-6 h-px bg-primary/30" />
-          </div>
-        </div>
-
         {/* CTA */}
-        <div className={`text-center mt-16 sm:mt-20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-foreground/60 text-sm mb-6">Ready to install this in your business?</p>
+        <div className={`text-center mt-20 sm:mt-24 transition-all duration-700 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-muted-foreground/50 text-xs uppercase tracking-[0.2em] mb-5">
+            4 Layers. 4 Weeks. One Engineered System.
+          </p>
           <a
             href="https://calendly.com/autonix-ai/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-8 py-3.5 rounded-xl hover:bg-primary/90 transition-colors text-sm sm:text-base"
+            className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-xl hover:bg-primary/90 transition-all text-sm sm:text-base hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)]"
           >
-            Book Strategy Call
+            Install This System In Your Business
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
