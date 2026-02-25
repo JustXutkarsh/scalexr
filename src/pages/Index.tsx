@@ -11,6 +11,7 @@ import Footer from '@/components/sections/Footer';
 import IntroSequence from '@/components/IntroSequence';
 import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
+// Mobile-optimized homepage
 const Index = () => {
   const [showIntro, setShowIntro] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
