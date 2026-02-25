@@ -1,92 +1,94 @@
 
-# Mobile Fix Plan: Autonix Intelligent Architecture Section
 
-## Overview
-The "Intelligent Architecture" section's workflow carousel is not displaying correctly on mobile screens. The phone mockup and workflow images are being cut off or positioned incorrectly due to carousel overflow and layout issues.
+## Plan: Full Mobile Optimization & Bug Fixes
 
-## Problems Identified
+### Issues Found
 
-1. **Carousel Overflow** - The horizontal scroll container uses `translateX(-${activeWorkflow * 100}%)` but the parent container doesn't properly clip overflow, causing content to extend beyond the viewport
-2. **Missing Overflow Hidden** - The ScrollArea wrapper needs explicit overflow control
-3. **Gap causing misalignment** - The `gap-8` between carousel slides is not accounted for in the 100% width calculation
-4. **Mobile grid stacking needs adjustment** - On mobile, the two-column grid stacks vertically but elements inside have fixed widths that don't center properly
+**Critical Bugs:**
 
-## Implementation Plan
+1. **React Rules of Hooks Violation in WhyAutonix.tsx (lines 191, 225)**: `useReveal()` is called inside a `.map()` loop, which violates React's rules of hooks. Hooks cannot be called conditionally or inside loops. This can cause crashes or unpredictable behavior.
 
-### Step 1: Fix Carousel Container Overflow
-Add `overflow-hidden` to the parent container of the workflow carousel to prevent horizontal overflow on mobile.
+2. **React Rules of Hooks Violation in CaseStudies.tsx (line 334)**: `useCounter()` is called inside a `.map()` loop inside the component body.
 
-```text
-File: src/components/sections/Solution.tsx
+3. **Solution.tsx CTA button scrolls to `#cta` on homepage but won't work on the Solution section itself if viewed from another page** — the `#cta` element only exists on the Index page. However since Solution is only rendered on Index, this is acceptable.
 
-Location: The div wrapping the ScrollArea (around line 279)
+4. **Footer contact links**: The `mailto:` link doesn't have `external: true` but renders as `<a>` — this works because it's in the contact section which always renders `<a>` tags. No bug.
 
-Change: Add overflow-hidden class to the parent container
+5. **WhyAutonix "Become the Next Case Study" CTA** links to `/contact` as a plain `<a>` tag instead of React Router `<Link>`, causing full page reload.
+
+**Mobile Responsiveness Issues:**
+
+6. **Navbar mobile menu**: The menu starts at `top-[60px]` which is hardcoded and may not match actual navbar height on all devices.
+
+7. **WhyAutonix Transformation Grid**: On mobile (single column), the grid header is hidden (`hidden sm:grid`) but the rows don't have labels, so users see data without context of what "Before/After/Impact" columns mean.
+
+8. **WhyAutonix AnimatedStat**: The `text-5xl sm:text-6xl lg:text-7xl` numbers may overflow on very small screens (320px).
+
+9. **Solution section workflow panels**: The `translateX` approach with `ScrollArea` may cause horizontal overflow issues on some mobile browsers.
+
+10. **CaseStudies hero metrics**: The hero grid on mobile stacks but the large `text-4xl sm:text-5xl` numbers may overflow on small screens.
+
+11. **OperatingPrinciples (Growth Pillars)**: Mobile accordion looks good, but the CTA button at bottom doesn't have full-width styling on mobile.
+
+12. **CTA section**: The submitted state container has `p-12` which may be too much padding on mobile.
+
+13. **Footer**: The email address with `break-all` is correct but the 2-column grid on small mobile may still be tight.
+
+---
+
+### Implementation Plan
+
+#### Task 1: Fix React Hooks Violations in WhyAutonix.tsx
+- Extract the transformation row rendering into a separate `TransformationRow` component that calls `useReveal` at component level
+- Extract case study card into a separate `CaseStudyCard` component that calls `useReveal` at component level
+- This fixes the rules-of-hooks violation that can cause React crashes
+
+#### Task 2: Fix React Hooks Violation in CaseStudies.tsx
+- Extract hero metric rendering into a separate `HeroMetricCard` component that calls `useCounter` at component level
+
+#### Task 3: Mobile Optimization — WhyAutonix.tsx
+- Add mobile labels (Before/After/Impact) to each row in the transformation grid since the header is hidden on mobile
+- Scale down AnimatedStat numbers for smallest screens: `text-4xl sm:text-5xl lg:text-7xl`
+- Change CTA `<a>` to React Router `<Link>` to prevent full page reload
+
+#### Task 4: Mobile Optimization — Hero.tsx
+- Minor: ensure scroll indicator is hidden on very short viewports to avoid overlap
+
+#### Task 5: Mobile Optimization — CTA.tsx
+- Change submitted state padding from `p-12` to `p-6 sm:p-12`
+- Ensure all form elements have proper touch targets
+
+#### Task 6: Mobile Optimization — OperatingPrinciples.tsx
+- Make CTA button full-width on mobile: add `w-full sm:w-auto` and `inline-flex` adjustments
+
+#### Task 7: Mobile Optimization — CaseStudies.tsx
+- Ensure hero stat cards don't overflow on 320px screens by adjusting font sizes
+- Make timeline chevrons work properly on tablet (they're hidden except on lg)
+
+#### Task 8: Mobile Optimization — Navbar.tsx
+- Adjust mobile menu top offset to use a CSS-safe approach
+- Ensure mobile menu items have proper tap target sizing
+
+#### Task 9: Mobile Optimization — Solution.tsx
+- Ensure the workflow swipe area has sufficient touch area
+- Verify dialog close buttons are accessible on mobile
+
+#### Task 10: General Mobile Polish
+- Verify all external links (Calendly) open correctly with `target="_blank"` and `rel="noopener noreferrer"` — these are already correct across all components
+- Verify all interactive elements meet 44px minimum touch target
+
+### Technical Details
+
+The most critical fix is the hooks violation. In `WhyAutonix.tsx` lines 191 and 225, `useReveal()` is called inside `.map()`:
+```
+transformationRows.map((row, i) => {
+  const rowReveal = useReveal(0.1); // VIOLATION
+```
+This must be refactored into separate components. Similarly in `CaseStudies.tsx` line 334:
+```
+heroMetrics.map((m, i) => {
+  const { count, ref } = useCounter(m.value, 1800); // VIOLATION
 ```
 
-### Step 2: Adjust Slide Width Calculation  
-Update the carousel slide container to use proper width calculations that account for the gap.
+All files will be modified to ensure proper responsive breakpoints using Tailwind's `sm:`, `md:`, `lg:` prefixes, with mobile-first sizing.
 
-```text
-Changes to the workflow container:
-- Add w-full and overflow-hidden to ScrollArea
-- Ensure each slide uses proper viewport width calculations
-```
-
-### Step 3: Stack Layout for Mobile
-Modify the mobile layout so phone mockup and workflow image stack vertically and are properly centered.
-
-```text
-File: src/components/sections/Solution.tsx
-
-The grid inside each workflow:
-- Current: grid lg:grid-cols-2 
-- Update: Ensure proper centering on mobile with explicit px padding
-```
-
-### Step 4: Phone Mockup Mobile Sizing
-Reduce the phone mockup width on very small screens to ensure it fits within viewport.
-
-```text
-Current phone width: w-[260px] sm:w-[320px]
-Consider: Adding max-w-full to prevent overflow
-```
-
-## Technical Details
-
-### Primary Changes
-
-**1. Add overflow containment to carousel wrapper:**
-```jsx
-<div className="mb-12 sm:mb-16 lg:mb-20 overflow-hidden ...">
-```
-
-**2. Fix ScrollArea to properly contain content:**
-```jsx
-<ScrollArea className="w-full overflow-hidden">
-  <div 
-    className="flex transition-transform duration-500 ease-out pb-4 touch-pan-y"
-    style={{ transform: `translateX(calc(-${activeWorkflow * 100}%))` }}
-  >
-```
-
-**3. Ensure workflow slide containers have proper sizing:**
-```jsx
-<div className="min-w-full w-full shrink-0 px-4">
-```
-
-**4. Ensure phone mockup is centered and contained:**
-```jsx
-<div className="flex justify-center transition-all duration-700">
-  <div className="relative max-w-full">
-    <div className="relative w-[260px] sm:w-[320px] max-w-[85vw] ...">
-```
-
-### Files to Modify
-- `src/components/sections/Solution.tsx` - Main changes to carousel container, slide sizing, and phone mockup constraints
-
-## Expected Outcome
-- Phone mockup fully visible and centered on mobile
-- Workflow images contained within viewport
-- Swipe gestures work correctly between carousel items
-- No horizontal scrolling/overflow issues on mobile screens
