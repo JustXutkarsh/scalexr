@@ -290,7 +290,7 @@ const OperatingPrinciples = () => {
             href="https://calendly.com/autonix_agency/new-meeting"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-xl hover:bg-primary/90 transition-all text-sm sm:text-base hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)]"
+            className="inline-flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-xl hover:bg-primary/90 transition-all text-sm sm:text-base hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)] w-full sm:w-auto"
           >
             Book Strategy Call
             <ArrowRight className="w-4 h-4" />
