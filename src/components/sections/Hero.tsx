@@ -219,9 +219,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - hidden on short viewports */}
       <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-500 delay-700 ${
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-500 delay-700 hidden sm:block ${
           mounted ? "opacity-100" : "opacity-0"
         }`}
       >

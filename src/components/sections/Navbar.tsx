@@ -143,13 +143,13 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-[60px] bg-background z-50 pt-6 px-4 pb-8 animate-slide-up overflow-y-auto">
-            <div className="flex flex-col gap-4">
+          <div className="md:hidden fixed inset-x-0 top-0 bottom-0 bg-background z-50 pt-20 px-4 pb-8 animate-slide-up overflow-y-auto">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link 
                   key={link.href}
                   to={link.href}
-                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-3 tap-target text-base"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -158,13 +158,13 @@ const Navbar = () => {
               {isHomePage && (
                 <button 
                   onClick={() => scrollToSection('solution')}
-                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className="text-left text-muted-foreground hover:text-foreground transition-colors py-3 tap-target text-base"
                 >
                   How It Works
                 </button>
               )}
               <Button 
-                className="w-full glow-sm"
+                className="w-full mt-4 py-6 text-base"
                 onClick={() => window.open('https://calendly.com/autonix_agency/new-meeting', '_blank')}
               >
                 Book a Call

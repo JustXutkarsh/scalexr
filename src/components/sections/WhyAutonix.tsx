@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Clock, Users, TrendingUp, Bot, MessageSquare, CalendarCheck, BarChart3 } from 'lucide-react';
 
 // ── Scroll reveal hook ──────────────────────────────────────────────
@@ -37,7 +38,7 @@ const AnimatedStat = ({ value, suffix, prefix = '', label }: { value: number; su
   const count = useCounter(value, visible);
   return (
     <div ref={ref} className={`text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary tracking-tight">
+      <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-primary tracking-tight">
         {prefix}{count}{suffix}
       </div>
       <div className="text-sm sm:text-base text-muted-foreground mt-2 font-medium">{label}</div>
@@ -140,6 +141,91 @@ const SparkChart = ({ data, color = 'hsl(var(--primary))' }: { data: number[]; c
   );
 };
 
+// ── Extracted components to fix hooks-in-loop violation ──────────────
+
+const TransformationRow = ({ row, index, total }: { row: typeof transformationRows[0]; index: number; total: number }) => {
+  const rowReveal = useReveal(0.1);
+  const Icon = row.icon;
+  return (
+    <div
+      ref={rowReveal.ref}
+      className={`grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 px-4 sm:px-6 py-5 sm:py-6 transition-all duration-500 ${index < total - 1 ? 'border-b border-border/50' : ''} ${rowReveal.visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      {/* Before */}
+      <div className="flex items-center gap-3">
+        <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
+        <div>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground/60 sm:hidden block mb-0.5">Before</span>
+          <span className="text-sm text-muted-foreground line-through decoration-destructive/40">{row.before}</span>
+        </div>
+      </div>
+      {/* After */}
+      <div className="flex items-center gap-3 sm:pl-0 pl-7">
+        <Zap className="w-4 h-4 text-primary shrink-0" />
+        <div>
+          <span className="text-[10px] uppercase tracking-wider text-primary/60 sm:hidden block mb-0.5">After Autonix</span>
+          <span className="text-sm text-foreground font-medium">{row.after}</span>
+        </div>
+      </div>
+      {/* Impact */}
+      <div className="sm:text-right pl-7 sm:pl-0">
+        <span className="text-[10px] uppercase tracking-wider text-primary/60 sm:hidden block mb-0.5">Impact</span>
+        <span className="text-2xl sm:text-3xl font-bold text-primary">{row.impact}</span>
+        <span className="text-xs text-muted-foreground ml-2">{row.impactLabel}</span>
+      </div>
+    </div>
+  );
+};
+
+const CaseStudyCard = ({ study, index }: { study: typeof caseStudies[0]; index: number }) => {
+  const cardReveal = useReveal(0.1);
+  return (
+    <div
+      ref={cardReveal.ref}
+      className={`group rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-5 sm:p-8 transition-all duration-600 hover:border-primary/30 ${cardReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      {/* Top bar */}
+      <div className="flex items-center justify-between mb-6">
+        <span className="text-xs font-mono uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+          {study.industry}
+        </span>
+        <span className="text-xs text-muted-foreground">{study.timeline}</span>
+      </div>
+
+      {/* Big Number */}
+      <div className="mb-6">
+        <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary leading-none">{study.bigNumber}</div>
+        <div className="text-base text-foreground font-medium mt-1">{study.bigLabel}</div>
+      </div>
+
+      {/* Spark Chart */}
+      <div className="mb-6">
+        <SparkChart data={study.chartData} />
+      </div>
+
+      {/* Sub-metrics */}
+      <div className="space-y-2 mb-6">
+        {study.metrics.map((m, j) => (
+          <div key={j} className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">{m.label}</span>
+            <span className="text-foreground font-semibold">{m.value}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Context */}
+      <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-4">
+        {study.context}
+      </p>
+
+      {/* Subline */}
+      <p className="text-[10px] text-muted-foreground mt-3">{study.subline}</p>
+    </div>
+  );
+};
+
 // ── Main Component ───────────────────────────────────────────────────
 const WhyAutonix = () => {
   const headerReveal = useReveal();
@@ -187,95 +273,25 @@ const WhyAutonix = () => {
             <span className="text-right">Impact</span>
           </div>
 
-          {transformationRows.map((row, i) => {
-            const rowReveal = useReveal(0.1);
-            const Icon = row.icon;
-            return (
-              <div
-                key={i}
-                ref={rowReveal.ref}
-                className={`grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 px-4 sm:px-6 py-5 sm:py-6 transition-all duration-500 ${i < transformationRows.length - 1 ? 'border-b border-border/50' : ''} ${rowReveal.visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                {/* Before */}
-                <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
-                  <span className="text-sm text-muted-foreground line-through decoration-destructive/40">{row.before}</span>
-                </div>
-                {/* After */}
-                <div className="flex items-center gap-3 sm:pl-0 pl-7">
-                  <Zap className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-sm text-foreground font-medium">{row.after}</span>
-                </div>
-                {/* Impact */}
-                <div className="sm:text-right pl-7 sm:pl-0">
-                  <span className="text-2xl sm:text-3xl font-bold text-primary">{row.impact}</span>
-                  <span className="text-xs text-muted-foreground ml-2">{row.impactLabel}</span>
-                </div>
-              </div>
-            );
-          })}
+          {transformationRows.map((row, i) => (
+            <TransformationRow key={i} row={row} index={i} total={transformationRows.length} />
+          ))}
         </div>
 
         {/* ─── Case Study Snapshot Cards ─── */}
         <div className="mb-20 sm:mb-28">
           <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-primary mb-8">Client Snapshots</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {caseStudies.map((study, i) => {
-              const cardReveal = useReveal(0.1);
-              return (
-                <div
-                  key={i}
-                  ref={cardReveal.ref}
-                  className={`group rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-6 sm:p-8 transition-all duration-600 hover:border-primary/30 ${cardReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: `${i * 120}ms` }}
-                >
-                  {/* Top bar */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-mono uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
-                      {study.industry}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{study.timeline}</span>
-                  </div>
-
-                  {/* Big Number */}
-                  <div className="mb-6">
-                    <div className="text-5xl sm:text-6xl font-bold text-primary leading-none">{study.bigNumber}</div>
-                    <div className="text-base text-foreground font-medium mt-1">{study.bigLabel}</div>
-                  </div>
-
-                  {/* Spark Chart */}
-                  <div className="mb-6">
-                    <SparkChart data={study.chartData} />
-                  </div>
-
-                  {/* Sub-metrics */}
-                  <div className="space-y-2 mb-6">
-                    {study.metrics.map((m, j) => (
-                      <div key={j} className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">{m.label}</span>
-                        <span className="text-foreground font-semibold">{m.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Context */}
-                  <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-4">
-                    {study.context}
-                  </p>
-
-                  {/* Subline */}
-                  <p className="text-[10px] text-muted-foreground mt-3">{study.subline}</p>
-                </div>
-              );
-            })}
+            {caseStudies.map((study, i) => (
+              <CaseStudyCard key={i} study={study} index={i} />
+            ))}
           </div>
         </div>
 
         {/* ─── Pattern Recognition Strip ─── */}
         <div
           ref={patternReveal.ref}
-          className={`rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-8 sm:p-12 mb-20 sm:mb-28 transition-all duration-700 ${patternReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-6 sm:p-12 mb-20 sm:mb-28 transition-all duration-700 ${patternReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
           <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-primary mb-8">Pattern Recognition</p>
 
@@ -317,13 +333,13 @@ const WhyAutonix = () => {
           <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
             Median outcomes shown · Results vary by engagement
           </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 sm:px-8 py-4 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto justify-center"
           >
             Become the Next Case Study
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

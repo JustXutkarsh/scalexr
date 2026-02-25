@@ -104,7 +104,7 @@ const CTA = () => {
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl mx-auto text-center glass p-12 rounded-3xl">
+          <div className="max-w-2xl mx-auto text-center glass p-6 sm:p-12 rounded-2xl sm:rounded-3xl">
             <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Clock className="w-10 h-10 text-primary" />
             </div>
