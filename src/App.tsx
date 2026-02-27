@@ -19,6 +19,7 @@ import Industries from "./pages/Industries";
 import Process from "./pages/Process";
 import Resources from "./pages/Resources";
 import ArticlePage from "./pages/ArticlePage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
