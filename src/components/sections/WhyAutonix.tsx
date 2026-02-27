@@ -334,7 +334,7 @@ const WhyAutonix = () => {
             Median outcomes shown · Results vary by engagement
           </p>
           <Link
-            to="/contact"
+            to="/contact#contact-form"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 sm:px-8 py-4 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto justify-center"
           >
             Become the Next Case Study

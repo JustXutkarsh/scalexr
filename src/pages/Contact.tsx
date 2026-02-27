@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, Calendar, ArrowRight, Send, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +12,16 @@ import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
+  const location = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (location.hash) {
+      setTimeout(() => {
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location.hash]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -83,7 +92,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Options */}
-        <section className="py-16 px-4">
+        <section id="contact-form" className="py-16 px-4 scroll-mt-24">
           <div className="container mx-auto max-w-6xl">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Contact Form */}
