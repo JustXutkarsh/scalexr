@@ -1,21 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Menu, X } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,10 +26,6 @@ const Navbar = () => {
     }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   const navLinks = [
@@ -86,21 +75,6 @@ const Navbar = () => {
               </button>
             )}
             
-            {/* Theme Toggle */}
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-foreground" aria-hidden="true" />
-                ) : (
-                  <Moon className="w-5 h-5 text-foreground" aria-hidden="true" />
-                )}
-              </button>
-            )}
-            
             <Button 
               size="sm" 
               className="gradient-cta animate-pulse-cta"
@@ -111,21 +85,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-2">
-            {/* Theme Toggle Mobile */}
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-foreground" aria-hidden="true" />
-                ) : (
-                  <Moon className="w-5 h-5 text-foreground" aria-hidden="true" />
-                )}
-              </button>
-            )}
+          <div className="md:hidden">
             <button 
               className="p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
