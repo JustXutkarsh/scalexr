@@ -43,7 +43,7 @@ const Hero = () => {
             }`}
           >
             <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-foreground tracking-wide leading-snug">
-              <CircleHighlight>Built on dozens</CircleHighlight> of real-world automations and conversion experiments
+              <CircleHighlight>$3,500+</CircleHighlight> Monthly Revenue Recovered for Clinics
             </span>
           </div>
 
@@ -54,7 +54,7 @@ const Hero = () => {
             }`}
           >
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold tracking-tight text-primary leading-tight">
-              Autonix: Websites and AI Systems That Turn Traffic Into Customers
+              Turn Missed Calls Into More Booked Appointments
             </span>
           </h1>
 
@@ -64,9 +64,9 @@ const Hero = () => {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            Autonix builds SEO-friendly websites and AI automation that capture, convert, and follow up with every lead.
+            We build AI systems that capture, respond to, and book high-intent inquiries automatically
             <br className="hidden sm:block" />
-            <span className="text-foreground/80 font-medium">No guesswork. Just systems that work.</span>
+            <span className="text-foreground/80 font-medium">so no revenue slips through the cracks.</span>
           </p>
 
           {/* CTAs */}
