@@ -42,7 +42,7 @@ const Hero = () => {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold text-foreground tracking-wide leading-snug">
+            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-foreground tracking-wide leading-snug">
               <CircleHighlight>$3,500+</CircleHighlight> Monthly Revenue Recovered for Clinics
             </span>
           </div>
